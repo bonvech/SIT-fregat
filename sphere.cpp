@@ -8,7 +8,7 @@
  * Данный файл содержит в себе основную программу для автономной работы 
  * установки СФЕРА-2 c SiPM в наземном варианте в Тункинской долине.
  *
- * Убраны модули GPS, компас и инклинометер. 49 измерительных каналов (8 плат). 
+ * Убраны модули GPS, компас и инклинометер. 49 измерительных каналов (8 плат).
  * Канал 64 принимает сихроимпульс от установки Тунка.
 */
 
@@ -26,6 +26,7 @@ int main (void)
     int  res   = 0, ii = 0;
     long delta = 0;
     struct timeval tv0, tv1, tv0sec;
+    struct tm* ptm0;
     time_t time0;
     char info[200];
 
@@ -58,7 +59,6 @@ int main (void)
         sprintf(info, "Errors to open telemetry files %d!", res);
         print_debug(info);
     }
-    // --- files for online telemetry monitoring ------
 
     // -------------------------------------
     /// Kill another programm that works with apparatus
@@ -70,6 +70,11 @@ int main (void)
     // -------------------------------------
     /// 2) Declare and init devices  
     // -------------------------------------
+
+    // print info status
+    sprintf(msc_out, "Status: Initialization");
+    print_status_to_file();
+
     hvps_test  vip;         // class vip, on  // init vip
     fadc_board Fadc ;       // class fadc on  // init and boot fadc
     lvps_dev   Vent;        // class lvps - ventillator
@@ -93,6 +98,12 @@ int main (void)
     time(&time0);
     sprintf(info, "start= %ld, now= %ld time0= %ld\n", Work.timeOnOff.time_on, tv1.tv_sec, time0);
     print_debug(info);
+
+    // print start time to message
+    ptm0 = localtime(&Work.timeOnOff.time_on);
+    strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
+    sprintf(msc_out, "Status: Waiting for start time: %s", info);
+    print_status_to_file();
 
     while( (Work.wait) && (tv1.tv_sec < Work.timeOnOff.time_on))
     {
@@ -142,11 +153,17 @@ int main (void)
     ///         4) Start time 
     // -------------------------------------
 
+    sprintf(msc_out, "Status: Start");
+    print_status_to_file();
+
     ///         Set lamp on and configure LEDs
     LED.set_config_from_file();
 
     // -------------------------------------
     ///         Set high voltage 
+    sprintf(msc_out, "Status: Set High voltage");
+    print_status_to_file();
+
 #ifndef NO_SET_HIGH
     gettimeofday(&tv0, NULL);
 #ifndef NO_SCOUT
@@ -170,6 +187,9 @@ int main (void)
     // -------------------------------------
     ///          Set levels 
 LEVELS:
+    sprintf(msc_out, "Status: Set levels");
+    Every_sec(Fadc, vip, Trigger, Vent);
+
 #ifndef NO_SET_LEVELS
     gettimeofday(&tv0, NULL);
     Fadc.levels();
@@ -181,13 +201,13 @@ LEVELS:
 #endif
 
     Trigger.status();
-    printf("debug close:\n");
+    print_debug((char*)"debug close:\n");
     if(dout) fflush(dout);
-    sleep(10); // 10sec
+    sleep(10);  // 10sec
     if(dout) fclose(dout);
-    printf("                    closed\n");
+    print_debug((char*)"                    closed\n");
     open_debug_file();
-    printf("debug open! \n");
+    print_debug((char*)"debug open! \n");
 
 
     // -------------------------------------
@@ -195,6 +215,13 @@ LEVELS:
     ///         5) Main run 
     // -------------------------------------
 
+    // print stop time to message
+    ptm0 = localtime(&Work.timeOnOff.time_of);
+    strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
+    sprintf(msc_out, "Status: Operation. Waiting for stop time: %s", info);
+    Every_sec(Fadc, vip, Trigger, Vent);
+
+    // Main Operation loop
     res = Operate(Fadc, vip, Trigger, Vent, LED, Bar);
     if(res == 2) // levels
         goto LEVELS;
@@ -206,6 +233,9 @@ LEVELS:
     // -------------------------------------
 EXIT:
 
+    sprintf(msc_out, "Status: Exit. Turn off VIP and FADC");
+    print_status_to_file();
+
 #ifndef NO_OFF
     ///     Turn off VIP and FADC
     if( Work.off)
@@ -214,16 +244,17 @@ EXIT:
         Fadc.turn_off_fadc_boards();
     }
     sprintf(vip_out,"VIP does not work now");
+    sprintf(msc_out, "Status: Exit");
+    print_status_to_file();
 #endif
 
-    printf("\ninn_vent off:\n");
+    print_debug((char*)"\ninn_vent off:\n");
     Vent.set_inn_vent(0);
-    printf("\nout vent off:\n");
+    print_debug((char*)"out vent off:\n");
     Vent.set_out_vent(0);
 
     /// Close files
     if(dout)   fclose(dout);
-    //if(fgps)   close(fgps);
     if(stderr) fclose(stderr);
     if(stdout) fclose(stdout);
     if(fkadr)  fclose(fkadr);

@@ -52,7 +52,9 @@ struct temp
 //================================================
 // ================= Every_sec  ==================
 /** -------------------------------------------------------
- *  \brief Every second function to control parameters
+ * \brief Every second function to control parameters
+ * \todo delete vip from arguments
+ * \todo check Trigger functions
  *
  * Reading of compass, GPS, inclinometer, temperature.\n
  * Every SEC5 seconds writes info to file '5s.data' and debug file
@@ -61,29 +63,27 @@ int Every_sec(fadc_board &Fadc,       hvps_test &vip,
               trigger_board &Trigger, lvps_dev &Vent)
 {
     sec5 ++;
-    if(!(sec5 % SEC5))
-    {
-        get_time_ms();
-        f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
-        if(f5sec) fprintf(f5sec,  "%s\n", time_out);
-        if(dout)  fprintf(dout,   "%s\n", time_out);
-    }
-
     check_temperature(Fadc, Vent);
 
     if(!(sec5 % SEC5))
     {
-        if(f5sec) 
+        get_time_ms();
+
+        f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
+        if(f5sec)
         {
+            fprintf(f5sec,  "%s\n%s\n", time_out, msc_out);
             fprintf(f5sec, "Temperatures: B: %.1f T: %.1f\n", Last.temp_bot, Last.temp_top);
             fflush(f5sec);
         }
+        print_debug(time_out);
     }
 
     Trigger.pps_read_time();
     Trigger.pps_read_time();
     return 0;
 }
+
 
 //================================================
 // ================= Every_min  ==================
@@ -801,38 +801,23 @@ unsigned int bars_init(led &LED, barometer Bar[])
 unsigned int bars_read(led &LED, barometer Bar[], char *message_out)
 {
     unsigned short  i = 0;
-    //char bar_out[1024] = {"\0"};
-    char message[1024]= {"\0"};
-    char tmp[1024]= {"\0"};
-    //int pp[3] = {0};
-    //float dP = 0.;
+    char message[1024]= {""};
+    char tmp[1024]= {""};
 
     strcpy(message_out, "");
     for(i = 0; i < NumBar; i++)
     {
         strcpy(message, "");
         strcpy(tmp, "");
-        //printf("LED.bar_onoff(1)\n");
+
         LED.bar_onoff(1);
-        //printf("done. read_bar_temp()\n");
-        //pp[i] = 
         Bar[i].read_bar_temp(message);
-        //printf("LED.bar_onoff(0)\n");
         LED.bar_onoff(0);
 
         sprintf(tmp, "%i %s", i, message);
         strcat(message_out, tmp);
     }
 
-    //dP = (float) (pp[0] - pp[1]) / 100.;
-    //sprintf(tmp,"Delta P:  %6.2f kPa (%6.2f mm w)\n",dP, dP/0.00981);
-    //strcat(message_out,tmp);
-
-    //if(stdout) fprintf(stdout, "\n%s", message_out);
-    //if(  dout) fprintf(  dout, "\n%s", message_out);
-    //if( ffmin) fprintf( ffmin, "\n%s", message_out);
-
-    //return pp[0];
     return 0;
 }
 
@@ -1049,8 +1034,8 @@ int print_everymin_parameters(FILE *fileout)
     time_t t;
 
     time(&t);
-    fprintf(fileout, "%s%s\n%s\n",     ctime(&t), bar_out,vip_out); //, incl_out);
-    fprintf(fileout, "%s%s\n%s\n%s\n", adc_out, pwr_out, msc_out, led_out);
+    fprintf(fileout, "%s%s\n%s", ctime(&t), vip_out, bar_out); //, incl_out);
+    fprintf(fileout, "%s%s\n%s\n", led_out, adc_out, pwr_out);
     //fprintf(fileout, "-----------------------\n");
     return 0;
 }

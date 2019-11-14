@@ -306,26 +306,22 @@ struct time_onoff read_date_from_file()
         return tmin;
     }
 
-    // -- print results --
+    /// -- print results --
     ptm0 = localtime(&time0);
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ptm0);
-    printf( " NOW: %s\n", buf);
-    if(dout)  fprintf(dout, "\n time NOW: %s \n", buf);
+    sprintf(line, " time NOW: %ld : %s\n", time0, buf);
+    print_debug(line);
 
-    printf(" time  ON: = %ld :", tmin.time_on);
     ptm0 = localtime(&tmin.time_on);
-    //strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", ptm0);
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ptm0);
-    printf( ": %s\n", buf);
-    if(dout)  fprintf(dout, " ON-OFF: %s ", buf);
+    sprintf(line, " time  ON: %ld : %s\n", tmin.time_on, buf);
+    print_debug(line);
 
-    printf(" time OFF: = %ld :", tmin.time_of);
     ptm0 = localtime(&tmin.time_of);
-    //strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", ptm0);
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ptm0);
-    printf( ": %s\n", buf);
-    if(dout)  fprintf(dout, " %s\n", buf);
-    if(dout)  fprintf(dout, "=================================================\n");
+    sprintf(line, " time OFF: %ld : %s\n", tmin.time_of, buf);
+    print_debug(line);
+    print_debug((char*) "=================================================\n");
 
     return tmin; // O'k
 }

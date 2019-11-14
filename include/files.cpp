@@ -5,13 +5,16 @@
 Данный файл содержит в себе определения основных функций, работающих с файлами
 */
 
+
+// extern functions and variables
 void time_to_file();
+void get_time_ms();
 extern int FileNum;
 
 
-/** -----------------------------------
+/** -------------------------------------------------------
  *  \brief Print debug message to stdout and debug file.
-*/
+ */
 void print_debug(char* message)
 {
     if(stdout) printf(      "%s", message);
@@ -19,7 +22,19 @@ void print_debug(char* message)
 }
 
 
-/** -----------------------------------
+/** -------------------------------------------------------
+ * Print status line to 5sec file
+ */
+void print_status_to_file()
+{
+    get_time_ms();
+    f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
+    if(f5sec) fprintf(f5sec,  "%s\n%s\n", time_out, msc_out);
+    fflush(f5sec);
+}
+
+
+/** -------------------------------------------------------
  *  Print to binary datafile begining some information about current detector configuration:
  *  BUF2, CHANMAX, 
  * AddrOn - number of fadc plates
@@ -48,7 +63,8 @@ unsigned int init_data_file(FILE* file, fadc_board &Fadc)
     return 0;
 }
 
-/** --------------------------------------
+
+/** -------------------------------------------------------
     \brief Generation of new outdata filename\n
         Generation of new outdata filename
     \param *filename  строка для хранения нового имени файла
@@ -82,8 +98,9 @@ char new_filename(char *filename, unsigned int filenum)
     return *filename;
 }
 
-/** --------------------------------------
-    Prints current time to current binary data file *fout.
+
+/** -------------------------------------------------------
+ * Prints current time to current binary data file *fout.
 */
 void time_to_file()
 {
@@ -96,9 +113,10 @@ void time_to_file()
     if(stdout) fprintf(stdout, "t-%3i-%3i-%3i-%3i\n", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
 }
 
-/** --------------------------------------
-    Prints current time to text file *ff
-    \param *ff  file to print timestamp
+
+/** -------------------------------------------------------
+ * Prints current time to text file *ff
+ * \param *ff  file to print timestamp
 */
 void timestamp_to_file(FILE *ff)
 {
@@ -110,8 +128,9 @@ void timestamp_to_file(FILE *ff)
     if(ff)  fprintf(ff, "<t>%ld ", tv.tv_sec);  // Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
 }
 
-/** --------------------------------------
-    Open debug file with current time in filename
+
+/** -------------------------------------------------------
+ * Open debug file with current time in filename
 */
 int open_debug_file()
 {
@@ -134,8 +153,9 @@ int open_debug_file()
     return 0;
 }
 
-/** --------------------------------------
-    Open and init binary data file with current time in filename
+
+/** -------------------------------------------------------
+ * Open and init binary data file with current time in filename
 */
 int open_data_file(fadc_board &Fadc)
 {
@@ -160,7 +180,8 @@ int open_data_file(fadc_board &Fadc)
     return 0;
 }
 
-/** --------------------------------------
+
+/** -------------------------------------------------------
     Open debug files for online telemetry monitoring
     \return 0 - OK\n
             negative number - if errors
@@ -187,4 +208,4 @@ int open_telemetry_files()
     return n;
 }
 // ----------- files for online telemetry monitoring ------
-
+/** ------------------------------------------------------- */

@@ -251,7 +251,7 @@ unsigned int barometer::read_bar_temp(char *message)
     //printf("dd1 = %6i dd2 = %6i\n", dd[1], dd[2]);
 
     if(dd[1] and dd[2])
-    p = calc_bar_temp(dd[1],dd[2], message);
+        p = calc_bar_temp(dd[1],dd[2], message);
 
     return p;
 }
@@ -342,16 +342,11 @@ int barometer::calc_bar_temp(unsigned int pp, unsigned int tt, char *message)
     T = T/10;
     P = P/1;//-T;
 
-    /// \todo Correct pressure info format
-    sprintf(message, "Bar:  T[ %5i ] = %5.1f C  P[ %5i ] = %6.2f kPa (%4.1f mm w)\n", tt, T, pp, P/100, P/0.981);
-    if(dout) fprintf(dout, "\n Bar: P = %.2f kPa  T = %.1f C\n", P/10, T);
+    /// \ todo Correct pressure info format
+    //sprintf(message, "Bar:  T[ %5i ] = %5.1f C  P[ %5i ] = %6.2f kPa (%4.1f mm w)\n", tt, T, pp, P/100, P/0.981);
+    sprintf(message, "Bar:  T = %5.1f oC  P = %6.2f kPa\n", T, P/100);
+    print_debug(message);
 
-    //printf("----------------------------\n P(hpa): ");
-    //CalculateAltitude(P);
-    //printf("----------------------------\n pp(kod): ");
-    //CalculateAltitude(pp);
-    //CalculateAltitude(90);
-    //CalculateAltitude(10);
     return P;
 }
 

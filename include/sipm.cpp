@@ -519,7 +519,7 @@ unsigned int read_vip_ADC(char *message)
     T   = kod_to_T(kod[3]);
 
     /// \todo change vip_out message
-    sprintf(debug, "VIP: Up = %6.2f V   Ianode = %5.3f mA   T = %4.1f oC\n", Up, I, T);
+    sprintf(debug, "VIP: Up = %6.2f V   Ianode = %5.3f mA   T = %4.1f oC", Up, I, T);
     print_debug(debug);
     strcpy(message, debug);
 

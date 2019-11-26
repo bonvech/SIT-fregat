@@ -1,7 +1,7 @@
 /**
  * \file readinp.cpp 
  * \brief Чтение входных файлов
- * 
+ *
  * Функции для чтения входных конфигурационных файлов.
  */
 
@@ -19,10 +19,10 @@
 int  read_chan_from_file(unsigned short *trig, unsigned short *hvtrig);
 struct time_onoff read_date_from_file();
 int  read_param_from_file(input_parameters &Param);
-int  print_param(input_parameters Param);
-int set_default_parameters(input_parameters &Param);
-int init_param();
-int set_work_parameters();
+int  print_param(input_parameters Param, FILE *ff);
+int  set_default_parameters(input_parameters &Param);
+int  init_param();
+int  set_work_parameters();
 
 
 /** -------------------------------------------------------
@@ -54,7 +54,8 @@ int read_input_files()
 {
     unsigned short kk = 0;
     int res = 0;
-    char nname [100] = {0};
+    char nname[100] = {0};
+    char info[100]  = {0};
     FILE *fe;
 
     /// -- read Date from file --
@@ -84,24 +85,33 @@ int read_input_files()
     printf("\nEvent numeration starts from %d", EventNumber);
     if(dout) fprintf(dout, "\nEvent numeration starts from %d", EventNumber);
 
-    /// -- read input parameters --
+    /// -- set defaults parameters 
     init_param();
     set_default_parameters(Default);
-    printf("Defaults:\n");
-    print_param(Default);
-    res = read_param_from_file(Input);
-    printf("Errors in read %s file: %i\n", PARAM_FILE, res);
-    if(dout) fprintf(dout, "Errors in read %s file: %i\n", PARAM_FILE, res);
-    printf("Input:\n");
-    if(dout) fprintf(dout, "Input:\n");
-    print_param(Input);
+    if(dout) fprintf(dout, "Defaults:");
+    print_param(Default, dout);
 
+    /// -- read input parameters
+    res = read_param_from_file(Input);
+    if(res != 0)
+    {
+        sprintf(info, "Errors in read %s file: %i\n", PARAM_FILE, res);
+        print_debug(info);
+    }
+
+    //printf("Input:\n");
+    if(dout) fprintf(dout, "Input:");
+    print_param(Input, dout);
+
+    /// -- set work parameters
     if(res == -1)
         set_default_parameters(Work);
-    else set_work_parameters();
-    printf("\nWork:\n");
-    if(dout) fprintf(dout,"\nWork:\n");
-    print_param(Work);
+    else
+        set_work_parameters();
+    //printf("\nWork:\n");
+    if(dout) fprintf(dout,"\nWork:");
+    print_param(Work, dout);
+
 
     /// -- read trigger labels from file --
     kk = read_chan_from_file(Input.trigger_onoff, Input.hvtrig);
@@ -205,9 +215,9 @@ int read_chan_from_file(unsigned short *trig, unsigned short *hvtrig)
 /** --------------------------------------
  * \brief Read OnOff times
  * \date 2012_02_04 redaction
- * 
- * Read OnOff times from file DATE_FILE=sdate.inp, search nearest time. 
- * 
+ *
+ * Read OnOff times from file DATE_FILE=config/sdate.inp, search nearest time. 
+ *
  * \return return tmin - структуру tm со временем начала измерения
  */
 struct time_onoff read_date_from_file()
@@ -221,8 +231,9 @@ struct time_onoff read_date_from_file()
     struct time_onoff delta, tmin;
     time_t time0 = 0, time1 = 0, time2 = 0, deltamin = 0;
 
-    ptm0 = &tm1;  //
-    // ----------------------------------
+    ptm0 = &tm1;
+
+    //  Open file with start-stop dates
     if((fdate = fopen( DATE_FILE, "r")) == NULL)
     {
         printf("\n  Error: file \"%s\" is not open!\n", DATE_FILE);
@@ -233,12 +244,7 @@ struct time_onoff read_date_from_file()
     printf("\n\n\n\nfile \"%s\" is open!\n", DATE_FILE);
     if(dout) fprintf(dout, "===> read dates from \"%s\"  <=====\n", DATE_FILE);
 
-//    cc = strptime("2008-02-24 12:30", "%Y-%m-%d %H:%M", &tm1);
-//    time1 = mktime( &tm1);
-//    cc = strptime("2008-02-25 12:30", "%Y-%m-%d %H:%M", &tm2);
-//    time2 = mktime( &tm2);
-
-    //  -- get actial time -- 
+    //  Get actial time
     time(&time0);
     printf("time now = %ld\n\n", time0);
     tmin.time_on = time0;
@@ -247,7 +253,7 @@ struct time_onoff read_date_from_file()
     delta.time_of = 0;
     deltamin = time0;
 
-    // ----------------------------------
+    //  Read file
     while( fgets(line, sizeof(line), fdate) != NULL )
     {
         if(dout) fprintf(dout, "%s", line);
@@ -255,7 +261,6 @@ struct time_onoff read_date_from_file()
         {
             continue;
         }
-
 
         // -- read begin_date --
         printf("\n==>%s", line);
@@ -296,7 +301,7 @@ struct time_onoff read_date_from_file()
             deltamin = delta.time_on;
         }
     }
-    //
+
     if(dout) fprintf(dout, "\n===> end of file \"%s\" <=====\n", DATE_FILE);
 
     if(tmin.time_on == time0)
@@ -306,10 +311,10 @@ struct time_onoff read_date_from_file()
         return tmin;
     }
 
-    /// -- print results --
+    //  Print results
     ptm0 = localtime(&time0);
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ptm0);
-    sprintf(line, " time NOW: %ld : %s\n", time0, buf);
+    sprintf(line, "\n time NOW: %ld : %s\n", time0, buf);
     print_debug(line);
 
     ptm0 = localtime(&tmin.time_on);
@@ -332,8 +337,9 @@ struct time_onoff read_date_from_file()
  *
  * Read parameters from file PARAM_FILE=sparam.inp
  *
- * \return -1 - erroe in file opening
- *          err - number of errors
+ * \return -1 - error in file opening\n
+ *          err - number of errors\n
+ *          0   OK
  */
 int read_param_from_file(input_parameters &Param)
 {
@@ -356,7 +362,7 @@ int read_param_from_file(input_parameters &Param)
         if(dout) fprintf(dout, "\n  Error: file \"%s\" is not open!\n", PARAM_FILE);
         return -1;
     }
-    printf("\n\n\n\nfile \"%s\" is open!\n", PARAM_FILE);
+    printf("\nfile \"%s\" is open!\n", PARAM_FILE);
     if(dout) fprintf(dout, "===> parameters dates from \"%s\"  <=====\n", PARAM_FILE);
 
     Work.master = 1;
@@ -606,62 +612,87 @@ int read_master_from_file(input_parameters &Param)
 /** --------------------------------------
  * \brief Print params to debug
  * \param Param - structure with parameters
+ * \param ff - file to write parameters
  * \return 0
- * 
- * Print parameters with print_debug()
+ *
+ * Print parameters to selected file
  *
  */
-int print_param(input_parameters Param)
+int print_param(input_parameters Param, FILE *ff)
 {
     //int kk = 0;
     char info[30];
 
+    sprintf(info, "\n---------------------------------\n");
+    fprintf(ff, "%s", info);
+
     sprintf(info, "PERIOD  %4ld\n", Param.period);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //print_debug(info);
 
     sprintf(info, "MASTER  %4u\n", Param.master);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "GMASTER  %4u\n", Param.gmaster);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "MAXCUR  %.2f\n", Param.maxcur);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "WORKCUR %.2f\n", Param.workcur);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "RATE    %.2f\n", Param.rate);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "Lmin    %4u\n", Param.lmin);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "Lmax    %4u\n", Param.lmax);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "Umax    %4u\n", Param.umax);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "UMIN    %4u\n", Param.umin);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
 
     // 2012: params for Hamamatsu
     sprintf(info, "H_Umax    %4u\n", Param.h_umax);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "H_Umin    %4u\n", Param.h_umin);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "H_MAXCUR    %.2f\n", Param.h_maxcur);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "H_WORKCUR   %.2f\n", Param.h_workcur);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "H_VIP    %4u\n", Param.h_vip);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "H_CHAN   %4u\n", Param.h_chan);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
 
     sprintf(info, "BUF2    %4u\n", Param.buf2 );
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "HVCHAN  %4u\n", Param.hvchan);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "WAIT    %4u\n", Param.wait);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "ONSCREEN %3u\n", Param.onscreen);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "OFF     %3u\n", Param.off);
-    print_debug(info);
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
 
     return 0;
 }

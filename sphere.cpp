@@ -17,6 +17,7 @@
 #define NO_SCOUT  ///< No scout current before On high voltage
 //#define NO_BOOT
 //#define NO_SET_HIGH
+//#define NO_SET_LEVELS
 
 
 #include "include/include.h"
@@ -75,7 +76,7 @@ int main (void)
     sprintf(msc_out, "Status: Initialization");
     print_status_to_file();
 
-    hvps_test  vip;         // class vip, on  // init vip
+    SiPM  vip;              // class vip, on  // init vip
     fadc_board Fadc ;       // class fadc on  // init and boot fadc
     lvps_dev   Vent;        // class lvps - ventillator
     trigger_board Trigger;  // class trigger // boot and init trigger
@@ -93,17 +94,18 @@ int main (void)
     // -------------------------------------
     /// 3) Wait start time
     // -------------------------------------
+
+    // print start time to info status message
+    ptm0 = localtime(&Work.timeOnOff.time_on);
+    strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
+    sprintf(msc_out, "Status: Waiting for start time: %s", info);
+    print_status_to_file();
+
     gettimeofday(&tv1,    NULL);
     gettimeofday(&tv0sec, NULL);
     time(&time0);
     sprintf(info, "start= %ld, now= %ld time0= %ld\n", Work.timeOnOff.time_on, tv1.tv_sec, time0);
     print_debug(info);
-
-    // print start time to message
-    ptm0 = localtime(&Work.timeOnOff.time_on);
-    strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
-    sprintf(msc_out, "Status: Waiting for start time: %s", info);
-    print_status_to_file();
 
     while( (Work.wait) && (tv1.tv_sec < Work.timeOnOff.time_on))
     {
@@ -121,7 +123,7 @@ int main (void)
             Every_min_mini( Vent, LED, Bar);
         }
 
-        ///  Read command file 
+        ///  Read command file
         res = 0;
         res = read_command_file();
         if(res > 0)
@@ -145,7 +147,7 @@ int main (void)
                 print_debug(info);
             }
         }
-        // --------- end of read command file -----------
+        //  end of read command file
     }
 
     // -------------------------------------
@@ -156,6 +158,7 @@ int main (void)
     sprintf(msc_out, "Status: Start");
     print_status_to_file();
 
+    // -------------------------------------
     ///         Set lamp on and configure LEDs
     LED.set_config_from_file();
 
@@ -188,7 +191,7 @@ int main (void)
     ///          Set levels 
 LEVELS:
     sprintf(msc_out, "Status: Set levels");
-    Every_sec(Fadc, vip, Trigger, Vent);
+    print_status_to_file();
 
 #ifndef NO_SET_LEVELS
     gettimeofday(&tv0, NULL);
@@ -200,14 +203,20 @@ LEVELS:
     if(dout) fflush(dout);
 #endif
 
+    // -------------------------------------
+    ///          Trigger status
     Trigger.status();
+
+    // -------------------------------------
+    ///           Open new debug file
     print_debug((char*)"debug close:\n");
     if(dout) fflush(dout);
     sleep(10);  // 10sec
     if(dout) fclose(dout);
-    print_debug((char*)"                    closed\n");
+    printf("               closed\n"); // !!!! no print to debu in this place !!!
     open_debug_file();
     print_debug((char*)"debug open! \n");
+    if(dout) fflush(dout);
 
 
     // -------------------------------------
@@ -219,9 +228,11 @@ LEVELS:
     ptm0 = localtime(&Work.timeOnOff.time_of);
     strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
     sprintf(msc_out, "Status: Operation. Waiting for stop time: %s", info);
-    Every_sec(Fadc, vip, Trigger, Vent);
+    print_status_to_file();
+
 
     // Main Operation loop
+    Every_min_mini( Vent, LED, Bar);
     res = Operate(Fadc, vip, Trigger, Vent, LED, Bar);
     if(res == 2) // levels
         goto LEVELS;
@@ -243,7 +254,7 @@ EXIT:
         vip.turn_off();
         Fadc.turn_off_fadc_boards();
     }
-    sprintf(vip_out,"VIP does not work now");
+    sprintf(vip_out,"Mosaic is not available now");
     sprintf(msc_out, "Status: Exit");
     print_status_to_file();
 #endif
@@ -253,12 +264,17 @@ EXIT:
     print_debug((char*)"out vent off:\n");
     Vent.set_out_vent(0);
 
+
+
     /// Close files
     if(dout)   fclose(dout);
     if(stderr) fclose(stderr);
     if(stdout) fclose(stdout);
     if(fkadr)  fclose(fkadr);
     if(ffmin)  fclose(ffmin);
+
+    sprintf(msc_out, "Status: Bye! I do not work now.");
+    print_status_to_file();
     if(f5sec)  fclose(f5sec);
 
     /// Close Ports

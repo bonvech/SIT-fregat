@@ -9,9 +9,13 @@
 
 #define DELAY 100       ///< delay between fadc output
 
+#include "fadc.cpp"
 
+// extern functions and variables
 void timestamp_to_file(FILE *ff);
 void print_debug(char * message);
+void print_time_ms(FILE *ff);
+
 
 extern input_parameters Work;
 
@@ -53,63 +57,66 @@ public:
         int kk = 0;
         unsigned int ll = 0;
         unsigned int i = 0;
+        char info[200] = "";
 
         BaseAddr = FADC_IO; // address of FADC
 
-        printf("\n\nBaseAddr = %xh\n", BaseAddr);
-        if(dout) fprintf(dout, "BaseAddr = %x\n", BaseAddr);
+        sprintf(info, "\nBaseAddr = %x\n", BaseAddr);
+        print_debug(info);
 
+        /// Init FADC boards
         kk = init_fadc_boards();
-        printf("\n  Result:   %2i devices found on addreses:", AddrOn[0]); //kk);
-        if(dout) fprintf(dout,"\n  Result:   %2i devices found on addreses:", kk);
+        sprintf(info,"\n  Result:   %2i devices found on addreses:", kk);
+        print_debug(info);
 
-        // print boards
+        /// Print board information: serial numbers and adresses
         for(i = 1; i<= AddrOn[0]; i++)
         {
-            printf(" N%2i on %4xh; ", SerNum[i], AddrOn[i]);
-            if(dout)  fprintf(dout," N%2i on %4xh; ", SerNum[i], AddrOn[i]);
+            sprintf(info," N%2i on %4xh; ", SerNum[i], AddrOn[i]);
+            print_debug(info);
         }
 
+        /// Test if FADC boards are boot
         ll = test_boards_are_boot();
-        printf("\n  Result:   %i board(s) are booted\n\n", ll);
-        if(dout) fprintf(dout,"\n  Result:   %i board(s) are booted\n\n", ll);
+        sprintf(info,"\n  Result:   %i board(s) are booted\n\n", ll);
+        print_debug(info);
 
+        /// Boot boards
 #ifndef NO_BOOT
-#endif
-
-        //if(kk != ll)  // if tested != found --> boot boards
         if(ll != AddrOn[0])  // if tested != found --> boot boards
         {
-#ifndef NO_BOOT
             // ----  boot fadc boards -----------------------
             kk = boot_fadc_boards();
-            printf("\n  Result:   %i board(s) are booted\n\n", kk);
-            if(dout) fprintf(dout,"\n  Result:   %i board(s) are booted\n\n", kk);
-            // ----- print fadc boards to file ----------------------
-            //printf("\n");            
+            sprintf(info,"\n  Result:   %i board(s) are booted\n\n", kk);
+            print_debug(info);
+
+            // ----- print fadc boards to file "./log/fadc_work.dat" ---
             if((fwork = fopen( WORK_FILE, "a+")) == NULL)
             {
-                printf("\n  Error: \"%s\" file is not open!\n", WORK_FILE);
-                if(dout) fprintf(dout, "\n  Error: file \"%s\" is not open!\n", WORK_FILE);
+                sprintf(info, "\n  Error: file \"%s\" is not open!\n", WORK_FILE);
+                print_debug(info);
             }
-
-            timestamp_to_file(fwork);
-            if(fwork) fprintf(fwork, "FADC %i", AddrOn[0]);
-            for(i = 1; i<= AddrOn[0]; i++)
+            else
             {
-                if(fwork) fprintf(fwork,"  %4x ",  AddrOn[i]);
+                timestamp_to_file(fwork);
+                fprintf(fwork, "FADC %i", AddrOn[0]);
+                for(i = 1; i<= AddrOn[0]; i++)
+                {
+                    fprintf(fwork,"  %4x ",  AddrOn[i]);
+                }
+                fprintf(fwork, "\n");
+                fclose(fwork);
             }
-            if(fwork) fprintf(fwork, "\n");
-            if(fwork) fclose(fwork);
+        }
 #endif
 
-        }
-
-        // ---------------------------        
+        // ---------------------------
+        /// Test boards
         kk = test_fadc_boards();
-        printf("\n  Result:   %i board(s) are tested\n\n", kk);
-        if(dout) fprintf(dout,"\n  Result:   %i board(s) are tested\n\n", kk);
+        sprintf(info,"\n  Result:   %i board(s) are tested\n\n", kk);
+        print_debug(info);
 
+        /// Start boards
         start_fadc_boards();
 
         return kk;

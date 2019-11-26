@@ -1,8 +1,8 @@
 /**
-\file files.cpp
-\brief Функции для работы с файлами
-
-Данный файл содержит в себе определения основных функций, работающих с файлами
+ * \file files.cpp
+ * \brief Функции для работы с файлами
+ *
+ * Данный файл содержит в себе определения функций, работающих с файлами.
 */
 
 
@@ -17,8 +17,8 @@ extern int FileNum;
  */
 void print_debug(char* message)
 {
-    if(stdout) printf(      "%s", message);
-    if(dout)   fprintf(dout,"%s", message);
+    if(stdout != NULL)   printf(     "%s", message);
+    if(dout   != NULL)  fprintf(dout,"%s", message);
 }
 
 
@@ -28,7 +28,8 @@ void print_debug(char* message)
 void print_status_to_file()
 {
     get_time_ms();
-    f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
+    if(f5sec) f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
+    else      f5sec = fopen(EVERYSEC_FILE, "wt");
     if(f5sec) fprintf(f5sec,  "%s\n%s\n", time_out, msc_out);
     fflush(f5sec);
 }
@@ -65,22 +66,22 @@ unsigned int init_data_file(FILE* file, fadc_board &Fadc)
 
 
 /** -------------------------------------------------------
-    \brief Generation of new outdata filename\n
-        Generation of new outdata filename
-    \param *filename  строка для хранения нового имени файла
-    \param filenum    номер файла данных 
-    example of using:
-        \code
+ * \brief Generation of new outdata filename\n
+ *
+ *  Generation of new outdata filename
+ *
+ * \param *filename  строка для хранения нового имени файла
+ * \param filenum    номер файла данных 
+ * example of using:
+ *  \code
         char filename[100] = {"\0"};
         char f = *filename;
         f = new_filename(filename, num);
         printf("main: %s\n", filename);
-        \endcode
+ *  \endcode
 */
 char new_filename(char *filename, unsigned int filenum)
 {
-    //char num[4] = {" "};
-    //int  nnn = 0;
     char time_string[40];
     struct timeval tv;
     struct tm* ptm;
@@ -94,6 +95,7 @@ char new_filename(char *filename, unsigned int filenum)
 
     sprintf(filename, "%s.%i", filename, filenum);
     printf("nf: %s\n", filename);
+    //printf("new_filename end\n"); fflush(stdout);
 
     return *filename;
 }
@@ -115,7 +117,7 @@ void time_to_file()
 
 
 /** -------------------------------------------------------
- * Prints current time to text file *ff
+ * Prints current time in seconds to text file *ff
  * \param *ff  file to print timestamp
 */
 void timestamp_to_file(FILE *ff)
@@ -134,22 +136,23 @@ void timestamp_to_file(FILE *ff)
 */
 int open_debug_file()
 {
-    char filename[100] = {"\0"};
-    //char f; // = *filename;
+    char filename[100] = {""};
+    char info[150] = {""};
 
+    printf("open_debug_file_start"); fflush(stdout);
     new_filename(filename, 0);
+    printf("%s",filename);
 
     strcat(filename,".dbg");
-    //if((dout = fopen("/home/data/debug.out", "w")) == NULL)
     if((dout = fopen(filename, "w")) == NULL)
     {
         fprintf(stderr, "Debug file is not open!");
-        if(dout) fprintf(dout, "Debug file is not open!");
         return 1;
     }
 
-    printf( "Debug file %s open!\n", filename);
-    if(dout) fprintf(dout, "Debug file %s is open!\n", filename);
+    sprintf(info, "Debug file %s open!\n", filename);
+    print_debug(info);
+    if(stdout) fflush(stdout);
     return 0;
 }
 

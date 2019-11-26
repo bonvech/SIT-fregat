@@ -4,49 +4,41 @@
  * Функции, выполняемые во время основного цикла измерений. Вентиллятор.
  */
 
-/// Temperature to stabilize
-#define TERMOSTAB 21.0
-/// Ventillator max code
-#define VENT_MAX 254
-/// Ventillator work code
-#define VENT_ON  253
-/// time delta to make 5sec file
-#define SEC5 10
-/// time delta to make every minute file
-#define SEC60 60
 
-int FileNum = 0;  ///< number of output data file
-int NumBar  = 3;  ///< number of barometers in use
-unsigned int  sec5 = 0;  ///<  number to make flag to write 5sec file
+#define TERMOSTAB 21.0  ///< Temperature to stabilize
+#define VENT_MAX 254    ///< Ventillator max code
+#define VENT_ON  253    ///< Ventillator work code
+#define SEC5 10         ///< time delta to make 5sec file
+#define SEC60 60        ///< time delta to make every minute file
+
+
+int FileNum = 0;        ///< number of output data file
+int NumBar  = 3;        ///< number of barometers in use
+unsigned int  sec5 = 0; ///<  number to make flag to write 5sec file
+char debug[100];        ///< debug string
+
+
 
 // --- functions --- 
-int Every_sec(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent);
-int Every_min(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[]);
-unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger,  hvps_test &Vip);
+int Every_sec(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent);
+int Every_min(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[]);
+unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger,  SiPM &Vip);
 int simulate_event(fadc_board &Fadc, trigger_board &Trigger);
-int Before(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED);
-int After(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent);
-unsigned short Operate(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[]);
+int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED);
+int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent);
+unsigned short Operate(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[]);
 void print_time();
 void get_time_ms();
-int check_current(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger);
+int check_current(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger);
 int check_temperature(fadc_board &Fadc, lvps_dev &Vent);
 int read_threshould_from_file();
 unsigned int bars_init(led &LED, barometer Bar[]);
 unsigned int bars_read(led &LED, barometer Bar[], char *message_out);
 int save_eventnumber_to_file();
 int read_command_file(void);
-int print_log_parameters(FILE *fileout);
+//int print_log_parameters(FILE *fileout);
 int print_everymin_parameters(FILE *fileout);
 
-/// structure to hold termometeres and ventillators 
-struct temp
-{
-    float  temp_top;         ///< top termometere
-    float  temp_bot;         ///< bottom termomert
-    unsigned char high_inn;  ///< inn ventilator
-    unsigned char high_out;  ///< out ventillator
-} Last;                      ///< structure to hold last temperature and ventillator voltage
 
 
 //================================================
@@ -59,7 +51,7 @@ struct temp
  * Reading of compass, GPS, inclinometer, temperature.\n
  * Every SEC5 seconds writes info to file '5s.data' and debug file
  */
-int Every_sec(fadc_board &Fadc,       hvps_test &vip,
+int Every_sec(fadc_board &Fadc,       SiPM &vip,
               trigger_board &Trigger, lvps_dev &Vent)
 {
     sec5 ++;
@@ -72,10 +64,11 @@ int Every_sec(fadc_board &Fadc,       hvps_test &vip,
         f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
         if(f5sec)
         {
-            fprintf(f5sec,  "%s\n%s\n", time_out, msc_out);
+            fprintf(f5sec, "%s\n%s\n", time_out, msc_out);
             fprintf(f5sec, "Temperatures: B: %.1f T: %.1f\n", Last.temp_bot, Last.temp_top);
             fflush(f5sec);
         }
+        if(stdout) printf("\r");
         print_debug(time_out);
     }
 
@@ -95,7 +88,7 @@ int Every_sec(fadc_board &Fadc,       hvps_test &vip,
  */
 void Every_min_mini(lvps_dev &Vent, led &LED, barometer Bar[])
 {
-    FILE *flog = NULL;
+    //FILE *flog = NULL;
 
     /// -- read barometers
     bars_read(LED, Bar, bar_out);
@@ -115,23 +108,28 @@ void Every_min_mini(lvps_dev &Vent, led &LED, barometer Bar[])
         print_everymin_parameters(ffmin);
         fflush(ffmin);
     }
+
+/*
     // -- print all parameters to Log file
     if((flog = fopen(LOG_FILE, "at")) != NULL)
     {
         print_everymin_parameters(flog);
         fclose(flog);
     }
+ */
 }
+
+
 /** -------------------------------------------------------
  *  \brief Every minute function to control parameters
  *
  * Reading of temperature, current, trigger status, barometers, vip, ventillator,  mosaic temperature.\n
  * Every min writes info to files '1m.data' and debug
  */
-int Every_min(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[])
+int Every_min(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[])
 {
     int  dk = 0;
-    FILE *flog = NULL;
+    //FILE *flog = NULL;
 
     Trigger.trigger_prohibit();
     get_time_ms();
@@ -142,36 +140,36 @@ int Every_min(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev
     Trigger.pps_read_time();
     Trigger.pps_read_time();
 
-    //if(!(sec5 % SEC60))
-    //{
-        // ----------- read barometers --------------
-        bars_read(LED, Bar, bar_out);
+    // ----------- read barometers --------------
+    bars_read(LED, Bar, bar_out);
 
-        // ----------- read other parameters --------
-        vip.read_vip_ADC(vip_out);
-        Vent.read_power_temp(pwr_out);
-        Vent.read_vip_ADC(adc_out);
+    // ----------- read other parameters --------
+    vip.read_vip_ADC(vip_out);
+    Vent.read_power_temp(pwr_out);
+    Vent.read_vip_ADC(adc_out);
 
-        LED.read_ADC(led_out);
+    LED.read_ADC(led_out);
 
-        // --- stdout: print all  parameters --------
-        print_everymin_parameters(stdout);
-        print_everymin_parameters(  dout);
+    // --- stdout: print all  parameters --------
+    print_everymin_parameters(stdout);
+    print_everymin_parameters(  dout);
 
-        // --- ffmin: print all  parameters --------
-        ffmin = freopen(EVERYMIN_FILE, "wt", ffmin);
-        if(ffmin)
-        {
-            print_everymin_parameters(ffmin);
-            fflush(ffmin);
-        }
-        // ------ log: print all  parameters --------
-        if((flog = fopen(LOG_FILE, "at")) != NULL)
-        {
-            print_everymin_parameters(flog);
-            fclose(flog);
-        }
-    //}
+    // --- ffmin: print all  parameters --------
+    ffmin = freopen(EVERYMIN_FILE, "wt", ffmin);
+    if(ffmin)
+    {
+        print_everymin_parameters(ffmin);
+        fflush(ffmin);
+    }
+
+/*
+*   // ------ log: print all  parameters --------
+    if((flog = fopen(LOG_FILE, "at")) != NULL)
+    {
+        print_everymin_parameters(flog);
+        fclose(flog);
+    }
+    */
 
     fflush(stdout);
     fflush(  dout);
@@ -182,32 +180,32 @@ int Every_min(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev
     return 0;
 }
 
+
 //================================================
 // =================   Before   ==================
 /** -------------------------------------------------------
  *  \brief Procedure to run before work period
  */
-int Before(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED)
+int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED)
 {
-//    int nchan;
-    //char gps_out[4096];// p.publichenko
+    char info[100] = {""};
 
-    fflush(dout);
+    // Open new binary data file
     open_data_file(Fadc);
-    // p.publichenko
+
+    // Test and reset FADC channels
     check_temperature(Fadc, Vent);
-    //Fadc.start_fadc_boards(); // start fadc boards
     Fadc.test_fadc_boards();
     Fadc.reset_channels();
     check_temperature(Fadc, Vent);
 
-    /// --- set tri gger --------------
+    // Set trigger local and global master threshoulds
     read_threshould_from_file();
     Trigger.set_local_threshould(Work.master);
     Trigger.set_global_threshould(Work.gmaster);
     Trigger.set_trigger();   // set EVNTB01-89
 
-    // ------------------
+    // Set configurations from file
     LED.set_config_from_file();
     Fadc.set_THR_from_file();
 
@@ -216,18 +214,30 @@ int Before(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &V
     Trigger.status();
     Trigger.pps_read_time();
     Trigger.pps_read_time();
+
+    // Reset FADC
     Fadc.reset_channels();
     Fadc.reset_counters();
     Fadc.start_counters();
 
     check_temperature(Fadc, Vent);
-    vip.measure_all_high(); // 2010.03.11
+    vip.measure_high();
 
-    printf("\nWaiting for signal ... (press [Esc] and [Enter] for exit)\n");
-    if(dout) fprintf(dout,"\nWaiting for signal ... \n\n");
-    fflush(dout);
+    // -- print all parameters to file EveryMin
+    if(ffmin)
+    {
+        ffmin = freopen(EVERYMIN_FILE, "wt", ffmin);
+        print_everymin_parameters(ffmin);
+        fflush(ffmin);
+    }
+
+    sprintf(info, "\n---------------------------------------\n");
+    print_debug(info);
+    sprintf(info, "Waiting for signal ... \n");
+    print_debug(info);
+
     Trigger.trigger_permit();
-    // for (nchan=0; nchan<20; nchan++) Fadc.set_THR_save(nchan);
+    fflush(dout);
     return 0;
 }
 
@@ -237,19 +247,22 @@ int Before(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &V
 /** -------------------------------------------------------
  *  \brief Procedure to run after the work period
  */
-int After(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent)
+int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent)
 {
+    /// Prohibit trigger
     Trigger.trigger_prohibit();
     Trigger.status();
-    check_temperature(Fadc, Vent);
 
+    /// Stop FADC counters
     //Fadc.print_THR_to_file();
     Fadc.stop_counters();
     Fadc.read_counters();
 
-    vip.measure_all_high(); // 2010.03.11
-
+    check_temperature(Fadc, Vent);
+    vip.measure_high(); // 2010.03.11
     time_to_file();
+
+    /// Close binary data file
     if(fout) fclose(fout);
 
     fflush(dout);
@@ -262,7 +275,7 @@ int After(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Ve
 /** -------------------------------------------------------
  *  \brief Procedure to run every work period
  */
-int Period(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED)
+int Period(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED)
 {
     After( Fadc, vip, Trigger, Vent);
     Before(Fadc, vip, Trigger, Vent, LED);
@@ -300,15 +313,16 @@ int simulate_event(fadc_board &Fadc, trigger_board &Trigger)
     return 0;
 }
 
+
 //================================================
 // ================= GetEvent  ===================
 /** -------------------------------------------------------
  *  \brief Get event if there is any event in buffer
  *  \return number of detected events
  */
-unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, hvps_test &Vip)
+unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, SiPM &Vip)
 {
-    unsigned char Over = 0, Err = 0, num = 0, i = 0;
+    unsigned char Over = 0, Err = 0, num = 0;
     struct timeval tv0 = {0};
     int Inclination = 0, Magnitation = 0;
     char info[100] = {0};
@@ -316,8 +330,9 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, hvps_test &Vip)
     get_time_ms();
 
     num = Trigger.buffer_event_number(TG);
-    fprintf(stdout, " num = %i\n", num);
-    if(dout) fprintf(dout, " num = %i\n", num);
+    //sprintf(info, " num = %i\n", num);
+    //print_debug(info);
+
     if(num == 4)
     {
         if(Trigger.buffer_is_overflow(TG))
@@ -325,49 +340,45 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, hvps_test &Vip)
             Trigger.trigger_prohibit();
             Fadc.prohibit_channels();
             Over = 1;
-            fprintf(stdout, " Over = 1\n");
-            if(dout) fprintf(dout, " Over = 1");
+            print_debug((char*) " Over = 1\n");
         }
     }
 
-    // print kadr to virtual event file
-    fkadr = freopen("event", "w", fkadr); // 2018
-    if(fkadr) fprintf(fkadr, "%2i\n", EventNumber + 1); 
+    // !!!!!!! print kadr to virtual event file
+    //2019!!!fkadr = freopen("event", "w", fkadr); // 2018
+    //if(fkadr) fprintf(fkadr, "%2i\n", EventNumber + 1); 
 
     //  --------- get events from buffer -------
-    for(i = 0; i < num; i++)
+    for(int i = 0; i < num; i++)
     {
         // ---------- read event  --------
         EventNumber ++;
         //sprintf(event_out, "<K%05d>g%5s", EventNumber, gps_bstamp);
-        fprintf(fout, "<K%05d>g%c%c%c%c%c", EventNumber, gps_bstamp[0],gps_bstamp[1],gps_bstamp[2],gps_bstamp[3],gps_bstamp[4]);
-        sprintf(info, "<K%05d>  GPS:%15s",  EventNumber, gps_sstamp);
-        print_debug(info);
-        // !!!! for check
-        sprintf(info, " GPS:%i-%i-%i-%i-%i", gps_bstamp[0],gps_bstamp[1],gps_bstamp[2],gps_bstamp[3],gps_bstamp[4]);
+        fprintf(fout, "<K%05d>g%c%c%c%c%c", EventNumber,
+                gps_bstamp[0],gps_bstamp[1],gps_bstamp[2],gps_bstamp[3],gps_bstamp[4]);
+        sprintf(info, "\n<K%05d>  Time: %13s   ",  EventNumber, gps_sstamp);
         print_debug(info);
 
 
         // -- print localtime (sec)
         gettimeofday(&tv0, NULL);
         Conv.tInt = tv0.tv_sec;
-        //if(fout)   fprintf(fout, "%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
-        fprintf(fout, "t%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]); // localtime
+        fprintf(fout, "t%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
         //strncat(event_out, tmp, 5);
 
         // -- print trigger time
         Conv.tInt = Trigger.tg_read_time();
-        fprintf(fout, "e%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]); // triggertime
+        fprintf(fout, "e%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
         //strncat(event_out, tmp, 5);
 
         // -- print Inclinometer
         Conv.tInt = Inclination;
-        fprintf(fout, "I%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]); // Inclinometer
+        fprintf(fout, "I%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
         //strncat(event_out, tmp, 5);
 
         // -- print Magnitometer
         Conv.tInt = Magnitation;
-        fprintf(fout, "m%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]); // Inclinometer
+        fprintf(fout, "m%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
         //strncat(event_out, tmp, 5);
 
         // -- print event_out to event file
@@ -383,8 +394,9 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, hvps_test &Vip)
         //fprintf(fout, "%s", event_out);
         fflush(fout);
 
-        if(stdout) fprintf(stdout, "t-%3i-%3i-%3i-%3i\n", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
-        if(  dout) fprintf(  dout, "t-%3i-%3i-%3i-%3i\n", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
+        //sprintf(info, "t-%3i-%3i-%3i-%3i\n", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
+        //print_debug(info);
+
         // check fifo_err
         if(!Err)
         {
@@ -395,7 +407,7 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, hvps_test &Vip)
                     Trigger.trigger_prohibit();
                     Fadc.prohibit_channels();
                     Err = 1;
-                    printf("Err = 1\n");
+                    print_debug((char*)"OverErr = 1\n");
                 }
             }
         }
@@ -407,7 +419,8 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, hvps_test &Vip)
     {
         Trigger.clear_buffer_overflow(TG);
         Fadc.reset_channels();
-        printf("Fadc.fifo_err() = %i after\n", Fadc.fifo_err());
+        sprintf(info, "Fadc.fifo_err() = %i after\n", Fadc.fifo_err());
+        print_debug(info);
         Trigger.trigger_permit();
     }
 
@@ -443,7 +456,9 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger)
  *  \return 0 - OK\n
  *          код команды - если читался командный файл
  */
-unsigned short Operate(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[])
+unsigned short Operate(
+    fadc_board &Fadc, SiPM &vip, trigger_board &Trigger,
+    lvps_dev &Vent, led &LED, barometer Bar[])
 {
     struct timeval tv00, tv0min, tv0sec, tv1;
     unsigned int   kadr = 0, res = 0, ii = 0;
@@ -481,14 +496,14 @@ unsigned short Operate(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger,
         // --- Period
         if((tv1.tv_sec-tv00.tv_sec) > period)
         {
-            sprintf(debug, "\n\n////////////////////\nEvery period:");
+            sprintf(debug, "\n\n---------------------\nEvery period:");
             print_debug(debug);
             Period(Fadc, vip, Trigger, Vent, LED);
             gettimeofday(&tv00, NULL);
             gettimeofday(&tv1, NULL);
             tv0min.tv_sec = tv1.tv_sec;
             tv0sec.tv_sec = tv1.tv_sec;
-            sprintf(debug, "\nEvery period end\n////////////////////\n\n");
+            sprintf(debug, "Every period end\n---------------------\n\n");
             print_debug(debug);
         }
 
@@ -506,11 +521,11 @@ unsigned short Operate(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger,
             {
                 ;
             }
-            sprintf(debug, "\nTG:NotEmpty:");
-            print_debug(debug);
+            //sprintf(debug, "\nTG:NotEmpty:");
+            //print_debug(debug);
             dk = GetEvent(Fadc, Trigger, vip);
             kadr += dk;
-            sprintf(debug, "\n k+%i=%i \n\n", dk, kadr);
+            sprintf(debug, "k+%i=%i\n", dk, kadr);
             print_debug(debug);
         }
 
@@ -558,6 +573,7 @@ STOP:
     return res;
 }
 
+
 /** -------------------------------------------------------
  *  \brief print time with milliseconds to stdout and debug file
  * 
@@ -578,9 +594,10 @@ void print_time()
     if(dout) fprintf(dout, "%s.%03ld\n", time_string, milliseconds);
 }
 
+
 /** -------------------------------------------------------
  *  \brief get_time_ms
- * 
+ *
  *  Get actual time to string time_out
  */
 void get_time_ms()
@@ -595,7 +612,7 @@ void get_time_ms()
     ptm = localtime (&tv.tv_sec);
     strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", ptm);
     milliseconds = tv.tv_usec/1000;
-    sprintf(time_out, "%s.%03ld\n", time_string, milliseconds);
+    sprintf(time_out, "%s.%03ld", time_string, milliseconds);
 
     gph = (unsigned char) ptm->tm_hour;
     gpm = (unsigned char) ptm->tm_min;
@@ -607,15 +624,15 @@ void get_time_ms()
                                     Conv.tChar[1], Conv.tChar[0]);
 }
 
+
 /** -------------------------------------------------------
  *  \brief print_time_ms to file\par
  *  Get actual time to string time_out
  */
 void print_time_ms(FILE *ff)
 {
-    fprintf(ff, "%s\n", time_out);
+    fprintf(ff, "%s ", time_out);
 }
-
 
 
 /** -------------------------------------------------------
@@ -624,7 +641,7 @@ void print_time_ms(FILE *ff)
  *          1 - выключенные каналы исключены из триггера\par
  *          2 - vip.check_current() вернул 2
  */
-int check_current(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger)
+int check_current(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger)
 {
     int res = 0, ii = 0;
     res = vip.check_current();
@@ -642,6 +659,7 @@ int check_current(fadc_board &Fadc, hvps_test &vip, trigger_board &Trigger)
     }
     return 1;
 }
+
 
 /** -------------------------------------------------------
  *  \brief  check_temperature in electronic box
@@ -730,6 +748,7 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
     return 0;
 }
 
+
 /** -------------------------------------------------------
  *  \brief check_current
  *  \return 0 - OK\par
@@ -751,7 +770,7 @@ int read_threshould_from_file()
     if(res == -1) // NO input master file
         return -1;
     if(!res)  // no errors
-    {    //set_work_parameters();
+    {
         Work.master  = Input.master;
         Work.gmaster = Input.gmaster;
     }
@@ -762,6 +781,7 @@ int read_threshould_from_file()
 
     return 0;
 }
+
 
 //  -------------------------------------------------------
 /** -------------------------------------------------------
@@ -794,6 +814,7 @@ unsigned int bars_init(led &LED, barometer Bar[])
     return NumBar;
 }
 
+
 /** -------------------------------------------------------
  *  \brief read barometers
  *  \return 0
@@ -821,6 +842,7 @@ unsigned int bars_read(led &LED, barometer Bar[], char *message_out)
     return 0;
 }
 
+
 /** -------------------------------------------------------
  *  \brief make_calibration
  */
@@ -839,6 +861,7 @@ void make_calibration(led &LED)
     }
     if(LED.set_chan_amp(8, 255))  printf("\nError in set_chan_amp!!  ii = %d", ii);
 }
+
 
 /** -------------------------------------------------------
  *  \brief print EventNumber to file
@@ -863,6 +886,7 @@ int save_eventnumber_to_file()
     return 0;
 }
 
+
 /** -------------------------------------------------------
  *  \brief get file size
  */
@@ -874,8 +898,11 @@ long getFileSize(const char *fileName)
     return file_stat.st_size;
 }
 
+
 /** -------------------------------------------------------
  *  \brief search if file log.txt changes
+ * 
+ * Now this programm does not change this file!
  */
 int search_competitor()
 {
@@ -885,25 +912,30 @@ int search_competitor()
     // ----------- read log.txt file size
     fsize = getFileSize(filelog);
     fsize = getFileSize(filelog);
-    printf("filesize = %ld\n", fsize);
+    sprintf(debug, "filesize = %ld\n", fsize);
+    print_debug(debug);
+
     sleep(6);
     fsize1 = getFileSize(filelog);
-    printf("filesize = %ld\n", fsize1);
-    fsize = fsize1 - fsize;
+    sprintf(debug, "filesize = %ld\n", fsize1);
+    print_debug(debug);
 
-    if(fsize > 0) 
+    fsize -= fsize1;
+
+    if(fsize > 0)
     {
-        if(stdout) fprintf(stdout, "filesize delta = %ld\n", fsize);
-        if(  dout) fprintf(  dout, "filesize delta = %ld\n", fsize);
-        if(stdout) fprintf(stdout, "File %s changes! There is a competitor! \n", LOG_FILE);
-        if(  dout) fprintf(  dout, "File %s changes! There is a competitor! \n", LOG_FILE);
+        sprintf(debug, "filesize delta = %ld\n", fsize);
+        print_debug(debug);
+        sprintf(debug, "File %s changes! There is a competitor! \n", LOG_FILE);
+        print_debug(debug);
         return 1;
     }
 
-    if(stdout) fprintf(stdout, "File %s doesn`t change! There is NOT a process-competitor! \n", LOG_FILE);
-    if(  dout) fprintf(  dout, "File %s doesn`t change! There is NOT a process-competitor! \n", LOG_FILE);
+    sprintf(debug, "File %s doesn`t change! There is NOT a process-competitor! \n", LOG_FILE);
+    print_debug(debug);
     return 0;
 }
+
 
 /** -------------------------------------------------------
  *  \brief kill of another 'diag' process
@@ -919,6 +951,7 @@ int kill_competitor(void)
     }
     return 0;
 }
+
 
 /** -------------------------------------------------------
  *  \brief read command file "command.in"
@@ -1008,6 +1041,7 @@ int read_command_file(void)
     return comnum;
 }
 
+
 /** -------------------------------------------------------
  *  \brief print log parameters to file
  *  \deprecated Старая функция. Закомментирована.
@@ -1035,7 +1069,7 @@ int print_everymin_parameters(FILE *fileout)
 
     time(&t);
     fprintf(fileout, "%s%s\n%s", ctime(&t), vip_out, bar_out); //, incl_out);
-    fprintf(fileout, "%s%s\n%s\n", led_out, adc_out, pwr_out);
+    fprintf(fileout, "%s\n%s%s\n", led_out, adc_out, pwr_out);
     //fprintf(fileout, "-----------------------\n");
     return 0;
 }

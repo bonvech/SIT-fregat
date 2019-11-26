@@ -239,7 +239,7 @@ int pow2_x (int xx)
 
 
 /** -------------------------------------------------------
-*  \brief Read ptressure anf temperature
+*  \brief Read ptressure and temperature
 */
 unsigned int barometer::read_bar_temp(char *message)
 {

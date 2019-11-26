@@ -13,7 +13,6 @@ public:
  * Reading events from buffer and write it to binary data file (fout)\n
  *
  * \param flag    write (0) or not (not 0) to file fkadf with name Event\n
- * 
  * \return 0
  */
 unsigned int get_event(int flag)
@@ -103,6 +102,7 @@ unsigned int get_event(int flag)
     return 0;
 }
 
+
 /** --------------------------------------------------------------
  * Read FADC buffer flags
  * \return 1 - there is data in the buffer\par 
@@ -116,25 +116,27 @@ unsigned short read_buffer_flag(void)
     for(i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];
-        //if ( !(inw(BaseAddr + 8) & 1) ) //if there is data in buffer               
+        //if ( !(inw(BaseAddr + 8) & 1) ) //if there is data in buffer
             //return 1;
         reg = inw(BaseAddr + 8)   ;
-        if ( !(reg & 1) ) //if there is data in buffer               
+        if ( !(reg & 1) ) //if there is data in buffer
         {
             flags ++;
             //printf("Addr = %4xh : %4xh : 1\n", BaseAddr, reg);
         } 
         //else
         //{
-        //    printf("Addr = %4xh : %4xh :  0\n", BaseAddr, reg);            
+        //    printf("Addr = %4xh : %4xh :  0\n", BaseAddr, reg);
         //}
     }
     return flags;
     //return 0;
 }
 
-// --------------------------------------------------------------
-/// Start FADC boards
+
+/** --------------------------------------------------------------
+ * Start FADC boards
+ */
 unsigned int start_fadc_boards()
 {
     unsigned char i = 0;
@@ -159,14 +161,14 @@ unsigned int start_fadc_boards()
     return 0;
 }
 
-// --------------------------------------------------------------
-/// Reset FADC channels
+
+/** --------------------------------------------------------------
+ * Reset FADC channels
+ */
 unsigned int reset_channels()
 {
-  unsigned short i = 0;
-
-  for(i = 1; i <= AddrOn[0]; i++)
-  {
+    for(unsigned int i = 1; i <= AddrOn[0]; i++)
+    {
         BaseAddr = AddrOn[i];
 
         // reset  channels and buffer
@@ -182,21 +184,21 @@ unsigned int reset_channels()
         RG1put  = set_bit_1(RG1put,  1); // permit trigger1
         RG1put  = set_bit_1(RG1put,  2); // permit trigger2
         set_RGs( RG1put, BaseAddr+10);   // permit //RG1(4,7,10)
-  }
-  
-  read_3RG(); // read registers 3 times
-  
-  return 0;
+    }
+
+    read_3RG(); // read registers 3 times
+
+    return 0;
 }
 
-// --------------------------------------------------------------
-/// Permit FADC channels to count
+
+/** --------------------------------------------------------------
+ * Permit FADC channels to count
+ */
 unsigned int permit_channels()
 {
-  unsigned char i = 0;
-
-  for(i = 1; i <= AddrOn[0]; i++)
-  {
+    for(unsigned int i = 1; i <= AddrOn[0]; i++)
+    {
         BaseAddr = AddrOn[i];
         // permit channels work
         //set_RGs(    7, BaseAddr+10);  //RG1(4,7,10)
@@ -204,43 +206,45 @@ unsigned int permit_channels()
         RG1put  = set_bit_1(RG1put,  1); // permit trigger1
         RG1put  = set_bit_1(RG1put,  2); // permit trigger2
         set_RGs( RG1put, BaseAddr+10);   // permit //RG1(4,7,10)
-  }
-  return 0;
+    }
+    return 0;
 }
 
-// --------------------------------------------------------------
-/// Prohibit channel counting
+
+/** --------------------------------------------------------------
+ * \brief Prohibit channel counting
+ */
 unsigned int prohibit_channels()
 {
-  unsigned char i = 0;
-
-  for(i = 1; i <= AddrOn[0]; i++)
-  {
+    for(unsigned int i = 1; i <= AddrOn[0]; i++)
+    {
         BaseAddr = AddrOn[i];
+
         // permit channels work
         //set_RGs(    1, BaseAddr+10);  //RG1(4,7,10)
         RG1put  = set_bit_0(RG1put,  1); // ban trigger1
         RG1put  = set_bit_0(RG1put,  2); // ban trigger2
         set_RGs( RG1put, BaseAddr+10);   // ban //RG1(4,7,10)
-  }
-  return 0;
+    }
+    return 0;
 }
 
-// --------------------------------------------------------------
-/// Check fifo error
-/// \return 1 if there is error in RG0: bit 8
+
+/** --------------------------------------------------------------
+ * Check fifo error
+ * \return 1 if there is error in RG0: bit 8
+ */
 unsigned int fifo_err(void)
 {
-    unsigned char  i = 0, j = 0;
     unsigned short in = 0, address = 0, out = 0;
 
-    for(i = 1; i <= AddrOn[0]; i++)
+    for(unsigned int i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];
         address = BaseAddr + RG0ADDR;//RG0
 
         //
-        for(j = 0; j <= 3; j++)
+        for(int j = 0; j <= 3; j++)
         {
             in = inw(address + 0x10*j);  //RG0
             if(get_bit(in, 8))
@@ -258,13 +262,13 @@ unsigned int fifo_err(void)
   return out;
 }
 
-// --------------------------------------------------------------
-/// Reset FADC counters
+
+/** --------------------------------------------------------------
+ * Reset FADC counters
+ */
 unsigned int reset_counters()
 {
-    unsigned char i = 0;
-
-    for(i = 1; i <= AddrOn[0]; i++)
+    for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];
 
@@ -279,13 +283,13 @@ unsigned int reset_counters()
     return 0;
 }
 
-// --------------------------------------------------------------
-/// Stop FADC counters
+
+/** --------------------------------------------------------------
+ * Stop FADC counters
+ */
 unsigned int stop_counters()
 {
-    unsigned char i = 0;
-
-    for(i = 1; i <= AddrOn[0]; i++)
+    for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];
 
@@ -297,13 +301,13 @@ unsigned int stop_counters()
     return 0;
 }
 
-// --------------------------------------------------------------
-/// Start FADC counters
+
+/** --------------------------------------------------------------
+ * Start FADC counters
+ */
 unsigned int start_counters()
 {
-    unsigned char i = 0;
-
-    for(i = 1; i <= AddrOn[0]; i++)
+    for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];
 
@@ -315,11 +319,12 @@ unsigned int start_counters()
     return 0;
 }
 
-// --------------------------------------------------------------
-/// Read FADC counters
+
+/** --------------------------------------------------------------
+ * Read FADC counters
+ */
 unsigned int read_counters()
 {
-    unsigned char  i = 0, jj;
     unsigned short rate = 1;
     unsigned short count_addr[9] = {8,0xA,0xC,0x1A,0x1C,0x2A,0x2C,0x3A,0x3C};
     FILE *fthr = NULL;
@@ -329,14 +334,15 @@ unsigned int read_counters()
     if(fout) fprintf(fout, "r");
     if((fthr = fopen("levels.dat", "a")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"levels.dat\" is not open!");       
+        if(dout) fprintf(dout, "Data file \"levels.dat\" is not open!");
     }
+
     timestamp_to_file(fthr);
     if(fthr) fprintf(fthr,"R:\t");
-    for(i = 1; i <= AddrOn[0]; i++)
+    for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];
-        for(jj = 1; jj <= CHANPMT; jj++) // CHANPMT=8
+        for(int jj = 1; jj <= CHANPMT; jj++) // CHANPMT=8
         {
             // read  counters
             rate = inw(BaseAddr + count_addr[jj]);
@@ -349,20 +355,21 @@ unsigned int read_counters()
         }
     }
     printf("\n");
-    if(dout) fprintf(dout,"\n");    
-    if(fthr) fprintf(fthr,"\n");    
-    if(fthr) fclose(fthr);   
+    if(dout) fprintf(dout,"\n");
+    if(fthr) fprintf(fthr,"\n");
+    if(fthr) fclose(fthr);
     return 0;
 }
 
-// --------------------------------------------------------------
-/// Read 3 registers before read FADC
+
+/** --------------------------------------------------------------
+ * Read 3 registers before read FADC
+ */
 unsigned int read_3RG()
 {
-    unsigned char  i = 0;
     unsigned short rate = 1;
 
-    for(i = 1; i <= AddrOn[0]; i++)
+    for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i]; 
         rate = inw(BaseAddr + 8);
@@ -372,4 +379,3 @@ unsigned int read_3RG()
     if(rate);
     return 0;
 }
-

@@ -444,7 +444,7 @@ int led::read_ADC(char *message)
     unsigned int   tmp = 0; //, n = 0;
     //unsigned long  sum = 0;
     char mes[100];
-    float dp = 0.;
+    //float dp = 0.;
 
     strcpy(message, "LED: ");
     SetAddr(BaseAddrLED + 0x000E);
@@ -461,6 +461,7 @@ int led::read_ADC(char *message)
         strcat(message, mes);
     }
 
+    /*
     tmp  = Data[0] - Data[2];
     tmp &= 0x0FFF;
     dp = tmp;
@@ -471,6 +472,7 @@ int led::read_ADC(char *message)
     dp = (dp - 5.) * 2.74;
     sprintf(mes, "   DeltaP = %7.3f kPa  (%6.2f mm w)\n", dp/1000, dp/9.81);
     strcat(message, mes);
+    */
 
     print_debug(message);
     return 0;

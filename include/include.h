@@ -1,7 +1,7 @@
 /**
  * \file
  * Данный файл содержит в себе подключение стандартных библиотек, библиотек аппаратуры, 
- * а также определения основных констант
+ * а также определения основных констант и глобальных переменнтых
  *
  * \date июнь 2019 года
  * \brief Определение констант, подключение библиотек.
@@ -62,10 +62,10 @@
 #define TRG2 (100+0x700+0x3000)  // !!!!!!! change here   and in levels.cpp  !!!!!!!
 
 /// glubina buffera 2-go urovnja (RG2,5,8,11) = 512
-#define BUFF2  300 //510 //512
+#define BUFF2  400 //510 //512
 
 /// glubina buffera 1-go urovnja (ADC1(5,9,13)/DP, ADC3(7,11,15)/DP) = 256 \n 256 - для 2013 г. \n 230 - для случая, когда синхроимпульс выключен, сдвиг калибровочного кадра = 0
-#define BUF1  30 // 230
+#define BUF1  130 // 230
 
 
 
@@ -83,6 +83,16 @@ struct time_onoff
     time_t time_on; ///< on time
     time_t time_of; ///< off time
 };
+
+
+/// structure to hold termometeres and ventillators 
+struct temp
+{
+    float  temp_top;         ///< top termometere
+    float  temp_bot;         ///< bottom termomert
+    unsigned char high_inn;  ///< inn ventilator
+    unsigned char high_out;  ///< out ventillator
+} Last;                      ///< structure to hold last temperature and ventillator voltage
 
 
 /// Structure to hold work parameters
@@ -129,18 +139,16 @@ FILE *f5sec;  ///< every 5min file
 int  EventNumber = 0;       ///< number of current event
 int  commandin[21] = {0};   ///< command from file string
 
-char vip_out[1024]  = "VIP does not work now";  ///< vip ADC info string
-char time_out[100]  = "time_out init string";   ///< time_ms info string 
-char adc_out[1024]  = "adc_out init string";    ///< Vent ADC info string
-char pwr_out[1024]  = "pwr_out init string";    ///< power info string
-char msc_out[1024]  = "msc_out init string";    ///< info string
-char bar_out[1024]  = "bar_out init string";    ///< barometer info string
-char led_out[4096]  = "led_out init string";    ///< LED info string
-char gps_bstamp[30] = "gps_bstamp init string"; ///< gps_bstamp info string
-char gps_sstamp[30] = "gps_sstamp init string"; ///< gps_sstamp info string
-//char comp_out[1024] = "No compass in this version of detector";       ///< compass info string
-//char incl_out[1024] = "No inclinometer in this version of detector";  ///< inclinometer info string
-//char gps_out[4096]  = "No GPS in this version of detector";           ///< GPS info string
+
+char vip_out[1024]  = "Mosaic is not available now";  ///< vip ADC info string
+char time_out[100]  = "time_out init string";         ///< time_ms info string 
+char adc_out[1024]  = "adc_out init string";          ///< Vent ADC info string
+char pwr_out[1024]  = "pwr_out init string";          ///< power info string
+char msc_out[1024]  = "msc_out init string";          ///< info string
+char bar_out[1024]  = "bar_out init string";          ///< barometer info string
+char led_out[4096]  = "led_out init string";          ///< LED info string
+char gps_bstamp[30] = "gps_bstamp init string";       ///< gps_bstamp info string
+char gps_sstamp[30] = "gps_sstamp init string";       ///< gps_sstamp info string
 
 
 /**
@@ -150,7 +158,7 @@ char gps_sstamp[30] = "gps_sstamp init string"; ///< gps_sstamp info string
 #include "ioports.cpp"
 //#include "i2c.cpp"
 #include "lvpsdev.cpp"
-#include "fadc.cpp"
+//#include "fadc.cpp"
 #include "fadcbord.cpp" //includes "levels.cpp"
 #include "trigger.cpp"
 #include "lvpsdev.cpp"

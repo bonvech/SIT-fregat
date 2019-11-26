@@ -9,6 +9,8 @@
 int THR[BOARD+1][9];                              ///< array to hold threshold levels
 
 
+
+
 /** ----------------------------------------------------------
  * \brief Set threshold levels in all measuring channels.
  *
@@ -238,8 +240,8 @@ int set_THR_from_file(void)
 
 
 /** ----------------------------------------------------------
- *  \brief print_THR_to_file
- * 
+ *  \brief print_THR_to log file
+ *
  *  Print threshold levels to file "./log/levels.dat"
  */
 int print_THR_to_file(void)
@@ -249,11 +251,12 @@ int print_THR_to_file(void)
 
     if((fthr = fopen("./log/levels.dat", "a")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"levels.dat\" is not open!");
+        if(dout) fprintf(dout, "Data file \"./log/levels.dat\" is not open!");
         return 1;  // error
     }
 
     timestamp_to_file(fthr);
+    print_time_ms(fthr);
 
     fprintf(fthr, "T:\t");
     for(ii = 1; ii <= AddrOn[0]; ii++ )

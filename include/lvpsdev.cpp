@@ -6,14 +6,17 @@
 #ifndef _LVPS_DEV
 #define _LVPS_DEV   ///< to prevent multiple including
 
-//#include "i2c.cpp"
 #include "lvps.cpp"
+
+
+// extern function
+void print_debug(char * message);
 
 
 /// Class for lvps devices
 class lvps_dev: public lvps
 {
-public:
+  public:
     // constructor
     lvps_dev()
     {
@@ -21,8 +24,8 @@ public:
         ADCSubAddr2 = 0x21;   ///< ADC subaddres
     }
 
-//////////////////////////////////////////////////////////////
-public:
+
+    //////////////////////////////////////////////////////////////
     /** -------------------------------------------------------
     *  \brief read_fadc_temp
     */
@@ -42,6 +45,7 @@ public:
         if(dout) fprintf(dout, "T=%ikod =%6.2f oC", Res1, Tem1);
         return Tem1;
     }
+
 
     /** -------------------------------------------------------
     *  \brief set_inn_vent
@@ -75,6 +79,77 @@ public:
         return 0;
     }
 
+
+    /** -------------------------------------------------------
+    * \brief read_power_temp\n
+    * Write power supply temperature to debug string
+    * \param message - string to write power supply temperature
+    */
+    unsigned int read_power_temp(char *message)
+    {
+        if(dout) fprintf(dout, "\nread_power_temp: ");
+
+        SetChannelAddr(59); // adress of VIP block temperature
+        float Tem1 = read_fadc_temp(0x49);
+
+        sprintf(message, "T_power_supply = %5.1f oC", Tem1);
+        print_debug(message);
+
+        return 0;
+    }
+
+
+    /** -------------------------------------------------------
+    *  \brief read_vip_ADC \par 
+    *  Read vip ADC and write to degug file and string message
+    */
+    unsigned int read_vip_ADC(char *message)
+    {
+        unsigned char  iii = 0, i = 0;
+        unsigned int   MData[4];
+        unsigned int   kod[10], tmppp = 0;
+        float U5 = 0.,  Uac = 0., I = 0.;   //U15 = 0.,
+
+        SetChannelAddr(56); // adress of ADC of vip
+        for(i=0; i<4; i++)  MData[i] = 1;
+
+        /// Read ADC
+        if(!ReadADCs(0,(unsigned int *)&MData))  // read ADC
+        {
+            printf("Error in ADC`s reading\n");
+            if(dout) fprintf(dout, "!measure_high: Error in ADC`s reading\n");
+            return 1;
+        }
+        else
+        {
+            for(iii=0; iii<4; iii++)
+            {
+                tmppp = 0;
+                tmppp = MData[iii];
+                tmppp &= 0x0FFF; // set 4 major bit to 0
+                kod[iii] = tmppp;
+                //printf("kod%i=[%d]  ", iii, kod[iii]);
+            }
+        }
+
+        // Print data result
+        //printf("\nread_vip_ADC: ");
+        //printf("CH0[%3i]  CH1[%3i]  CH2[%3i]  CH3[%3i]\n\n", kod[0], kod[1],kod[2],kod[3]);
+        if(dout) fprintf(dout, "\nComputer block: CH0[%3i] CH1[%3i] CH2[%3i] CH3[%3i]   CH0-CH2=[%4i]\n\n", kod[0], kod[1],kod[2],kod[3], kod[0]-kod[2]);
+
+        //U15 = kod_to_U15(kod[0]);
+        I   = kod_to_I(  kod[1]);
+        U5  = kod_to_U5( kod[2]);
+        Uac = kod_to_Uac(kod[3]);
+
+        //printf("U15=%6.2fV   U5=%4.2fV  Uac=%6.2fV  I=%6.2fA\n ", U15, U5, Uac, I);
+        sprintf(message, "Computer block: U5 = %4.2f V  Uac = %5.2f V  I = %4.2f A  ", U5, Uac, I);
+        print_debug(message);
+
+        return 0;
+    }
+
+
 private:
 
     /** -------------------------------------------------------
@@ -94,119 +169,34 @@ private:
 
         return temp;
     }
-    
-public:
-    //---------------------------------------------------------
-/*    unsigned int read_mosaic_temp(char *message)
-    {
-        float Tem1 = 0.;
-    
-        SetChannelAddr(61); // adress of mosaic temperature
-        printf("\nread_mosaic_temp: "); // -- lena
-        if(dout) fprintf(dout, "\nread_mosaic_temp: ");
-        Tem1 = read_fadc_temp(0x49);
-//        printf("\nread_mosaic_temp: %3.2f oC\n\n", Tem1);
-        // p.publichenko
-        sprintf(message, "T = %6.2f oC", Tem1);
-        return 0;
-    }*/
 
-    /** -------------------------------------------------------
-    *  \brief read_power_temp
-    */
-    unsigned int read_power_temp(char *message)
-    {
-        float Tem1 = 0.;
-        
-        SetChannelAddr(59); // adress of VIP block temperature
-        //printf("\nread_power_temp : "); // -- lena
-        if(dout) fprintf(dout, "\nread_power_temp: ");
-        Tem1 = read_fadc_temp(0x49);
 
-        sprintf(message, "Tp = %6.2f oC", Tem1);
-        return 0;
-    }
-    
-    /** -------------------------------------------------------
-    *  \brief read_vip_ADC \par 
-    *  Read vip ADC and write to degug file and string message
-    */
-    unsigned int read_vip_ADC(char *message)
-    {
-        unsigned char  iii = 0, i = 0;
-        unsigned int   MData[4];
-        unsigned int   kod[10], tmppp = 0;
-        float U5 = 0., U15 = 0., Uac = 0., I = 0.;
-        
-        SetChannelAddr(56); // adress of ADC of vip        
-        for(i=0; i<4; i++)  MData[i] = 1;
-        
-        ////////// read ADC
-        if(!ReadADCs(0,(unsigned int *)&MData))  // read ADC
-        {
-            printf("Error in ADC`s reading\n");
-            if(dout) fprintf(dout, "!measure_high: Error in ADC`s reading\n");
-            return 1;
-        }
-        else
-        {
-            for(iii=0; iii<4; iii++)
-            {
-                tmppp = 0;
-                tmppp = MData[iii];
-                tmppp &= 0x0FFF; // set 4 major bit to 0
-                kod[iii] = tmppp;
-                //printf("kod%i=[%d]  ", iii, kod[iii]);
-            }
-        }
-        
-        //////////// print data //////////        
-        //printf("\nread_vip_ADC: ");
-        //printf("CH0[%3i]  CH1[%3i]  CH2[%3i]  CH3[%3i]\n\n", kod[0], kod[1],kod[2],kod[3]);
-
-        //if(dout) fprintf(dout, "\nread_vip_ADC: CH0[%3i] CH1[%3i] CH2[%3i] CH3[%3i]\n\n", kod[0], kod[1],kod[2],kod[3]);
-        if(dout) fprintf(dout, "\nread_vip_ADC: CH0[%3i] CH1[%3i] CH2[%3i] CH3[%3i]   CH0-CH2=[%4i]\n\n", kod[0], kod[1],kod[2],kod[3], kod[0]-kod[2]);
-       
-        U15 = kod_to_U15(kod[0]);
-        I   = kod_to_I(  kod[1]);
-        U5  = kod_to_U5( kod[2]);
-        Uac = kod_to_Uac(kod[3]);
-        //printf("\nread_vip_ADC: ");
-        //printf("U15=%6.2fV   U5=%4.2fV  Uac=%6.2fV  I=%6.2fA\n ", U15, U5, Uac, I);
-
-        if(dout) fprintf(dout, "U15=%6.2fV   U5=%4.2fV  Uac=%6.2fV  I=%6.2fA\n ", U15, U5, Uac, I);                
-
-        strcpy(message, "");
-        sprintf(message, "U15= %6.2fV  U5= %4.2fV  Uac= %6.2fV  I= %6.2fA = %i kod\n", U15,U5,Uac,I, kod[1]);
-
-        return 0;
-    }
- 
-private:
     /** -------------------------------------------------------
     *  \brief CH0 to U 15V
     */
     float kod_to_U15(float kod)
     {
         float tmp = 0.;
-        
+
         tmp  = 1.011216 * kod;
         tmp /= 100.;
         return tmp;
     }
-    
+
+
     /** -------------------------------------------------------
     *  \brief CH2 to U 5V
     */
     float kod_to_U5(float kod)
     {
         float tmp = 0.;
-        
+
         tmp  = 1.00945 * kod;
         tmp /= 100.;
         return tmp;
     }
-    
+
+
     /** -------------------------------------------------------
     *  \brief CH1 to I,mkA
     */
@@ -221,14 +211,15 @@ private:
         tmp -= 0.05082;
         return tmp;
     }
-    
+
+
     /** -------------------------------------------------------
     *  \brief CH3 to U_Vaccumulators
     */
     float kod_to_Uac(float kod)
     {
         float tmp = 0;
-        
+
         tmp  = 0.01004 * kod;
         tmp += 0.00508;
         return tmp;

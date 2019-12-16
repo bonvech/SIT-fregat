@@ -2,7 +2,7 @@
  * \file sipm.cpp (old hvpstest.cpp)
  * \brief Класс SiPM. Источники высоковольтного напряжения питания ФЭУ. 
  * \date  November 2018. Modified November 2019
- * 
+ *
  * Class SiPM. New version for one VIP for SiPM.
  */
 
@@ -25,7 +25,9 @@ extern char vip_out[1024];
 const int CurKoef = 100;  ///< Coeff to write current as integer
 
 
-/// Class for SIPM board
+/** -------------------------------------------------------------
+ * Class for SIPM board
+ */
 class SiPM : public lvps
 {
 
@@ -153,7 +155,7 @@ int SiPM::self_test()
     }
 
     /// -- write 0 to channels -------------
-    print_debug( (char*)"\n\nWrite 0 to HV channels:\n");
+    print_debug( (char*)"\n\nWrite 0 to HV channels:");
     ii = sipm_addr;
     if(SetChanHigh(ii, 0))  // set high = 0
     {   // error
@@ -315,7 +317,7 @@ int SiPM::high()
 
 
     /// --- search optimal high to provide current =  workcur by increasing high
-    sprintf(debug, "--------------------------------------------------\n\n!!!CHANGE high\n");
+    sprintf(debug, "\n--------------------------------------------------\n!!!CHANGE high");
     print_debug(debug);
 
     // --- change high voltage ----
@@ -367,7 +369,7 @@ int SiPM::high()
 
     // -----------------------
     // measure high in all work channels
-    sprintf(debug, "--------------------------------------------------\n");
+    sprintf(debug, "\n--------------------------------------------------\n");
     print_debug(debug);
     measure_high();
 
@@ -375,7 +377,7 @@ int SiPM::high()
     if(highv == 0)    hvwork[sipm_addr] = 0;
 
     // print results:
-    sprintf(debug,"--------------------------------------------------\n\n Results:_");
+    sprintf(debug,"\n--------------------------------------------------\nResults:_");
     print_debug(debug);
     //sprintf(debug, "\ni = %2i--%2i--%1i, high = %3i", sipm_addr, sipm_addr/2 + 1, sipm_addr%2, highv[sipm_addr]);
     sprintf(debug, "\ni = %2i--%2i--%1i, high = %3i", sipm_addr, sipm_addr/2 + 1, sipm_addr%2, highv);
@@ -493,7 +495,7 @@ unsigned int SiPM::read_vip_ADC(char *message)
     SetChannelAddr(VIP_ADDR); // adress of ADC of vip
     if(!ReadADCs(0,(unsigned int *)&MData))  // read ADC
     {
-        sprintf(debug, "!read_vip_ADC: Error in ADC`s reading\n\n");
+        sprintf(debug, "!Mosaic:read_vip_ADC: Error in ADC`s reading\n\n");
         print_debug(debug);
         return 1;
     }
@@ -517,6 +519,10 @@ unsigned int SiPM::read_vip_ADC(char *message)
     I   = kod_to_I(kod[1], kod[2]);
     T   = kod_to_T(kod[3]);
     current = I;
+
+    // if CH0 - very small (high is off) - show Uemf = CH0/2000
+    if(Up > 30.) //if(kod[0] < 400)
+        Up = float(kod[0]) / 2000.;
 
     /// \todo change vip_out message
     sprintf(debug, "Mosaic: T = %5.1f oC  Up = %6.2f V  Ianode = %5.3f mA   ", T, Up, I);
@@ -570,7 +576,7 @@ int SiPM::check_current()
     //Hvchan = Work.hvchan;
     //current = Work.maxcur;
     Maxcur  = Work.maxcur; // !!!2018 I_to_kod(Work.maxcur);
-    sprintf( debug, "\n < CHECK CURRENT: Maxcur = %.3f mA ", Maxcur);
+    sprintf( debug, "\n < CHECK CURRENT: Maxcur = %.3f mA", Maxcur);
     print_debug(debug);
 
     // -- measure current and off high if current > Maxcur
@@ -588,12 +594,13 @@ int SiPM::check_current()
     current = measure_current();
     pmt_cur[sipm_addr] = int(current * CurKoef);  // pmt_cur[] is integer
 
-    sprintf( debug, "current = %7.3f mA ", current);
+    sprintf( debug, " current = %7.3f mA ", current);
     print_debug(debug);
 
     /// \todo out info for current
     if(ffmin) fprintf(ffmin, "\nSiPM current: %4.2f", current);
-
+    if(ffmin) fflush(ffmin);
+    
     // -- check current > Maxcur
     if( current > Maxcur  ) // if current > MAXCUR
     {
@@ -615,8 +622,6 @@ int SiPM::check_current()
         flag++; // number of channels to OFF
     }
     else n_work ++; // number of ON channels
-
-    fflush(ffmin);
 
     sprintf(debug, "CHECK CURRENT />");
     print_debug(debug);

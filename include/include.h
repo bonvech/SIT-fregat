@@ -27,6 +27,7 @@
 
 #define FILE_NAME      "/home/Tunka/Data/s"            ///< first part of filename to write binary data
 #define LOG_FILE       "/home/Tunka/Data/log/log.txt"  ///< filename to print log
+#define ENABLE_FILE    "/var/www/htdocs/enable.txt"    ///< file to enable status
 #define EVERYMIN_FILE  "/var/www/htdocs/1m.data"       ///< file to write every min log
 #define EVERYSEC_FILE  "/var/www/htdocs/5s.data"       ///< file to write every sec log
 #define LEVELS_FILE    "./config/levels.config"        ///< File to read levels from

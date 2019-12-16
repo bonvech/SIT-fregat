@@ -26,7 +26,9 @@ struct lconfig
 };
 
 
-/// Class for LED board
+/**
+ * Класс led. Class for LED board
+ */
 class led: public i2c
 {
   private:
@@ -164,7 +166,7 @@ void led::SetAddr(unsigned int addr)
 {
     BaseAddr = addr;
     //if(dout) fprintf(stdout, "LED: BaseAddr = %xh\n", BaseAddr);
-    if(dout) fprintf(  dout, " LED: BaseAddr = %xh ", BaseAddr);
+    if(dout) fprintf(  dout, "\n LED: BaseAddr = %xh ", BaseAddr);
 }
 
 
@@ -609,7 +611,7 @@ int led::read_config_from_file()
         }
     }
     fclose(fpar);
-    sprintf(info, "===> end of file \"%s\" <=====\n", LED_FILE);
+    sprintf(info, "\n===> end of file \"%s\" <=====\n", LED_FILE);
     print_debug(info);
     return err; // number of errors
 }

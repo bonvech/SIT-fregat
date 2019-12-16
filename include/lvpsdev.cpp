@@ -1,6 +1,6 @@
 /**
  * \file lvpsdev.cpp
- * \brief Class lvps_dev. Вентиллятор.
+ * \brief Класс lvps_dev. Вентиллятор.
  * \date 05.02.2008
  */
 #ifndef _LVPS_DEV
@@ -12,8 +12,9 @@
 // extern function
 void print_debug(char * message);
 
-
-/// Class for lvps devices
+/** -------------------------------------------------------------
+ * Class for lvps devices
+ */
 class lvps_dev: public lvps
 {
   public:
@@ -27,7 +28,8 @@ class lvps_dev: public lvps
 
     //////////////////////////////////////////////////////////////
     /** -------------------------------------------------------
-    *  \brief read_fadc_temp
+    * \brief read_fadc_temp
+    * \param addr address of temperature sensor
     */
     float read_fadc_temp(unsigned int addr)
     {
@@ -42,7 +44,7 @@ class lvps_dev: public lvps
         }
         Tem1 = kod_2_fadc_temp(Res1);
         //printf("T = %6.2f oC", Tem1); // --- lena
-        if(dout) fprintf(dout, "T=%ikod =%6.2f oC", Res1, Tem1);
+        if(dout) fprintf(dout, "T= %i kod = %6.2f oC ", Res1, Tem1);
         return Tem1;
     }
 
@@ -92,7 +94,7 @@ class lvps_dev: public lvps
         SetChannelAddr(59); // adress of VIP block temperature
         float Tem1 = read_fadc_temp(0x49);
 
-        sprintf(message, "T_power_supply = %5.1f oC", Tem1);
+        sprintf(message, " T_power_sup = %.1f oC", Tem1);
         print_debug(message);
 
         return 0;

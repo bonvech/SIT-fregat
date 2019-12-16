@@ -9,26 +9,26 @@
 
 
 #ifndef _TRIGGER_BOARD
-#define _TRIGGER_BOARD   ///< to avoid multiple including
+#define _TRIGGER_BOARD    ///< to avoid multiple including
 
-#define DATA     0x0224
-#define ADDR     0x0226
+#define DATA     0x0224   ///< data address
+#define ADDR     0x0226   ///< address
 //#define CFG      0x022E
 
 //#define UID      0x0010
-#define TGBTIME  0x0020
-#define TGBNUM   0x0022
-#define TGBCTRL  0x0024
-#define PPSBTIME 0x0028
-#define PPSBNUM  0x002A
-#define PPSBCTRL 0x002C
-#define FIXTIME  0x0030
+#define TGBTIME  0x0020   ///< tg_read_time
+#define TGBNUM   0x0022   ///< tg_b_num
+#define TGBCTRL  0x0024   ///< tg_b_ctrl
+#define PPSBTIME 0x0028   ///< pps_b_time
+#define PPSBNUM  0x002A   ///< pps num in buffer
+#define PPSBCTRL 0x002C   ///< pps_b_num
+#define FIXTIME  0x0030   ///< fix time
 //#define FIXCTRL  0x0034
-#define TGCTRL   0x0044
-#define CFGI     0x0048
-#define CFGO     0x004A
-#define TGLTHR   0x0054  ///< local  trigger
-#define TGGTHR   0x0056  ///< global trigger
+#define TGCTRL   0x0044   ///< trigget ctrl
+#define CFGI     0x0048   ///< config i
+#define CFGO     0x004A   ///< config o
+#define TGLTHR   0x0054   ///< local  trigger
+#define TGGTHR   0x0056   ///< global trigger
 //#define RSRVA    0x0058
 //#define RSRVB    0x005A
 //#define RSRVC    0x005C
@@ -43,7 +43,7 @@
 //#define EVTBCD   0x006C
 
 // channel permit status
-#define EVTENB01 0x0070
+#define EVTENB01 0x0070   ///< trigger channels address
 //#define EVTENB23 0x0072
 //#define EVTENB45 0x0074
 //#define EVTENB67 0x0076
@@ -52,33 +52,37 @@
 //#define EVTENBCD 0x007C
 
 // control bits
-#define POP     6
-#define CLR     5
-#define CLRRPTR 4
-#define CLROVRF 3
+#define POP     6         ///<  register to pop buffer
+#define CLR     5         ///<  register to clear buffer
+#define CLRRPTR 4         ///<  register to clear
+#define CLROVRF 3         ///<  register to clear buffer overfull
 //#define NEMPTY  4
-#define OVRF    3
-#define TGDIS   1
-#define TGEN    1
-#define TGSIM  0
-#define TGINEN 5
-#define TGLEDTGL 9
+#define OVRF    3         ///<  overfull register status
+#define TGDIS   1         ///<  prohibit trigget register
+#define TGEN    1         ///<  permit   trigger register
+#define TGSIM  0          ///<  simulate trigger register
+#define TGINEN 5          ///<  permit  exterior trigger
+#define TGLEDTGL 9        ///<  LED:
 //#define TGLEDSIM 8
 //#define TGOUTTGS 6
-#define TGOUTTGF 5
+#define TGOUTTGF 5        ///<  TGOUTTGF (extra init)
 //#define TGCHTGS  2
-#define TGCHTGF  1
+#define TGCHTGF  1        ///<  TGCHTGF  (extra init)
 
 enum {TG, PPS, FIX};
 
+
+/** -----------------------------------------------------------------------------
+ *  Класс trigger_board. Плата триггера.
+ */
 class trigger_board
 {
   public:
 
-    ssize_t        BIN_size; // size of fpga*.bin file
-    unsigned int   BaseAddr; //, CurAddr ;
-    unsigned short TriggerOnOff[7];  // to store EVTENB data
-    char debug[255];
+    ssize_t        BIN_size;         ///< size of fpga*.bin file
+    unsigned int   BaseAddr;         ///< Base address of trigger
+    unsigned short TriggerOnOff[7];  ///< to store EVTENB data
+    char debug[255];                 ///< debug string
 
 
     // costructor
@@ -101,7 +105,7 @@ class trigger_board
             if(dout) fflush(dout);
             while(1)
             {
-                /// if error in trigger booting
+                // if error in trigger booting
                 /// \todo сделать корректное завершение работы всей программы при невозможности загрузить плату триггера
                 ;
             }
@@ -143,18 +147,21 @@ class trigger_board
     unsigned int pps_read_time(void);
 
   private:
-    unsigned char SetRegOnOff(unsigned short int Addr, unsigned char Reg, unsigned char OnOf);
-    unsigned char CheckReg(unsigned short int Addr, unsigned char Reg);
+    unsigned char  SetRegOnOff(unsigned short int Addr, unsigned char Reg, unsigned char OnOf);
+    unsigned char  CheckReg(unsigned short int Addr, unsigned char Reg);
     unsigned char  boot_trigger_board(void);
     char* read_bin_file(char* buffer);
     int boot_fadc(unsigned int BasAddr, char* buffer);
     int print_binary_to_dbgfile(int number);
 };  // end of class
 
+
+
 //------------ Functions ----------------------------------
 //---------------------------------------------------------
 /** -------------------------------------------------------
- * \brief
+ * \brief  Read Data from trigger address DATA
+ * \return unsigned short int Data
  */
 unsigned short int trigger_board::ReadData()
 {
@@ -166,7 +173,7 @@ unsigned short int trigger_board::ReadData()
 
 
 /** -------------------------------------------------------
- * \brief
+ * \brief Read Address
  */
 unsigned short int trigger_board::ReadAddr()
 {
@@ -178,7 +185,8 @@ unsigned short int trigger_board::ReadAddr()
 
 
 /** -------------------------------------------------------
- * \brief
+ * \brief Write Data to DATA address
+ * \param Data data to write
  */
 int trigger_board::WriteData( unsigned short int Data)
 {
@@ -190,7 +198,8 @@ int trigger_board::WriteData( unsigned short int Data)
 
 
 /** -------------------------------------------------------
- * \brief
+ * \brief Set Address
+ * \param Addr address
  */
 int trigger_board::SetAddr( unsigned short int Addr)
 {
@@ -201,9 +210,11 @@ int trigger_board::SetAddr( unsigned short int Addr)
 }
 
 
-
 /** -------------------------------------------------------
- * \brief
+ * \brief SetRegOnOff
+ * \param Addr  address to set
+ * \param Reg   register to set
+ * \param OnOf  OnOff flag to set
  */
 unsigned char trigger_board::SetRegOnOff(unsigned short int Addr, unsigned char Reg, unsigned char OnOf)
 {
@@ -221,7 +232,7 @@ unsigned char trigger_board::SetRegOnOff(unsigned short int Addr, unsigned char 
 
 
 /** -------------------------------------------------------
- * \brief
+ * \brief CheckReg
  */
 unsigned char trigger_board::CheckReg(unsigned short int Addr, unsigned char Reg)
 {
@@ -280,9 +291,8 @@ unsigned char trigger_board::set_global_threshould(unsigned short int Thre)
 
 
 /** -------------------------------------------------------
- * \brief
+ * \brief OnOff all channels
  */
-/// \brief OnOff all channels
 void trigger_board::OnOff_all_channels(unsigned short int OnOff)
 {
     unsigned int i = 0;
@@ -513,7 +523,7 @@ unsigned char trigger_board::buffer_is_overflow(unsigned short int Kind)
 {
     if(Kind == TG)   return CheckReg(TGBCTRL,  OVRF);
     if(Kind == PPS)  return CheckReg(PPSBCTRL, OVRF);
-    if(dout) fprintf(dout, "\nError in beffer_is_overflow\n");
+    if(dout) fprintf(dout, "\nError in buffer_is_overflow\n");
     return 0;
 }
 

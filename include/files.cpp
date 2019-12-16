@@ -9,7 +9,90 @@
 // extern functions and variables
 void time_to_file();
 void get_time_ms();
+void get_and_print_time();
 extern int FileNum;
+
+
+// this file functions
+int read_enable();
+int write_disable();
+
+void print_debug(char* message);
+void print_status_to_file();
+unsigned int init_data_file(FILE* file, fadc_board &Fadc);
+char new_filename(char *filename, unsigned int filenum);
+void time_to_file();
+void timestamp_to_file(FILE *ff);
+int open_debug_file();
+int open_data_file(fadc_board &Fadc);
+int open_telemetry_files();
+
+
+
+/** -------------------------------------------------------
+ * \brief Read enable message from file.
+ * \return 0    Disable status\n
+ *         1    Enable status\n
+ *        -1    Error in file reading
+ */
+int read_enable()
+{
+    FILE *fin;
+    char line[200];
+    int status = 0;
+
+
+    if((fin = fopen(ENABLE_FILE , "rt")) == NULL)
+    {
+        if(dout) fprintf(dout, "\nEnable status file %s is not open!", ENABLE_FILE);
+        return -1;
+    }
+
+    while( fgets(line, sizeof(line), fin) != NULL )
+    {
+        if( (line[0] == '\n') || (line[0] == '/') )
+        {
+            continue;
+        }
+
+        if(strstr(line, "Disable"))
+            status = 0;
+        if(strstr(line, "Enable"))
+            status = 1;
+    }
+
+    fclose(fin);
+    return status;
+}
+
+
+/** -------------------------------------------------------
+ * \brief Read enable message from file.
+ * \return 0    OK in writing Disable status\n
+ *        -1    Error in file reading
+ */
+int write_disable()
+{
+    FILE * fout;
+    int res = 0;
+
+    res = read_enable();
+
+    // if "Disable" - exit
+    if(res == 0)
+        return 0;
+
+    // write "Disable"
+    if((fout = fopen(ENABLE_FILE , "wt")) == NULL)
+    {
+        if(dout) fprintf(dout, "\nEnable status file %s is not open!", ENABLE_FILE);
+        return -1;
+    }
+
+    fprintf(fout, "Disabled\n");
+    fclose(fout);
+    return 0;
+}
 
 
 /** -------------------------------------------------------
@@ -17,8 +100,8 @@ extern int FileNum;
  */
 void print_debug(char* message)
 {
-    if(stdout != NULL)   printf(     "%s", message);
-    if(dout   != NULL)  fprintf(dout,"%s", message);
+    if(stdout != NULL)  fprintf(stdout,"%s", message);
+    if(dout   != NULL)  fprintf(dout,  "%s", message);
 }
 
 
@@ -29,8 +112,13 @@ void print_status_to_file()
 {
     get_time_ms();
     if(f5sec) f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
-    else      f5sec = fopen(EVERYSEC_FILE, "wt");
-    if(f5sec) fprintf(f5sec,  "%s\n%s\n", time_out, msc_out);
+    else      f5sec =   fopen(EVERYSEC_FILE, "wt");
+
+    if(f5sec == NULL)
+        return;
+
+    fprintf(f5sec,  "%s\n%s\n", time_out, msc_out);
+    //fprintf(dout,  "%s\n%s\n", time_out, msc_out);
     fflush(f5sec);
 }
 
@@ -52,13 +140,13 @@ unsigned int init_data_file(FILE* file, fadc_board &Fadc)
 
     ///     Print BUF2 and CHANMAX to file
     Conv.tInt = Fadc.Buf2; //BUF2;
-    fprintf(file, "b%c%c",Conv.tChar[1], Conv.tChar[0]);
+    fprintf(file, "b%c%c", Conv.tChar[1], Conv.tChar[0]);
     Conv.tInt = CHANMAX;
-    fprintf(file, "c%c%c",Conv.tChar[1], Conv.tChar[0]);
+    fprintf(file, "c%c%c", Conv.tChar[1], Conv.tChar[0]);
 
     ///     Print fadc boards number to file
     Conv.tInt = Fadc.AddrOn[0];
-    fprintf(file, "a%c%c",Conv.tChar[1], Conv.tChar[0]);
+    fprintf(file, "a%c%c", Conv.tChar[1], Conv.tChar[0]);
     fflush(file);
 
     return 0;
@@ -71,7 +159,7 @@ unsigned int init_data_file(FILE* file, fadc_board &Fadc)
  *  Generation of new outdata filename
  *
  * \param *filename  строка для хранения нового имени файла
- * \param filenum    номер файла данных 
+ * \param filenum    номер файла данных
  * example of using:
  *  \code
         char filename[100] = {"\0"};
@@ -95,7 +183,6 @@ char new_filename(char *filename, unsigned int filenum)
 
     sprintf(filename, "%s.%i", filename, filenum);
     printf("nf: %s\n", filename);
-    //printf("new_filename end\n"); fflush(stdout);
 
     return *filename;
 }
@@ -139,20 +226,23 @@ int open_debug_file()
     char filename[100] = {""};
     char info[150] = {""};
 
-    printf("open_debug_file_start"); fflush(stdout);
+    //printf("open_debug_file_start"); fflush(stdout);
     new_filename(filename, 0);
-    printf("%s",filename);
+    //printf("%s",filename);
 
     strcat(filename,".dbg");
     if((dout = fopen(filename, "w")) == NULL)
     {
-        fprintf(stderr, "Debug file is not open!");
+        fprintf(stderr, "\nDebug file %s is not open!", filename);
         return 1;
     }
 
     sprintf(info, "Debug file %s open!\n", filename);
     print_debug(info);
+    get_and_print_time();
+
     if(stdout) fflush(stdout);
+    if( dout ) fflush(dout);
     return 0;
 }
 
@@ -163,22 +253,19 @@ int open_debug_file()
 int open_data_file(fadc_board &Fadc)
 {
     char filename[100] = {"\0"};
-    //char f = *filename;
-
-    // generate new file name
-    //f = new_filename(filename, FileNum++);
+    char debug[100] = "";
+    //  generate new file name
     new_filename(filename, FileNum++);
 
-    // open out data file
-    //if((fout = fopen("/home/data/graph.out", "w+b")) != NULL)
+    //  open out data file
     if((fout = fopen(filename, "w+b")) == NULL)
     {
         if(dout) fprintf(dout, "Data file %s is not open!", filename);
         return 1;  // error
     }
 
-    printf( "File %s open!\n", filename);
-    if(dout) fprintf(dout, "File %s is open!\n", filename);
+    sprintf(debug, "\nFile %s is open!\n", filename);
+    print_debug(debug);
     init_data_file(fout, Fadc);
     return 0;
 }
@@ -195,17 +282,17 @@ int open_telemetry_files()
 
     if((fkadr = fopen("event", "wt")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"kadr\" is not open!");
+        if(dout) fprintf(dout, "\nData file \"kadr\" is not open!");
         n--;  // error
     }
     if((ffmin = fopen(EVERYMIN_FILE, "wt")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"%s\" is not open!", EVERYMIN_FILE);
+        if(dout) fprintf(dout, "\nData file \"%s\" is not open!", EVERYMIN_FILE);
         n--;  // error
     }
     if((f5sec = fopen(EVERYSEC_FILE, "wt")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"%s\" is not open!", EVERYSEC_FILE);
+        if(dout) fprintf(dout, "\nData file \"%s\" is not open!", EVERYSEC_FILE);
         n--;  // error
     }
     return n;

@@ -3,9 +3,9 @@
  *  \brief Калибровочные кривые
  * 
  *  Данный файл содержит в себе функции калибровок 
- *  CH0 - SiPM negative volatge
+ *  CH0 - SiPM negative voltage
  *  CH1 - direct voltage on 1.9V
- *  CH2 - 100Om voltage on 1.9V
+ *  CH2 - 100-Om  voltage on 1.9V
  *  CH3 - temperature detector
  */
 #ifndef _HV_CALIBR

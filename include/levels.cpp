@@ -248,10 +248,12 @@ int print_THR_to_file(void)
 {
     FILE *fthr;
     unsigned char ii = 0, jj = 0;
+    char name[] = "./log/levels.dat";
 
-    if((fthr = fopen("./log/levels.dat", "a")) == NULL)
+
+    if((fthr = fopen(name, "a")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"./log/levels.dat\" is not open!");
+        if(dout) fprintf(dout, "Data file \"%s\" is not open!", name);
         return 1;  // error
     }
 
@@ -266,10 +268,10 @@ int print_THR_to_file(void)
             fprintf(fthr, "%5i\t", THR[ii][jj]);
         }
     }
-    fflush(fthr);
+
     fprintf(fthr, " \n");
     fflush(fthr);
-    printf("levels file closing ... ");
+    printf("levels file %s closing ... ", name);
     fclose(fthr);
     printf(". done \n");
     return 0;
@@ -285,10 +287,11 @@ int print_THR_to_configfile(void)
 {
     FILE *fthr;
     unsigned char ii = 0, jj = 0;
+    char name[] = "./config/levels.config";
 
-    if((fthr = fopen("./config/levels.config", "w")) == NULL)
+    if((fthr = fopen(name, "w")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"./config/levels.config\" is not open!");
+        if(dout) fprintf(dout, "Data file \"%s\" is not open!", name);
         return 1;  // error
     }
 
@@ -306,10 +309,11 @@ int print_THR_to_configfile(void)
             fprintf(fthr, "%5i\t", THR[ii][jj]);
         }
     }
-    fflush(fthr);
+
+    //fflush(fthr);
     fprintf(fthr, " \n");
     fflush(fthr);
-    printf("levels.config file closing ... ");
+    printf("levels.config file  %s closing ... ", name);
     fclose(fthr);
     printf(". done \n");
     return 0;

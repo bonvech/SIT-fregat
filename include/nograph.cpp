@@ -329,6 +329,7 @@ unsigned int read_counters()
     unsigned short count_addr[9] = {8,0xA,0xC,0x1A,0x1C,0x2A,0x2C,0x3A,0x3C};
     FILE *fthr = NULL;
 
+
     printf("\n  R: ");
     if(dout) fprintf(dout,"\n  R: ");
     if(fout) fprintf(fout, "r");

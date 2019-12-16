@@ -1,6 +1,6 @@
 /**
  * \file fadc.cpp
- * \brief Класс fadc
+ * \brief Класс fadc. Базовый для плат FADC.
  * \date 28.09.2006. Modified November 2019
  *
  * Описание класса fadc
@@ -11,10 +11,12 @@
 #define _FADC       ///< to prevent multiple including
 
 
-/// Class for FADC I2C interface
-class fadc: public i2c
+/** -------------------------------------------------------------
+ * Class fadc for FADC I2C interface
+ */
+class fadc : public i2c
 {
- public:
+  public:
     // constructor
     fadc()
     {

@@ -17,7 +17,7 @@
 
 
 int  read_chan_from_file(unsigned short *trig, unsigned short *hvtrig);
-struct time_onoff read_date_from_file();
+struct time_onoff  read_date_from_file();
 int  read_param_from_file(input_parameters &Param);
 int  print_param(input_parameters Param, FILE *ff);
 int  set_default_parameters(input_parameters &Param);
@@ -62,7 +62,7 @@ int read_input_files()
     Work.timeOnOff = read_date_from_file();
     if(Work.timeOnOff.time_on < 10)
     {
-        printf("DATA PANIC!!!!!\nError in reading DATE information!!!\n Check file \"config/sdate.inp\"!");
+        print_debug((char*)"\n\nDATA PANIC!!!!!\nError in reading DATE information!!!\n Check file \"config/sdate.inp\"!");
         return -1;
     }
 
@@ -75,27 +75,27 @@ int read_input_files()
     }
     else
     {
-        if(fscanf(fe,"%d", &EventNumber) != 1) 
+        if(fscanf(fe, "%d", &EventNumber) != 1) 
         {
             printf("File \"trans.config\" cannot be read! \nEvent numeration start from 0! ");
-            EventNumber = 0;                
+            EventNumber = 0;
         }
         fclose (fe);
     }
-    printf("\nEvent numeration starts from %d", EventNumber);
-    if(dout) fprintf(dout, "\nEvent numeration starts from %d", EventNumber);
+    sprintf(info, "\nEvent numeration starts from %d", EventNumber);
+    print_debug(info);
 
     /// -- set defaults parameters 
     init_param();
     set_default_parameters(Default);
-    if(dout) fprintf(dout, "Defaults:");
+    if(dout) fprintf(dout, "\nDefaults:");
     print_param(Default, dout);
 
     /// -- read input parameters
     res = read_param_from_file(Input);
     if(res != 0)
     {
-        sprintf(info, "Errors in read %s file: %i\n", PARAM_FILE, res);
+        sprintf(info, "\n\nErrors in read %s file: %i\n", PARAM_FILE, res);
         print_debug(info);
     }
 
@@ -236,13 +236,13 @@ struct time_onoff read_date_from_file()
     //  Open file with start-stop dates
     if((fdate = fopen( DATE_FILE, "r")) == NULL)
     {
-        printf("\n  Error: file \"%s\" is not open!\n", DATE_FILE);
-        if(dout) fprintf(dout, "\n  Error: file \"%s\" is not open!\n", DATE_FILE);
+        sprintf(buf,"\n  Error: file \"%s\" is not open!\n", DATE_FILE);
+        print_debug(buf);
         tmin.time_on = 1;
         return tmin;
     }
-    printf("\n\n\n\nfile \"%s\" is open!\n", DATE_FILE);
-    if(dout) fprintf(dout, "===> read dates from \"%s\"  <=====\n", DATE_FILE);
+    sprintf(line, "===> read dates from \"%s\"  <=====\n", DATE_FILE);
+    print_debug(line);
 
     //  Get actial time
     time(&time0);
@@ -306,7 +306,8 @@ struct time_onoff read_date_from_file()
 
     if(tmin.time_on == time0)
     {
-        printf("Error: No time to start!!! \n");
+        sprintf(line, (char*)"Error: No time to start!!! \n");
+        print_debug(line);
         tmin.time_on = 0;
         return tmin;
     }

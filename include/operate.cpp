@@ -4,31 +4,35 @@
  * Функции, выполняемые во время основного цикла измерений. Вентиллятор.
  */
 
-
-#define TERMOSTAB 21.0  ///< Temperature to stabilize
-#define VENT_MAX 254    ///< Ventillator max code
-#define VENT_ON  253    ///< Ventillator work code
-#define SEC5 10         ///< time delta to make 5sec file
-#define SEC60 60        ///< time delta to make every minute file
+#define  TERMOSTAB     21.0    ///< Temperature to stabilize
+#define  TERMOSTAT_INN 15.0    ///< Temperature to stabilize with inner ventillator
+#define  TERMOSTAT_OUT 26.0    ///< Temperature to stabilize with outer ventillator
+#define  VENT_MAX       254    ///< Ventillator max code
+#define  VENT_ON        253    ///< Ventillator work code
+#define  SEC5            10    ///< time delta to make 5sec file
+#define  SEC60           60    ///< time delta to make every minute file
 
 
 int FileNum = 0;        ///< number of output data file
-int NumBar  = 3;        ///< number of barometers in use
+int NumBar  = 2;        ///< number of barometers in use
 unsigned int  sec5 = 0; ///<  number to make flag to write 5sec file
 char debug[100];        ///< debug string
 
 
-
 // --- functions --- 
-int Every_sec(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent);
+int Every_sec(fadc_board &Fadc, trigger_board &Trigger, lvps_dev &Vent);
 int Every_min(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[]);
+void Every_min_mini(SiPM &vip, lvps_dev &Vent, led &LED, barometer Bar[]);
 unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger,  SiPM &Vip);
 int simulate_event(fadc_board &Fadc, trigger_board &Trigger);
 int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED);
 int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent);
 unsigned short Operate(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[]);
-void print_time();
+
+void get_and_print_time();
 void get_time_ms();
+void print_time_ms(FILE *ff);
+
 int check_current(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger);
 int check_temperature(fadc_board &Fadc, lvps_dev &Vent);
 int read_threshould_from_file();
@@ -45,13 +49,13 @@ int print_everymin_parameters(FILE *fileout);
 // ================= Every_sec  ==================
 /** -------------------------------------------------------
  * \brief Every second function to control parameters
- * \todo delete vip from arguments
+ * //\todo delete vip from arguments
  * \todo check Trigger functions
  *
  * Reading of compass, GPS, inclinometer, temperature.\n
  * Every SEC5 seconds writes info to file '5s.data' and debug file
  */
-int Every_sec(fadc_board &Fadc,       SiPM &vip,
+int Every_sec(fadc_board &Fadc,
               trigger_board &Trigger, lvps_dev &Vent)
 {
     sec5 ++;
@@ -86,20 +90,25 @@ int Every_sec(fadc_board &Fadc,       SiPM &vip,
  * Read the temperature, barometers, ventillator, LED.\n
  * Every min writes info to files '1m.data' and debug
  */
-void Every_min_mini(lvps_dev &Vent, led &LED, barometer Bar[])
+void Every_min_mini(SiPM &vip, lvps_dev &Vent, led &LED, barometer Bar[])
 {
     //FILE *flog = NULL;
+    print_debug((char*)"\n======== every min mini =========\n");
 
     /// -- read barometers
     bars_read(LED, Bar, bar_out);
 
     /// -- read other parameters
+    vip.read_vip_ADC(vip_out);
     Vent.read_vip_ADC(adc_out);
     Vent.read_power_temp(pwr_out);
     LED.read_ADC(led_out);
 
     /// -- print all parameters to stdout
     if(stdout) print_everymin_parameters(stdout);
+    print_debug((char*)"\n");
+    print_debug(msc_out);
+
 
     // -- print all parameters to file EveryMin
     ffmin = freopen(EVERYMIN_FILE, "wt", ffmin);
@@ -117,6 +126,7 @@ void Every_min_mini(lvps_dev &Vent, led &LED, barometer Bar[])
         fclose(flog);
     }
  */
+    print_debug((char*)"\n======== every min mini end =====\n");
 }
 
 
@@ -451,26 +461,37 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger)
  *
  *  Проверяет время. Запускает процедуры каждую секунду, минуту и период.\n
  *  Проверяет буфер. Считывает события.\n
- *  Читает входной командный файл. Прекрацает выполнение, если поступила команда.
+ *  Читает входной командный файл. 
+ *  Прекрацает выполнение, если поступила команда во входной файл или закончилось время работы.
  *
- *  \return 0 - OK\n
- *          код команды - если читался командный файл
+ *  \return 0 - time is off\n
+ *          1 - exit or high Off in command file
+ *          2 - levels
+ *          3 - Disable status
  */
 unsigned short Operate(
     fadc_board &Fadc, SiPM &vip, trigger_board &Trigger,
     lvps_dev &Vent, led &LED, barometer Bar[])
 {
     struct timeval tv00, tv0min, tv0sec, tv1;
+    struct tm* ptm0;
     unsigned int   kadr = 0, res = 0, ii = 0;
     unsigned char  dk   = 0;
-    char info[255]  = "";
+    char info[255]  = "Info init string";
     char debug[255] = "";
-    long period = 300; // sec - period
-    time_t timeoff = 0;
-    timeoff = Work.timeOnOff.time_of;
-    period  = Work.period;
+    long period = Work.period; //300; // sec - period
+    time_t timeoff = Work.timeOnOff.time_of;
 
+
+    // print stop time to message
+    ptm0 = localtime(&Work.timeOnOff.time_of);
+    strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
+    sprintf(msc_out, "Status: Operation. Waiting for stop time: %s", info);
+    print_status_to_file();
+
+    Every_min_mini(vip, Vent, LED, Bar);
     Before(Fadc, vip, Trigger, Vent, LED);
+
     gettimeofday(&tv00, NULL);
     tv0sec.tv_sec = tv00.tv_sec;
     tv0min.tv_sec = tv00.tv_sec;
@@ -478,12 +499,14 @@ unsigned short Operate(
     while(1)
     {
         gettimeofday(&tv1, NULL);
+
         // --- Every sec
-        if((tv1.tv_sec-tv0sec.tv_sec)>0)
+        if((tv1.tv_sec-tv0sec.tv_sec) > 0)
         {
-            Every_sec(Fadc, vip, Trigger, Vent);
+            Every_sec(Fadc, Trigger, Vent);
             gettimeofday(&tv0sec, NULL);
         }
+
         // --- Every min
         if((tv1.tv_sec-tv0min.tv_sec) > 60)
         {
@@ -493,6 +516,7 @@ unsigned short Operate(
             tv0min.tv_sec = tv1.tv_sec;
             printf("Every min end\n====================\n\n");
         }
+
         // --- Period
         if((tv1.tv_sec-tv00.tv_sec) > period)
         {
@@ -507,14 +531,7 @@ unsigned short Operate(
             print_debug(debug);
         }
 
-        // --- Run finished -> exit
-        if( tv1.tv_sec > timeoff )
-        { 
-            print_debug((char*)"Time Off!!\n");
-            goto STOP;
-        }
-
-        // --- new events !!
+        // --- New events !!
         if(Trigger.buffer_is_not_empty(TG) )
         { 
             if (Fadc.read_buffer_flag())    //if there is data in FADC buffers
@@ -529,12 +546,17 @@ unsigned short Operate(
             print_debug(debug);
         }
 
-        // ---------   read command file -----------
+
+        // --- Read command file 
         res = read_command_file();
-        if(res > 0)
+        if(res != 0)
         {
-                if(stdout) fprintf(stdout, "read_command_file: %d commands\n", res);
-                if(  dout) fprintf(  dout, "read_command_file: %d commands\n", res);
+            sprintf(debug, "read_command_file: %d commands\n", res);
+            print_debug(debug);
+            if(res < 0) 
+                res = 0;
+            else
+            {
                 for(ii = 1; ii <= res; ii++)
                 {
                     strcpy(info,"");
@@ -561,10 +583,24 @@ unsigned short Operate(
                     print_debug(info);
                     goto STOP;
                 }
-        }
-        // --------- end of read command file -----------
-        res = 0;
+                res = 0;
+            }
+        } // --------- end of read command file -----------
 
+        // --- Run finished -> exit
+        if( tv1.tv_sec > timeoff )
+        { 
+            print_debug((char*)"Time Off!!\n");
+            goto STOP;
+        }
+
+        // ---  Read status file, if Disable - exit
+        res = read_enable();
+        if(res == 0) // if Disable
+        {
+            res = 3;
+            goto STOP;
+        }
     }   // end of while
 
 STOP:
@@ -575,11 +611,11 @@ STOP:
 
 
 /** -------------------------------------------------------
- *  \brief print time with milliseconds to stdout and debug file
- * 
- *  Print actual time to stdout and debug file
+ *  \brief Get and print time with milliseconds to stdout and debug file
+ *
+ *  Get and print actual time with milliseconds to stdout and debug file
  */
-void print_time()
+void get_and_print_time()
 {
     struct timeval tv;
     struct tm* ptm;
@@ -590,8 +626,8 @@ void print_time()
     ptm = localtime (&tv.tv_sec);
     strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", ptm);
     milliseconds = tv.tv_usec/1000;
-    printf("%s.%03ld\n", time_string, milliseconds);
-    if(dout) fprintf(dout, "%s.%03ld\n", time_string, milliseconds);
+    sprintf(time_string, "%s.%03ld\n", time_string, milliseconds);
+    print_debug(time_string);
 }
 
 
@@ -667,7 +703,7 @@ int check_current(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger)
  *          1 - error in termometere\par
  *  Check temperature in the electronic box and correct it with ventillator
  */
-int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
+int check_temperature_old(fadc_board &Fadc, lvps_dev &Vent)
 {
     float delta = 0, tt = 0.;
     struct temp Now;
@@ -688,6 +724,7 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
         Now.high_out = Last.high_out;
         if(!Now.high_out) Now.high_out = VENT_ON;
         if(!Now.high_inn) Now.high_inn = VENT_ON;
+
         // OUT vent
         //
         delta = Now.temp_top - TERMOSTAB;
@@ -710,6 +747,7 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
                 if(Now.high_out > VENT_ON) Now.high_out --;
             }
         }
+
         // control the temperature delta
         // INN vent
         delta = Now.temp_top - Now.temp_bot;
@@ -740,6 +778,108 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
     if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n",
         Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
     //if(!(sec5 % SEC5)) if(f5sec) fprintf(f5sec, "B: %.1f T: %.1f\n",         Now.temp_bot, Now.temp_top);
+
+    Last.temp_top = Now.temp_top;
+    Last.temp_bot = Now.temp_bot;
+    Last.high_inn = Now.high_inn;
+    Last.high_out = Now.high_out;
+    return 0;
+}
+
+
+/** -------------------------------------------------------
+ *  \brief  check_temperature in electronic box
+ *  \return 0 - OK\par
+ *          1 - error in termometer\par
+ *  Check temperature in the electronics box and correct it with two ventillators
+ */
+int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
+{
+    float delta = 0;
+    struct temp Now;
+    float temp_aver = 0;
+
+
+    //  read temperature
+    Now.temp_bot = Fadc.read1_average_fadc_temp(0x49); // bottom
+    Now.temp_top = Fadc.read1_average_fadc_temp(0x4A); // top
+    temp_aver = 0.5 * (Now.temp_bot + Now.temp_top);
+
+    //  if error in termometere
+    if( Now.temp_bot < -95) return 1;
+    if( Now.temp_top < -95) return 1;
+
+
+    //  Inner ventillator, control the temperature delta inside the electronics box
+    Now.high_inn = Last.high_inn;
+    delta = abs(Now.temp_top - Now.temp_bot);
+
+    if( temp_aver < TERMOSTAT_INN)
+    {
+        Now.high_inn = 0;
+    }
+    //  if temperature is > TERMOSTAT_INN = 15 grad
+    else
+    {
+        //  ON inn ventillator
+        if(delta >= 3.0)
+        {
+            if(!Now.high_inn)
+                Now.high_inn = VENT_ON;
+        }
+        if(delta > 5.0)
+        {
+            Now.high_inn ++;
+        }
+        else
+        {
+            //  decrease inn vent
+            if( Now.high_inn > VENT_ON)
+                Now.high_inn --;
+            //  stop inn vent
+            if(delta < 1.5)
+                Now.high_inn = 0;
+        }
+    }
+
+
+    // Outer ventillator, control outer temp
+    Now.high_out = Last.high_out;
+    delta = temp_aver - TERMOSTAT_OUT;
+    if( delta > 0 )
+    {
+        // ON out ventillator
+        if(!Now.high_out)
+            Now.high_out = VENT_ON;
+
+        if(delta > 2.0)
+        {
+            Now.high_out ++;
+        }
+        else if(delta < 1.0)
+        {
+            if(Now.high_out > VENT_ON)
+                Now.high_out --;
+        }
+    }
+    else
+    {
+        if(delta <= -1.0)
+            Now.high_out = 0;
+    }
+
+
+    //  Check max amplidude
+    if(Now.high_inn > VENT_MAX)        Now.high_inn = VENT_MAX;
+    if(Now.high_out > VENT_MAX)        Now.high_out = VENT_MAX;
+
+    //  If there are changes - set new high code
+    if(Now.high_inn - Last.high_inn)   Vent.set_inn_vent(Now.high_inn);
+    if(Now.high_out - Last.high_out)   Vent.set_out_vent(Now.high_out);
+
+    if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n",
+        Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
+    //if(!(sec5 % SEC5)) if(f5sec) fprintf(f5sec, "B: %.1f T: %.1f\n", Now.temp_bot, Now.temp_top);
 
     Last.temp_top = Now.temp_top;
     Last.temp_bot = Now.temp_bot;
@@ -1069,7 +1209,8 @@ int print_everymin_parameters(FILE *fileout)
 
     time(&t);
     fprintf(fileout, "%s%s\n%s", ctime(&t), vip_out, bar_out); //, incl_out);
-    fprintf(fileout, "%s\n%s%s\n", led_out, adc_out, pwr_out);
+    fprintf(fileout, "%s%s\n", adc_out, pwr_out);
+    //fprintf(fileout, "%s\n%s%s\n", led_out, adc_out, pwr_out);
     //fprintf(fileout, "-----------------------\n");
     return 0;
 }

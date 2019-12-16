@@ -84,6 +84,7 @@ int read_input_files()
     }
     sprintf(info, "\nEvent numeration starts from %d", EventNumber);
     print_debug(info);
+    LastEventNumber = EventNumber;
 
     /// -- set defaults parameters 
     init_param();

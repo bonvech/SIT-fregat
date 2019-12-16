@@ -49,14 +49,15 @@ int print_everymin_parameters(FILE *fileout);
 // ================= Every_sec  ==================
 /** -------------------------------------------------------
  * \brief Every second function to control parameters
- * //\todo delete vip from arguments
- * \todo check Trigger functions
+ * \todo  check Trigger functions
  *
- * Reading of compass, GPS, inclinometer, temperature.\n
+ * Reading and check temperature in electronics box.\n
  * Every SEC5 seconds writes info to file '5s.data' and debug file
  */
-int Every_sec(fadc_board &Fadc,
-              trigger_board &Trigger, lvps_dev &Vent)
+int Every_sec(  fadc_board    &Fadc,
+                trigger_board &Trigger,
+                lvps_dev      &Vent
+             )
 {
     sec5 ++;
     check_temperature(Fadc, Vent);
@@ -65,15 +66,18 @@ int Every_sec(fadc_board &Fadc,
     {
         get_time_ms();
 
+        // write to file
         f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
         if(f5sec)
         {
-            fprintf(f5sec, "%s\n%s\n", time_out, msc_out);
-            fprintf(f5sec, "Temperatures: B: %.1f T: %.1f\n", Last.temp_bot, Last.temp_top);
+            fprintf(f5sec, "%s\n%s\n%s", time_out, msc_out, kadr_out);
+            fprintf(f5sec, "Temperatures: B: %.1f T: %.1f", Last.temp_bot, Last.temp_top);
             fflush(f5sec);
         }
+
         if(stdout) printf("\r");
         print_debug(time_out);
+        fprintf(dout, "\n");
     }
 
     Trigger.pps_read_time();
@@ -90,9 +94,12 @@ int Every_sec(fadc_board &Fadc,
  * Read the temperature, barometers, ventillator, LED.\n
  * Every min writes info to files '1m.data' and debug
  */
-void Every_min_mini(SiPM &vip, lvps_dev &Vent, led &LED, barometer Bar[])
+void Every_min_mini(SiPM &vip,
+                    lvps_dev &Vent,
+                    led &LED,
+                    barometer Bar[]
+                   )
 {
-    //FILE *flog = NULL;
     print_debug((char*)"\n======== every min mini =========\n");
 
     /// -- read barometers
@@ -118,14 +125,6 @@ void Every_min_mini(SiPM &vip, lvps_dev &Vent, led &LED, barometer Bar[])
         fflush(ffmin);
     }
 
-/*
-    // -- print all parameters to Log file
-    if((flog = fopen(LOG_FILE, "at")) != NULL)
-    {
-        print_everymin_parameters(flog);
-        fclose(flog);
-    }
- */
     print_debug((char*)"\n======== every min mini end =====\n");
 }
 
@@ -136,16 +135,19 @@ void Every_min_mini(SiPM &vip, lvps_dev &Vent, led &LED, barometer Bar[])
  * Reading of temperature, current, trigger status, barometers, vip, ventillator,  mosaic temperature.\n
  * Every min writes info to files '1m.data' and debug
  */
-int Every_min(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[])
+int Every_min(  fadc_board &Fadc,
+                SiPM       &vip,
+                trigger_board &Trigger,
+                lvps_dev   &Vent,
+                led        &LED,
+                barometer  Bar[]
+             )
 {
-    int  dk = 0;
-    //FILE *flog = NULL;
-
     Trigger.trigger_prohibit();
     get_time_ms();
 
     check_temperature(Fadc, Vent);
-    dk = check_current(Fadc, vip,  Trigger);
+    int dk = check_current(Fadc, vip,  Trigger);
     Trigger.status();
     Trigger.pps_read_time();
     Trigger.pps_read_time();
@@ -157,10 +159,16 @@ int Every_min(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Ven
     vip.read_vip_ADC(vip_out);
     Vent.read_power_temp(pwr_out);
     Vent.read_vip_ADC(adc_out);
-
     LED.read_ADC(led_out);
 
+    // calculate event frequence
+    int dn = EventNumber-LastEventNumber;
+    sprintf(freq_out, "F_events = %.2f Hz", (float)dn/60.);
+    print_debug(freq_out);
+    LastEventNumber = EventNumber;
+
     // --- stdout: print all  parameters --------
+    print_debug((char*) "\n");
     print_everymin_parameters(stdout);
     print_everymin_parameters(  dout);
 
@@ -169,23 +177,15 @@ int Every_min(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Ven
     if(ffmin)
     {
         print_everymin_parameters(ffmin);
+        //fprintf(ffmin, "%s", freq_out);
         fflush(ffmin);
     }
-
-/*
-*   // ------ log: print all  parameters --------
-    if((flog = fopen(LOG_FILE, "at")) != NULL)
-    {
-        print_everymin_parameters(flog);
-        fclose(flog);
-    }
-    */
 
     fflush(stdout);
     fflush(  dout);
 
     if(dk == 2) return 2; // no channels to trigger
-    //if(dk < 2) return 2;  // no channels to trigger
+
     Trigger.trigger_permit();
     return 0;
 }
@@ -330,7 +330,10 @@ int simulate_event(fadc_board &Fadc, trigger_board &Trigger)
  *  \brief Get event if there is any event in buffer
  *  \return number of detected events
  */
-unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, SiPM &Vip)
+unsigned char GetEvent( fadc_board    &Fadc,
+                        trigger_board &Trigger,
+                        SiPM          &Vip
+                      )
 {
     unsigned char Over = 0, Err = 0, num = 0;
     struct timeval tv0 = {0};
@@ -350,7 +353,7 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger, SiPM &Vip)
             Trigger.trigger_prohibit();
             Fadc.prohibit_channels();
             Over = 1;
-            print_debug((char*) " Over = 1\n");
+            print_debug((char*) "\nOver = 1\n");
         }
     }
 
@@ -469,9 +472,12 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger)
  *          2 - levels
  *          3 - Disable status
  */
-unsigned short Operate(
-    fadc_board &Fadc, SiPM &vip, trigger_board &Trigger,
-    lvps_dev &Vent, led &LED, barometer Bar[])
+unsigned short Operate(fadc_board &Fadc,
+                       SiPM       &vip,
+                       trigger_board &Trigger,
+                       lvps_dev   &Vent,
+                       led        &LED,
+                       barometer  Bar[])
 {
     struct timeval tv00, tv0min, tv0sec, tv1;
     struct tm* ptm0;
@@ -503,6 +509,7 @@ unsigned short Operate(
         // --- Every sec
         if((tv1.tv_sec-tv0sec.tv_sec) > 0)
         {
+            sprintf(kadr_out, "N_events = %d\n", kadr);
             Every_sec(Fadc, Trigger, Vent);
             gettimeofday(&tv0sec, NULL);
         }
@@ -511,7 +518,8 @@ unsigned short Operate(
         if((tv1.tv_sec-tv0min.tv_sec) > 60)
         {
             printf("\n\n====================\nEvery min");
-            if( Every_min(Fadc, vip, Trigger, Vent, LED, Bar) == 2) goto STOP;
+            if( Every_min(Fadc, vip, Trigger, Vent, LED, Bar) == 2)
+                goto STOP;
             gettimeofday(&tv1, NULL);
             tv0min.tv_sec = tv1.tv_sec;
             printf("Every min end\n====================\n\n");
@@ -604,6 +612,8 @@ unsigned short Operate(
     }   // end of while
 
 STOP:
+    kadr_out[0] = '\0';
+    freq_out[0] = '\0';
     After(Fadc, vip, Trigger, Vent);
     printf("\n");
     return res;
@@ -1212,7 +1222,8 @@ int print_everymin_parameters(FILE *fileout)
 
     time(&t);
     fprintf(fileout, "%s%s\n%s", ctime(&t), vip_out, bar_out); //, incl_out);
-    fprintf(fileout, "Computer: %s%s\n", pwr_out, adc_out);
+    fprintf(fileout, "Computer:%s%s\n", pwr_out, adc_out);
+    fprintf(fileout, "%s", freq_out);
     //fprintf(fileout, "%s\n%s%s\n", led_out, adc_out, pwr_out);
     //fprintf(fileout, "-----------------------\n");
     return 0;

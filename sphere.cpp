@@ -106,6 +106,8 @@ WAIT_ENABLE:
     }
 
     // Enable to run or command start in command file
+    sprintf(msc_out, "Status: Boot FADC");
+    print_status_to_file();
     Fadc.boot();
 
 
@@ -246,6 +248,8 @@ int wait_start_time(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_de
     sprintf(msc_out, "Status: Waiting for start time: %s", info);
     print_status_to_file();
 
+    Every_min_mini(vip, Vent, LED, Bar);
+
     gettimeofday(&tv1,    NULL);
     tv0sec.tv_sec = tv1.tv_sec;
     tv0min.tv_sec = tv1.tv_sec;
@@ -316,6 +320,10 @@ int wait_enable(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &V
     char   info[200] = "Info init string";
     struct tm*     ptm0;
     struct timeval tv1, tv0sec, tv0min;
+
+    kadr_out[0] = '\0';
+    freq_out[0] = '\0';
+    Every_min_mini(vip, Vent, LED, Bar);
 
     // print status to info status message
     ptm0 = localtime(&Work.timeOnOff.time_of);

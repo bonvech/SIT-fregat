@@ -136,10 +136,9 @@ FILE *ffmin;  ///< every min file
 FILE *f5sec;  ///< every 5min file
 
 
-//int  fgps;
 int  EventNumber = 0;       ///< number of current event
+int  LastEventNumber = 0;   ///< number of start event of current min
 int  commandin[21] = {0};   ///< command from file string
-
 
 char vip_out[1024]  = "Mosaic is not available now";  ///< vip ADC info string
 char time_out[100]  = "time_out init string";         ///< time_ms info string 
@@ -147,6 +146,8 @@ char adc_out[1024]  = "adc_out init string";          ///< Vent ADC info string
 char pwr_out[1024]  = "pwr_out init string";          ///< power info string
 char msc_out[1024]  = "msc_out init string";          ///< info string
 char bar_out[1024]  = "bar_out init string";          ///< barometer info string
+char freq_out[256]  = "frequency init string";        ///< event frequency info string
+char kadr_out[256]  = "event counter init string";        ///< event frequency info string
 char led_out[4096]  = "led_out init string";          ///< LED info string
 char gps_bstamp[30] = "gps_bstamp init string";       ///< gps_bstamp info string
 char gps_sstamp[30] = "gps_sstamp init string";       ///< gps_sstamp info string
@@ -157,15 +158,12 @@ char gps_sstamp[30] = "gps_sstamp init string";       ///< gps_sstamp info strin
  */
 #include "bit.cpp"
 #include "ioports.cpp"
-//#include "i2c.cpp"
 #include "lvpsdev.cpp"
-//#include "fadc.cpp"
 #include "fadcbord.cpp" //includes "levels.cpp"
 #include "trigger.cpp"
-#include "lvpsdev.cpp"
 #include "sipm.cpp"
 #include "readinp.cpp"
 #include "led.cpp"
 #include "bar.cpp"
 #include "files.cpp"
-#include "operate.cpp" // uncludes "nograph.cpp"
+#include "operate.cpp" // includes "nograph.cpp"

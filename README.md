@@ -1,3 +1,4 @@
 # SIT-fregat
-<img src="SIT_intro_small.png" name="Small Image Telescope" align="centr" width="20%">
+<img src="SIT_intro_small.png" name="Small Image Telescope" width="20%">
+
 Software for SIT detector.

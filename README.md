@@ -1,3 +1,3 @@
 # SIT-fregat
 Software for SIT detector.
-<image>SIT_Fregat_small.jpg</image>
+<img src="SIT_intro_small.jpg" name="Small Image Telescope" align="centr" width="100%">

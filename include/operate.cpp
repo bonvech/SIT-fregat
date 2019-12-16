@@ -975,7 +975,10 @@ unsigned int bars_read(led &LED, barometer Bar[], char *message_out)
         Bar[i].read_bar_temp(message);
         LED.bar_onoff(0);
 
-        sprintf(tmp, "%i %s", i, message);
+        if(i == 0)
+            sprintf(tmp, "Inn %s", message);
+        else
+            sprintf(tmp, "Out %s", message);
         strcat(message_out, tmp);
     }
 
@@ -1209,7 +1212,7 @@ int print_everymin_parameters(FILE *fileout)
 
     time(&t);
     fprintf(fileout, "%s%s\n%s", ctime(&t), vip_out, bar_out); //, incl_out);
-    fprintf(fileout, "%s%s\n", adc_out, pwr_out);
+    fprintf(fileout, "Computer: %s%s\n", pwr_out, adc_out);
     //fprintf(fileout, "%s\n%s%s\n", led_out, adc_out, pwr_out);
     //fprintf(fileout, "-----------------------\n");
     return 0;

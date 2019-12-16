@@ -525,7 +525,7 @@ unsigned int SiPM::read_vip_ADC(char *message)
         Up = float(kod[0]) / 2000.;
 
     /// \todo change vip_out message
-    sprintf(debug, "Mosaic: T = %5.1f oC  Up = %6.2f V  Ianode = %5.3f mA   ", T, Up, I);
+    sprintf(debug, "Mosaic:   T = %5.1f °C  U = %6.3f V  I = %5.3f mA   ", T, Up, I);
     print_debug(debug);
     strcpy(message, debug);
 

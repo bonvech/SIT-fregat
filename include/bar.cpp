@@ -344,7 +344,7 @@ int barometer::calc_bar_temp(unsigned int pp, unsigned int tt, char *message)
 
     /// \ todo Correct pressure info format
     //sprintf(message, "Bar:  T[ %5i ] = %5.1f C  P[ %5i ] = %6.2f kPa (%4.1f mm w)\n", tt, T, pp, P/100, P/0.981);
-    sprintf(message, "Bar:  T = %5.1f oC  P = %6.2f kPa\n", T, P/100);
+    sprintf(message, "Bar:  T = %5.1f °C  P = %6.2f kPa\n", T, P/100);
     print_debug(message);
 
     return P;

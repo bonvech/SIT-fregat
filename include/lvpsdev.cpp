@@ -96,6 +96,7 @@ class lvps_dev: public lvps
 
         sprintf(message, " T_power_sup = %.1f oC", Tem1);
         print_debug(message);
+        sprintf(message, " T = %5.1f °C", Tem1);
 
         return 0;
     }
@@ -147,6 +148,7 @@ class lvps_dev: public lvps
         //printf("U15=%6.2fV   U5=%4.2fV  Uac=%6.2fV  I=%6.2fA\n ", U15, U5, Uac, I);
         sprintf(message, "Computer block: U5 = %4.2f V  Uac = %5.2f V  I = %4.2f A  ", U5, Uac, I);
         print_debug(message);
+        sprintf(message, "  U5 = %4.2f V    Uac = %5.2f V    I = %4.2f A ", U5, Uac, I);
 
         return 0;
     }

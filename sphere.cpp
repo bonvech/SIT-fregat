@@ -325,16 +325,32 @@ int wait_enable(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &V
     freq_out[0] = '\0';
     Every_min_mini(vip, Vent, LED, Bar);
 
+
+    // -----------------------------------------------
     // print status to info status message
+    sprintf(msc_out, "Status: Waiting for ENABLE ");
+
+    gettimeofday(&tv1, NULL);
+    // if now is before start time
+    if(tv1.tv_sec < Work.timeOnOff.time_on)
+    {
+        // print start time to info status message
+        ptm0 = localtime(&Work.timeOnOff.time_on);
+        strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
+        strcat(msc_out, "and Start time: ");
+        strcat(msc_out, info);
+    }
+
+    // print stop time
     ptm0 = localtime(&Work.timeOnOff.time_of);
     strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
-    sprintf(msc_out, "Status: Waiting for ENABLE or Stop time: %s", info);
-    print_status_to_file();
+    strcat(msc_out, "  or Stop time: ");
+    strcat(msc_out, info);
+
 
     gettimeofday(&tv1, NULL);
     tv0sec.tv_sec = tv1.tv_sec;
     tv0min.tv_sec = tv1.tv_sec;
- 
     while(tv1.tv_sec < Work.timeOnOff.time_of)
     {
         gettimeofday(&tv1, NULL);

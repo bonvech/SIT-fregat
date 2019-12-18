@@ -612,7 +612,7 @@ unsigned short Operate(fadc_board &Fadc,
     }   // end of while
 
 STOP:
-    kadr_out[0] = '\0';
+    //kadr_out[0] = '\0';
     freq_out[0] = '\0';
     After(Fadc, vip, Trigger, Vent);
     printf("\n");

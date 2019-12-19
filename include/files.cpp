@@ -280,11 +280,6 @@ int open_telemetry_files()
 {
     int n = 0;
 
-    if((fkadr = fopen("event", "wt")) == NULL)
-    {
-        if(dout) fprintf(dout, "\nData file \"kadr\" is not open!");
-        n--;  // error
-    }
     if((ffmin = fopen(EVERYMIN_FILE, "wt")) == NULL)
     {
         if(dout) fprintf(dout, "\nData file \"%s\" is not open!", EVERYMIN_FILE);

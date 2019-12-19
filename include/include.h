@@ -136,7 +136,7 @@ Work;     ///< Structure of parameters to work with
 FILE *dout;   ///< debug out file
 FILE *fwork;  ///< debug out file
 FILE *fout;   ///< data out file
-FILE *fkadr;  ///< one event file
+//FILE *fkadr;  ///< one event file
 FILE *ffmin;  ///< every min file
 FILE *f5sec;  ///< every 5min file
 

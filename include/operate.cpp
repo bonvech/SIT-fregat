@@ -8,7 +8,7 @@
 #define  TERMOSTAT_INN 15.0    ///< Temperature to stabilize with inner ventillator
 #define  TERMOSTAT_OUT 26.0    ///< Temperature to stabilize with outer ventillator
 #define  VENT_MAX       254    ///< Ventillator max code
-#define  VENT_ON        253    ///< Ventillator work code
+#define  VENT_ON        220    ///< Ventillator work code
 #define  SEC5            10    ///< time delta to make 5sec file
 #define  SEC60           60    ///< time delta to make every minute file
 
@@ -780,13 +780,13 @@ int check_temperature_old(fadc_board &Fadc, lvps_dev &Vent)
             }
         }
     }
+
     if(Now.high_inn > VENT_MAX) Now.high_inn = VENT_MAX;
     if(Now.high_out > VENT_MAX) Now.high_out = VENT_MAX;
     if(Now.high_inn - Last.high_inn)   Vent.set_inn_vent(Now.high_inn);
     if(Now.high_out - Last.high_out)   Vent.set_out_vent(Now.high_out);
 
-    if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n",
-        Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
+    if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
     //if(!(sec5 % SEC5)) if(f5sec) fprintf(f5sec, "B: %.1f T: %.1f\n",         Now.temp_bot, Now.temp_top);
 
     Last.temp_top = Now.temp_top;

@@ -503,7 +503,6 @@ void close_ports_and_files()
     print_status_to_file();
 
     /// Close files
-    if(fkadr)  fclose(fkadr);
     if(f5sec)  fclose(f5sec);
     if(ffmin)  fclose(ffmin);
     if(dout)   fclose(dout);

@@ -176,6 +176,8 @@ int Every_min(  fadc_board &Fadc,
     print_debug((char*) "\n");
     print_everymin_parameters(stdout);
     print_everymin_parameters(  dout);
+    fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
+
 
     // --- ffmin: print all  parameters --------
     ffmin = freopen(EVERYMIN_FILE, "wt", ffmin);

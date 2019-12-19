@@ -138,7 +138,7 @@ class lvps_dev: public lvps
         // Print data result
         //printf("\nread_vip_ADC: ");
         //printf("CH0[%3i]  CH1[%3i]  CH2[%3i]  CH3[%3i]\n\n", kod[0], kod[1],kod[2],kod[3]);
-        if(dout) fprintf(dout, "\nComputer block: CH0[%3i] CH1[%3i] CH2[%3i] CH3[%3i]   CH0-CH2=[%4i]\n\n", kod[0], kod[1],kod[2],kod[3], kod[0]-kod[2]);
+        if(dout) fprintf(dout, "\nComputer block: CH0[%3i] CH1[%3i] CH2[%3i] CH3[%3i]   CH0-CH2=[%4i]", kod[0], kod[1],kod[2],kod[3], kod[0]-kod[2]);
 
         //U15 = kod_to_U15(kod[0]);
         I   = kod_to_I(  kod[1]);
@@ -146,7 +146,7 @@ class lvps_dev: public lvps
         Uac = kod_to_Uac(kod[3]);
 
         //printf("U15=%6.2fV   U5=%4.2fV  Uac=%6.2fV  I=%6.2fA\n ", U15, U5, Uac, I);
-        sprintf(message, "Computer block: U5 = %4.2f V  Uac = %5.2f V  I = %4.2f A  ", U5, Uac, I);
+        sprintf(message, "\nComputer block: U5 = %4.2f V  Uac = %5.2f V  I = %4.2f A  ", U5, Uac, I);
         print_debug(message);
         sprintf(message, "  U5 = %4.2f V    Uac = %5.2f V    I = %4.2f A ", U5, Uac, I);
 

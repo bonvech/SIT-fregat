@@ -71,12 +71,15 @@ int Every_sec(  fadc_board    &Fadc,
         if(f5sec)
         {
             fprintf(f5sec, "%s\n%s\n%s", time_out, msc_out, kadr_out);
-            fprintf(f5sec, "Temperatures: B: %.1f T: %.1f", Last.temp_bot, Last.temp_top);
+            //fprintf(f5sec, "Temperatures: B: %.1f T: %.1f", Last.temp_bot, Last.temp_top);
+            fprintf(f5sec, "Temperatures: B: %.1f T: %.1f ou: %i in: %i", 
+                                Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
             fflush(f5sec);
         }
 
         if(stdout) printf("\r");
         print_debug(time_out);
+        //fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
         fprintf(dout, "\n");
     }
 
@@ -111,8 +114,10 @@ void Every_min_mini(SiPM &vip,
     Vent.read_power_temp(pwr_out);
     LED.read_ADC(led_out);
 
+
     /// -- print all parameters to stdout
     if(stdout) print_everymin_parameters(stdout);
+    fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
     print_debug((char*)"\n");
     print_debug(msc_out);
 
@@ -887,9 +892,7 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
     if(Now.high_inn - Last.high_inn)   Vent.set_inn_vent(Now.high_inn);
     if(Now.high_out - Last.high_out)   Vent.set_out_vent(Now.high_out);
 
-    if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n",
-        Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
-    //if(!(sec5 % SEC5)) if(f5sec) fprintf(f5sec, "B: %.1f T: %.1f\n", Now.temp_bot, Now.temp_top);
+    //if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
 
     Last.temp_top = Now.temp_top;
     Last.temp_bot = Now.temp_bot;

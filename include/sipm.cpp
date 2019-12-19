@@ -508,7 +508,7 @@ unsigned int SiPM::read_vip_ADC(char *message)
         }
     }
 
-    sprintf(debug, "\nMosaic: measure_high: CH0[%3i] CH1[%3i] CH2[%3i] CH3[%3i]\n", 
+    sprintf(debug, "Mosaic: measure_high: CH0[%3i] CH1[%3i] CH2[%3i] CH3[%3i]\n", 
                             kod[0], kod[1], kod[2], kod[3]);
     print_debug(debug);
 

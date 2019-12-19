@@ -166,7 +166,7 @@ void led::SetAddr(unsigned int addr)
 {
     BaseAddr = addr;
     //if(dout) fprintf(stdout, "LED: BaseAddr = %xh\n", BaseAddr);
-    if(dout) fprintf(  dout, "\n LED: BaseAddr = %xh ", BaseAddr);
+    //if(dout) fprintf(  dout, "\n LED: BaseAddr = %xh ", BaseAddr);
 }
 
 
@@ -448,7 +448,7 @@ int led::read_ADC(char *message)
     char mes[100];
     //float dp = 0.;
 
-    strcpy(message, "LED: ");
+    strcpy(message, "\nLED: ");
     SetAddr(BaseAddrLED + 0x000E);
     if(!ReadADCs(0x00, (unsigned int*)&Data))
     {

@@ -148,7 +148,7 @@ int Every_min(  fadc_board &Fadc,
 
     check_temperature(Fadc, Vent);
     int dk = check_current(Fadc, vip,  Trigger);
-    Trigger.status();
+    //Trigger.status();
     Trigger.pps_read_time();
     Trigger.pps_read_time();
 
@@ -261,7 +261,7 @@ int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent)
 {
     /// Prohibit trigger
     Trigger.trigger_prohibit();
-    Trigger.status();
+    //Trigger.status();
 
     /// Stop FADC counters
     //Fadc.print_THR_to_file();
@@ -402,7 +402,7 @@ unsigned char GetEvent( fadc_board    &Fadc,
         Vip.print_currents_to_binary(fout);
 
         // -- print fadc data to event file
-        Fadc.get_event(i);
+        Fadc.get_event();
         fprintf(fout, "</K%05d>", EventNumber);
         //fprintf(fout, "%s", event_out);
         fflush(fout);

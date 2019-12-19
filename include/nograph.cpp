@@ -15,90 +15,32 @@ public:
  * \param flag    write (0) or not (not 0) to file fkadf with name Event\n
  * \return 0
  */
-unsigned int get_event(int flag)
+unsigned int get_event()
 {
     unsigned char a = 0;
     unsigned int i = 0, j = 0, dj = 0;
     short int fadc_data = 0;
-    unsigned short int kadr_data = 0;
+    //unsigned short int kadr_data = 0;
 
     fprintf(fout, "k");
-    if(!flag)
-    {
-        //Conv.tInt = STROBE - STROBB; //Buf2; //BUF2;
-        //fprintf(fkadr, "b%c%c",Conv.tChar[1], Conv.tChar[0]);
-        fprintf(fkadr, "%d ", STROBE - STROBB);
-        //Conv.tInt = CHANMAX;
-        //fprintf(fkadr, "c%c%c",Conv.tChar[1], Conv.tChar[0]);
-        fprintf(fkadr, "%d ", CHANMAX);
-        fprintf(fkadr, "k\n");
-    }
     read_3RG(); // read registers 3 times
 
     for(a = 1; a <= AddrOn[0]; a++)
     {
         BaseAddr = AddrOn[a];
-        //fprintf(fkadr, "FADC = %d\n", a);
         for (i = 0; i < Buf2; i++)
         {
             for(j = 0; j < CHANMAX; j++)
             {
                 dj = (2 * (int)(j % 4)) + 0x10 * (int)(j/4);
-                //fadc_data = ( inw( BaseAddr+dj ) & 1023);  // read word
                 fadc_data = ( inw( BaseAddr + dj ) );  // read word
                 Conv.tInt = fadc_data;
                 fprintf(fout, "%c%c", Conv.tChar[1], Conv.tChar[0]); // print to file
-
-                // ----- print kadr to virtual event file
-                if(!flag)
-                {
-                    //if(j%2)
-                    //{
-                        //if((i > STROBB) && (i <= STROBE)) 
-                        //{
-                            //fprintf(fkadr, "%c%c", Conv.tChar[1], Conv.tChar[0]); // print to file
-                            kadr_data = fadc_data;
-                            fprintf(fkadr, "%d ", kadr_data); // print to file
-                        //}
-                    //}
-                }
-#ifdef PIEDESTAL
-                if(i < 6)
-                {
-                    fadc_data = fadc_data  & 1023;  // read word
-                    printf( " %3i", fadc_data);
-                    if(dout) fprintf(dout, " %3i", fadc_data);
-                }
-#endif
             }
-            if(!flag)
-                fprintf(fkadr, "\n");
-
-#ifdef PIEDESTAL
-            if(i < 6)
-            {
-                print_debug((char*)"\n");
-            }
-#endif
         }
-        if(!flag)
-            fprintf(fkadr, "\n");
-
-#ifdef PIEDESTAL
-        print_debug((char*)"==========\n");
-#endif
     }
 
-#ifdef PIEDESTAL
-    printf( "\n");
-#endif
     //fflush(fout);
-
-    if(!flag) 
-    {
-        fprintf(fkadr, "eof\n");
-        fflush(fkadr);
-    }
     return 0;
 }
 

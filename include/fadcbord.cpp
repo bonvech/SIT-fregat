@@ -32,6 +32,7 @@ public:
     unsigned int   AddrOn[16]; ///< Adresses of FADC boards
     unsigned int   SerNum[16]; ///< Serial numbers of FADC boards
     ssize_t        BIN_size;   ///< Size of file with firmware
+    unsigned short Buf1;       ///< Trigger shift size
     unsigned short Buf2;       ///< Buffer size
     unsigned short RG1put;     ///< RG1put ???
 
@@ -40,6 +41,7 @@ public:
     {
         //short kk;
         BIN_size = 0;
+        Buf1 = Work.buf1;
         Buf2 = Work.buf2;
         RG1put = 0;
 

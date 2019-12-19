@@ -453,7 +453,7 @@ int read_param_from_file(input_parameters &Param)
             else      err++;
             continue;
         }
-        // 2012: params for Hamamatsu
+/*        // 2012: params for Hamamatsu
         if( !strcmp(buf,"H_UMAX") ) // for Hamamatsu PMT
         {
             kk = sscanf(line, "%s %hu", buf, &uspar);
@@ -497,18 +497,26 @@ int read_param_from_file(input_parameters &Param)
             continue;
         }
         // end of 2012: params for Hamamatsu
+*/
+        if( !strcmp(buf,"BUF1") )
+        {
+            kk = sscanf(line, "%s %hu", buf,&uspar);
+            if(kk > 1)    Param.buf1 = uspar;
+            else          err++;
+            continue;
+        }
         if( !strcmp(buf,"BUF2") )
         {
             kk = sscanf(line, "%s %hu", buf,&uspar);
             if(kk > 1)    Param.buf2 = uspar;
-            else      err++;
+            else          err++;
             continue;
         }
         if( !strcmp(buf,"HVCHAN") )
         {
             kk = sscanf(line, "%s %hu", buf, &uspar);
             if(kk > 1)    Param.hvchan = uspar;
-            else      err++;
+            else          err++;
             continue;
         }
         if( !strcmp(buf,"ONSCREEN") )
@@ -660,7 +668,7 @@ int print_param(input_parameters Param, FILE *ff)
     fprintf(ff, "%s", info);
     //    print_debug(info);
 
-    // 2012: params for Hamamatsu
+/*    // 2012: params for Hamamatsu
     sprintf(info, "H_Umax    %4u\n", Param.h_umax);
     fprintf(ff, "%s", info);
     //    print_debug(info);
@@ -679,7 +687,10 @@ int print_param(input_parameters Param, FILE *ff)
     sprintf(info, "H_CHAN   %4u\n", Param.h_chan);
     fprintf(ff, "%s", info);
     //    print_debug(info);
-
+*/
+    sprintf(info, "BUF1    %4u\n", Param.buf1 );
+    fprintf(ff, "%s", info);
+    //    print_debug(info);
     sprintf(info, "BUF2    %4u\n", Param.buf2 );
     fprintf(ff, "%s", info);
     //    print_debug(info);
@@ -711,32 +722,35 @@ int init_param()
 {
     Work.maxcur  = 0.01;  // mA
     Work.workcur = 0.01;  // mA
-    Work.period  = 0;  //1200; // sec
-    Work.buf2    = 510;// fadc buffer size
-    Work.lmin    = 0;  // min level in fadc channel
+    Work.period  = 0;     //1200; // sec
+    Work.buf1    = 130;   //  buffer size
+    Work.buf2    = 510;   // fadc buffer size
+    Work.lmin    = 0;     // min level in fadc channel
     Work.lmax    = 8190;  // max level in fadc channel
-    Work.umax    = 255;  // max U_high in hv channel
-    Work.umin    = 0;  // min U_high in hv channel
-    // 2012: for Hamamatsu
-    Work.h_umax  = 155;  // max U_high in hv channel
-    Work.h_umin  = 100;  // min U_high in hv channel
-    Work.h_maxcur  = 10.0;  // mA
-    Work.h_workcur = 6.0;  // mA
-    Work.h_vip  = 53;  // max U_high in hv channel
-    Work.h_chan = 1;   // min U_high in hv channel
+    Work.umax    = 255;   // max U_high in hv channel
+    Work.umin    = 0;     // min U_high in hv channel
+/*    // 2012: for Hamamatsu
+    Work.h_umax  = 155;   // max U_high in hv channel
+    Work.h_umin  = 100;   // min U_high in hv channel
+    Work.h_maxcur  = 10.0;// mA
+    Work.h_workcur = 6.0; // mA
+    Work.h_vip  = 53;     // max U_high in hv channel
+    Work.h_chan = 1;      // min U_high in hv channel
+*/
     // end of Hamamatsu
-    Work.rate    = 0.0; // rate in one channel
-    Work.hvchan  = 0;  // number of vip channels
-    Work.onscreen = 100; // printf to screen(1) or no (0)
-    Work.master  = 0;  // printf to screen(1) or no (0)
-    Work.wait    = 0;  // printf to screen(1) or no (0)
-    Work.wait    = 1;  // printf to screen(1) or no (0)
+    Work.rate    = 0.0;   // rate in one channel
+    Work.hvchan  = 0;     // number of vip channels
+    Work.onscreen = 100;  // printf to screen(1) or no (0)
+    Work.master  = 0;     // printf to screen(1) or no (0)
+    Work.wait    = 0;     // printf to screen(1) or no (0)
+    Work.wait    = 1;     // printf to screen(1) or no (0)
 
     // --- init input parameters ---
     Input.maxcur  = 0.01;  // mA
     Input.workcur = 0.01;  // mA
     Input.period  = 0;  //1200; // sec
-    Input.buf2    = 0;
+    Input.buf1    = 130;
+    Input.buf2    = 510;
     Input.lmin    = 0;  // min level in fadc channel
     Input.lmax    = 0;  // max level in fadc channel
     Input.umax    = 0;  // max U_high in hv channel
@@ -747,14 +761,14 @@ int init_param()
     Input.master  = 0;    // printf to screen(1) or no (0)
     Input.wait    = 100;  // printf to screen(1) or no (0)
     Input.off     = 100;  // printf to screen(1) or no (0)
-    // 2012: for Hamamatsu
+/*    // 2012: for Hamamatsu
     Input.h_umax  = 0;  // max U_high in hv channel
     Input.h_umin  = 0;  // min U_high in hv channel
     Input.h_maxcur  = 0.01;  // mA
     Input.h_workcur = 0.01;  // mA
     Input.h_vip  = 0;  // max U_high in hv channel
     Input.h_chan = 0;  // min U_high in hv channel
-
+*/
     return 0;
 }
 
@@ -779,6 +793,9 @@ int set_work_parameters()
 
     if(Input.period)  Work.period = Input.period;
     else              Work.period = Default.period;
+
+    if(Input.buf1)    Work.buf1 = Input.buf1;
+    else              Work.buf1 = Default.buf1;
 
     if(Input.buf2)    Work.buf2 = Input.buf2;
     else              Work.buf2 = Default.buf2;
@@ -818,7 +835,7 @@ int set_work_parameters()
     if(Input.off != 100) Work.off = Input.off;
     else                 Work.off = Default.off;
 
-    // ----------- 2012: for Hamamatsu ------
+/*    // ----------- 2012: for Hamamatsu ------
     if(Input.h_umax) Work.h_umax = Input.h_umax;
     else             Work.h_umax = Default.h_umax;
     if(Input.h_umin) Work.h_umin  = Input.h_umin ;
@@ -831,7 +848,7 @@ int set_work_parameters()
     else             Work.h_vip  = Default.h_vip ;
     if(Input.h_chan) Work.h_chan  = Input.h_chan ;
     else             Work.h_chan  = Default.h_chan ;
-
+*/
     return 0;
 }
 
@@ -862,6 +879,7 @@ int set_default_parameters(input_parameters &Param)
     Param.maxcur  = MAXCURR;  // mA
     Param.workcur = WORKCURR;  // mA
     Param.period  = 300;   //1200; // sec
+    Param.buf1    = BUF1; //130;
     Param.buf2    = BUFF2; //512;
     Param.lmin    = 1;    // min level in fadc channel
     Param.lmax    = 8192; // max level in fadc channel
@@ -874,13 +892,13 @@ int set_default_parameters(input_parameters &Param)
     Param.gmaster  =  0; // master global
     Param.wait    =  1;
     Param.off     =  1;
-    // 2012: for Hamamatsu
+/*    // 2012: for Hamamatsu
     Param.h_umax  = 151;  // max U_high in hv channel
     Param.h_umin  = 51;  // min U_high in hv channel
     Param.h_maxcur  = 51.0;  // mA
     Param.h_workcur = 4.0;  // mA
     Param.h_vip  = 53;  // max U_high in hv channel
     Param.h_chan = 1;  // min U_high in hv channel
-
+*/
     return 0;
 }

@@ -144,8 +144,8 @@ unsigned int start_fadc_boards()
     for(i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];
-        set_RGs( BUF1, BaseAddr+2);   //ADC1(5,9,13)/DP
-        set_RGs( BUF1, BaseAddr+6);   //ADC3(7,11,15)/DP
+        set_RGs( Buf1, BaseAddr+2);   //ADC1(5,9,13)/DP
+        set_RGs( Buf1, BaseAddr+6);   //ADC3(7,11,15)/DP
         set_RGs( TRG2, BaseAddr+8);   //RG0(3,6,9)
         set_RGs( Buf2, BaseAddr+12);  //RG2(5,8,11)   // 
 

@@ -103,22 +103,27 @@ struct input_parameters
     time_t   period;                   ///< period to change data files and checvk apparatus, 1200 sec
     unsigned short trigger_onoff[112]; ///< channels trigger array
     unsigned short hvtrig[112];        ///< hv triggers
-    unsigned short buf2;    ///< buf2 
+    unsigned short buf1;    ///< Trigger shift size
+    unsigned short buf2;    ///< FADC Buffer size
     unsigned short master;  ///< trigger
     unsigned short gmaster; ///< global trigger
     unsigned short lmin;    ///< min level in fadc channel
     unsigned short lmax;    ///< max level in fadc channel
     unsigned char  umax;    ///< max U_high in hv channel
     unsigned char  umin;    ///< min U_high in hv channel
+/*
     unsigned char  h_umax;  ///< max U_high for HAMAMATSU
     unsigned char  h_umin;  ///< min U_high for HAMAMATSU
     unsigned char  h_vip;   ///< for HAMAMATSU
     unsigned char  h_chan;  ///< for HAMAMATSU
+    */
     float rate;             ///< rate in one channel
     float maxcur;           ///< maximal current
     float workcur;          ///< work current
-    float h_maxcur;         ///< max current for HAMAMATSU  
+/*
+ *  float h_maxcur;         ///< max current for HAMAMATSU  
     float h_workcur;        ///< work current for HAMAMATSU
+ */
     int hvchan;             ///< number of vip channels
     int onscreen;           ///< printf to screen(1) or no (0)
     int wait;               ///< wait begin time or start now

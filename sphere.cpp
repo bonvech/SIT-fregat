@@ -83,6 +83,7 @@ READ_START_TIME:
 
     //  Read start time from file
     Work.timeOnOff = read_date_from_file();
+    if(dout) fflush(dout);
     if(Work.timeOnOff.time_on < 10)
     {
         print_debug((char*)"\n\nDATA PANIC!!!!!\nError in reading DATE information!!!\n Check file \"config/sdate.inp\"!");
@@ -97,6 +98,7 @@ READ_START_TIME:
 WAIT_ENABLE:
 
     res = wait_enable(Fadc, vip, Trigger, Vent, LED, Bar);
+    if(dout) fflush(dout);
     if(res == 1) // exit command
         goto EXIT;
     if(res == 2) // Time off
@@ -116,8 +118,11 @@ WAIT_ENABLE:
     // -------------------------------------
 
     res = wait_start_time(Fadc, vip, Trigger, Vent, LED, Bar);
+    if(dout) fflush(dout);
     if(res == 1)  // Exit command
         goto EXIT;
+    if(res == 2)  // DISABLE
+        goto WAIT_ENABLE;
 
 
     // -------------------------------------
@@ -127,6 +132,7 @@ WAIT_ENABLE:
 LEVELS:
 
     res = prepare_for_measurements(Fadc, vip, Trigger, Vent, LED, Bar);
+    if(dout) fflush(dout);
     if(res == 1) // Exit command
         goto EXIT;
 
@@ -136,6 +142,7 @@ LEVELS:
 
     // Main Operation loop
     res = Operate(Fadc, vip, Trigger, Vent, LED, Bar);
+    if(dout) fflush(dout);
 
     if(res == 2) // levels
         goto LEVELS;
@@ -159,6 +166,7 @@ EXIT:
 
     sprintf(msc_out, "Status: Exit. Turn off VIP and FADC");
     print_status_to_file();
+    if(dout) fflush(dout);
 
     ///     Turn off VIP and FADC
     if( Work.off)
@@ -231,7 +239,8 @@ int open_ports_and_files()
 /** -----------------------------------------------
  * Wait programm start
  * \return 0 - time to start\n
- *         1 - time to exit: exit command in command file
+ *         1 - time to exit: exit command in command file\n
+ *         2 - DISABLE status
  * 
  */
 int wait_start_time(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED, barometer Bar[])
@@ -276,6 +285,12 @@ int wait_start_time(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_de
             tv0min.tv_sec = tv1.tv_sec;
         }
 
+        ///  Read status file
+        res = read_enable();
+        // if DISABLE - exit
+        if(res == 0)
+            return 2;
+
         ///  Read command file
         res = 0;
         res = read_command_file();
@@ -290,6 +305,7 @@ int wait_start_time(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_de
                 {
                     strcpy(info, "\ncommand EXIT in file\n");
                     print_debug(info);
+                    if(dout) fflush(dout);
                     //goto EXIT;
                     return 1;
                 }
@@ -299,10 +315,13 @@ int wait_start_time(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_de
                     Work.wait = 0;
                 }
                 print_debug(info);
+                if(dout) fflush(dout);
             }
         }
         //  end of read command file
     }
+    print_debug((char*) "Exit from wait_start_time()\n");
+    if(dout) fflush(dout);
     return 0;
 }
 
@@ -346,7 +365,7 @@ int wait_enable(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &V
     strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
     strcat(msc_out, "  or Stop time: ");
     strcat(msc_out, info);
-
+    print_status_to_file();
 
     gettimeofday(&tv1, NULL);
     tv0sec.tv_sec = tv1.tv_sec;
@@ -406,6 +425,8 @@ int wait_enable(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &V
         }
         //  end of read command file
     }
+    print_debug((char*) "Exit form wait_enable()\n");
+    if(dout) fflush(dout);
     return 2; // time off
 }
 

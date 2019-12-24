@@ -991,9 +991,9 @@ unsigned int bars_read(led &LED, barometer Bar[], char *message_out)
         LED.bar_onoff(0);
 
         if(i == 0)
-            sprintf(tmp, "IN  %s", message);
+            sprintf(tmp, "In  %s", message);
         else
-            sprintf(tmp, "OUT %s", message);
+            sprintf(tmp, "Out %s", message);
         strcat(message_out, tmp);
     }
 

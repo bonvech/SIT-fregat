@@ -650,8 +650,8 @@ void trigger_board::pop_buffer(unsigned short int Kind)
 /** -------------------------------------------------------
  * \brief read PPS signal every second
  * \return:  (unsigned int) pps time\n
- *           errors:   0 - no pps\n
- *           (-1) - pps overfull
+ *            0 - error: no pps \n
+ *           -1 - error: pps overfull
  */
 unsigned int trigger_board::pps_read_time(void)
 {
@@ -676,7 +676,7 @@ unsigned int trigger_board::pps_read_time(void)
             SetRegOnOff(PPSBCTRL,  POP,     1);
             SetRegOnOff(PPSBCTRL,  POP,     0);
         }
-        return 0;
+        return -1;
     }
 
     // read number of PPS in buffer
@@ -713,7 +713,6 @@ unsigned int trigger_board::pps_read_time(void)
 
     //fprintf(stdout, "----------------------------------> PPS: %xh\n", trigtime);
     return trigtime;
-
 }
 
 

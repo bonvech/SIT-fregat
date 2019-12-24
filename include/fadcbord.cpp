@@ -51,12 +51,11 @@ public:
 
     //  Methods
 private:
-    int   init(void);
-    int   boot_fadc_boards(void);
-    char* read_bin_file(char* buffer);
-    int   boot_fadc(unsigned int BasAddr, char* buffer);
     int   init_fadc_boards(void);
+    int   boot_fadc(unsigned int BasAddr, char* buffer);
+    int   boot_fadc_boards(void);
     int   test_boards_are_boot(void);
+    char* read_bin_file(char* buffer);
     unsigned char read_from_registers(void);
     unsigned char write_to_registers(void);
     unsigned char Read1ResReg(unsigned char AddrDev, unsigned char AddrReg, unsigned short *RegRes);
@@ -64,6 +63,7 @@ private:
     float kod_2_fadc_temp(unsigned int kod);
 
 public:
+    int   init(void);
     int   boot(void);
     int   test_fadc_boards(void);
     float read1_average_fadc_temp(unsigned int addr);
@@ -91,7 +91,7 @@ int fadc_board::init(void)
 
     BaseAddr = FADC_IO; // address of FADC
 
-    sprintf(info, "\nBaseAddr = %x\n", BaseAddr);
+    sprintf(info, "\nFADC BaseAddr = %x\n", BaseAddr);
     print_debug(info);
 
     /// Init FADC boards
@@ -108,13 +108,13 @@ int fadc_board::init(void)
 
     /// Test if FADC boards are boot
     ll = test_boards_are_boot();
-    sprintf(info,"\n  Result:   %i board(s) are booted\n\n", ll);
+    sprintf(info,"\n  Result:   %i board(s) are booted\n", ll);
     print_debug(info);
 
     // ---------------------------
     /// Test boards
     kk = test_fadc_boards();
-    sprintf(info,"  Result:   %i board(s) are tested\n\n", kk);
+    sprintf(info,"  Result:   %i board(s) are tested\n", kk);
     print_debug(info);
 
     /// Start boards

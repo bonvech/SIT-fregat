@@ -110,6 +110,7 @@ WAIT_ENABLE:
     // Enable to run or command start in command file
     sprintf(msc_out, "Status: Boot FADC");
     print_status_to_file();
+    Fadc.init();
     Fadc.boot();
 
 

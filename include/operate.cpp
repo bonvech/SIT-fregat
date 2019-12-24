@@ -722,7 +722,7 @@ int check_current(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger)
  */
 int check_temperature_old(fadc_board &Fadc, lvps_dev &Vent)
 {
-    float delta = 0, tt = 0.;
+/*    float delta = 0, tt = 0.;
     struct temp Now;
 
     Now.temp_bot = Fadc.read1_average_fadc_temp(0x49); // bottom
@@ -801,6 +801,7 @@ int check_temperature_old(fadc_board &Fadc, lvps_dev &Vent)
     Last.high_inn = Now.high_inn;
     Last.high_out = Now.high_out;
     return 0;
+    */
 }
 
 

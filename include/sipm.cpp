@@ -737,8 +737,8 @@ void SiPM::check_turn_off(void)
     unsigned int   kod[10] = {0};
 
     print_debug( (char*) "\n<VIP_OFF check:\n");
-    //ii = VIP_ADDR * 2 + VIP_SUBADDR;
-    for(ii = 0; ii < Hvchan; ii++)
+    ii = VIP_ADDR * 2 + VIP_SUBADDR;
+    //for(ii = 0; ii < Hvchan; ii++)
     {
         //if(!hvwork[ii])  continue; if no working channel
         SetChannelAddr(int(ii/2));

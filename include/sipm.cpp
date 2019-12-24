@@ -694,7 +694,7 @@ void SiPM::turn_off(void)
 {
     unsigned char ii = VIP_ADDR * 2 + VIP_SUBADDR;
 
-    print_debug( (char*) "\n<VIP_OFF:\n");
+    print_debug( (char*) "\n<VIP_OFF:");
     SetChannelAddr(int(ii/2));
     SetSubAddr(ii%2);
 
@@ -732,11 +732,11 @@ void SiPM::turn_off(void)
 void SiPM::check_turn_off(void)
 {
     unsigned char ii = 0, iii = 0;
-    int Hvchan = HVDIM;
+    //int Hvchan = HVDIM;
     unsigned int   MData[4] = {0};
     unsigned int   kod[10] = {0};
 
-    print_debug( (char*) "\n<VIP_OFF check:\n");
+    print_debug( (char*) "\n<VIP_OFF check:");
     ii = VIP_ADDR * 2 + VIP_SUBADDR;
     //for(ii = 0; ii < Hvchan; ii++)
     {
@@ -751,7 +751,7 @@ void SiPM::check_turn_off(void)
         {
             sprintf(debug, " !check_turn_off: Error in ADC`s reading");
             print_debug(debug);
-            continue;
+            //continue;
         }
 
         for(iii=0; iii<4; iii++)
@@ -772,6 +772,5 @@ void SiPM::check_turn_off(void)
         }
         usleep(100000); //0.1 sec
     }
-
     print_debug( (char*)  "\nVIP_OFF_CHECK>\n");
 }

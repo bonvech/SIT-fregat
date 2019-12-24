@@ -800,8 +800,8 @@ int check_temperature_old(fadc_board &Fadc, lvps_dev &Vent)
     Last.temp_bot = Now.temp_bot;
     Last.high_inn = Now.high_inn;
     Last.high_out = Now.high_out;
-    return 0;
     */
+    return 0;
 }
 
 

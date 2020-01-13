@@ -48,6 +48,45 @@ int print_everymin_parameters(FILE *fileout);
 //================================================
 // ================= Every_sec  ==================
 /** -------------------------------------------------------
+ * \brief Every second function to control parameters of turned off detector
+ *
+ * Reading and check temperature in electronics box.\n
+ * Every SEC5 seconds writes info to file '5s.data' and debug file
+ */
+int Every_sec_mini(  fadc_board    &Fadc,
+                trigger_board &Trigger,
+                lvps_dev      &Vent
+             )
+{
+    sec5 ++;
+    check_temperature(Fadc, Vent);
+
+    if(!(sec5 % SEC5))
+    {
+        get_time_ms();
+
+        // write to file
+        f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
+        if(f5sec)
+        {
+            fprintf(f5sec, "%s\n%s\n%s", time_out, msc_out, kadr_out);
+            //fprintf(f5sec, "Temperatures: B: %.1f T: %.1f", Last.temp_bot, Last.temp_top);
+            fprintf(f5sec, "Temperatures: B: %.1f T: %.1f ou: %i in: %i", 
+                                Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
+            fflush(f5sec);
+        }
+
+        //if(stdout) printf("\r");
+        //print_debug(time_out);
+        //fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
+        //fprintf(dout, "\n");
+    }
+
+    return 0;
+}
+
+
+/** -------------------------------------------------------
  * \brief Every second function to control parameters
  * \todo  check Trigger functions
  *
@@ -104,6 +143,9 @@ void Every_min_mini(SiPM &vip,
                    )
 {
     print_debug((char*)"\n======== every min mini =========\n");
+    get_time_ms();
+    print_debug(time_out);
+    fprintf(dout, "\n");
 
     /// -- read barometers
     bars_read(LED, Bar, bar_out);

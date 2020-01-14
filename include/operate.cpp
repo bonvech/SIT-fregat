@@ -8,7 +8,7 @@
 #define  TERMOSTAT_INN 15.0    ///< Temperature to stabilize with inner ventillator
 #define  TERMOSTAT_OUT 26.0    ///< Temperature to stabilize with outer ventillator
 #define  VENT_MAX       254    ///< Ventillator max code
-#define  VENT_ON        220    ///< Ventillator work code
+#define  VENT_ON        180    ///< Ventillator min work code
 #define  SEC5            10    ///< time delta to make 5sec file
 #define  SEC60           60    ///< time delta to make every minute file
 
@@ -856,9 +856,8 @@ int check_temperature_old(fadc_board &Fadc, lvps_dev &Vent)
 int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
 {
     float delta = 0;
-    struct temp Now;
     float temp_aver = 0;
-
+    struct temp Now;
 
     //  read temperature
     Now.temp_bot = Fadc.read1_average_fadc_temp(0x49); // bottom
@@ -872,14 +871,10 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
 
     //  Inner ventillator, control the temperature delta inside the electronics box
     Now.high_inn = Last.high_inn;
-    delta = abs(Now.temp_top - Now.temp_bot);
+    delta = fabs(Now.temp_top - Now.temp_bot);
 
-    if( temp_aver < TERMOSTAT_INN)
-    {
-        Now.high_inn = 0;
-    }
     //  if temperature is > TERMOSTAT_INN = 15 grad
-    else
+    if( temp_aver >= TERMOSTAT_INN)
     {
         //  ON inn ventillator
         if(delta >= 3.0)
@@ -887,7 +882,7 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
             if(!Now.high_inn)
                 Now.high_inn = VENT_ON;
         }
-        if(delta > 5.0)
+        if(delta >= 4.0)
         {
             Now.high_inn ++;
         }
@@ -901,6 +896,11 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
                 Now.high_inn = 0;
         }
     }
+    else
+    {
+        Now.high_inn = 0;
+    }
+    if(dout) fprintf(dout, "delta: %.1f ", delta);
 
 
     // Outer ventillator, control outer temp
@@ -937,7 +937,7 @@ int check_temperature(fadc_board &Fadc, lvps_dev &Vent)
     if(Now.high_inn - Last.high_inn)   Vent.set_inn_vent(Now.high_inn);
     if(Now.high_out - Last.high_out)   Vent.set_out_vent(Now.high_out);
 
-    //if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
+    if(dout) fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Now.temp_bot, Now.temp_top, Now.high_out, Now.high_inn);
 
     Last.temp_top = Now.temp_top;
     Last.temp_bot = Now.temp_bot;

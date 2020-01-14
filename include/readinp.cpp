@@ -806,11 +806,14 @@ int set_work_parameters()
     if(Input.lmax)    Work.lmax = Input.lmax;
     else              Work.lmax = Default.lmax;
 
-    if(Input.umax)    Work.umax = Input.umax;
-    else              Work.umax = Default.umax;
+    //!!!!!\todo fix this. Just for test run.
+    //if(Input.umax)
+                      Work.umax = Input.umax;
+    //else              Work.umax = Default.umax;
 
-    if(Input.umin)    Work.umin = Input.umin;
-    else              Work.umin = Default.umin;
+    //!!!!!!if(Input.umin)
+                      Work.umin = Input.umin;
+    //else              Work.umin = Default.umin;
 
     if(Input.rate > 0.005)  Work.rate = Input.rate;
     else                    Work.rate = Default.rate;

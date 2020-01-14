@@ -70,7 +70,7 @@ int main (void)
     Trigger.fill_TriggerOnOff( Work.trigger_onoff);
     bars_init(LED, Bar);
 
-    Every_sec(Fadc, Trigger, Vent);
+    Every_sec_mini(Fadc, Trigger, Vent);
     Every_min_mini( vip, Vent, LED, Bar);
     if(dout) fflush(dout);
 
@@ -155,6 +155,8 @@ LEVELS:
     {
         Fadc.turn_off_fadc_boards();
         write_disable();
+        // set fileNumber to 0
+        FileNum = 0;
         goto WAIT_ENABLE;
     }
 
@@ -274,7 +276,7 @@ int wait_start_time(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_de
         /// Every sec routine
         if((tv1.tv_sec - tv0sec.tv_sec) > 0)
         {
-            Every_sec(Fadc, Trigger, Vent);
+            Every_sec_mini(Fadc, Trigger, Vent);
             //gettimeofday(&tv0sec, NULL);
             tv0sec.tv_sec = tv1.tv_sec;
         }
@@ -362,12 +364,13 @@ int wait_enable(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &V
     }
 
     // print stop time
+    strcat(msc_out, "  or Stop time: ");
     ptm0 = localtime(&Work.timeOnOff.time_of);
     strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
-    strcat(msc_out, "  or Stop time: ");
     strcat(msc_out, info);
     print_status_to_file();
 
+    // start waiting loop
     gettimeofday(&tv1, NULL);
     tv0sec.tv_sec = tv1.tv_sec;
     tv0min.tv_sec = tv1.tv_sec;
@@ -384,7 +387,7 @@ int wait_enable(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &V
         /// Every sec routine
         if((tv1.tv_sec - tv0sec.tv_sec) > 0)
         {
-            Every_sec(Fadc, Trigger, Vent);
+            Every_sec_mini(Fadc, Trigger, Vent);
             //gettimeofday(&tv0sec, NULL);
             tv0sec.tv_sec = tv1.tv_sec;
         }

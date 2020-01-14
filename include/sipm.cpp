@@ -280,10 +280,9 @@ int SiPM::high()
     print_debug(debug);
 
     // -------- turn on HV  -----------   
-    need   = 1;
-    //highv[sipm_addr]  = 0; //code value of high voltage
-    highv = 0; //code value of high voltage
-    hvwork[sipm_addr] = 1; // flag onoff
+    need  = 1;
+    highv = 0;               //code value of high voltage
+    hvwork[sipm_addr] = 1;   // flag onoff
 
     if(SetChanHigh(sipm_addr, 0))  // set high = 0
     {   // error

@@ -409,6 +409,7 @@ unsigned short int correct_THR(unsigned short dlev)
             rate = inw(BaseAddr + count_addr[jj]);
             sprintf(debug, " %5i", rate);
             print_debug(debug);
+
             // if rate is big
             if(rate > rmax)
             {
@@ -564,6 +565,7 @@ unsigned short int correct_THR_plus(unsigned short dlev)
  * 
  *  Add 1 to all levels in array THR[][]
  */
+/*
 unsigned short int correct_THR_up(void)
 {
     // count_addr - address of count
@@ -582,7 +584,7 @@ unsigned short int correct_THR_up(void)
     }
     return 0;
 }
-
+*/
 
 
 //----------------------------------------------------------

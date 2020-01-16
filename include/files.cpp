@@ -118,7 +118,7 @@ void print_status_to_file()
         return;
 
     fprintf(f5sec,  "%s\n%s\n", time_out, msc_out);
-    //fprintf(dout,  "%s\n%s\n", time_out, msc_out);
+    fprintf(dout,   "%s\n%s\n", time_out, msc_out);
     fflush(f5sec);
 }
 

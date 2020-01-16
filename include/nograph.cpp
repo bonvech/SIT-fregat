@@ -8,11 +8,25 @@
 
 
 public:
+/*  // this file functions
+    unsigned int get_event();
+    unsigned short read_buffer_flag(void);
+    unsigned int start_fadc_boards();
+    unsigned int reset_channels();
+    unsigned int permit_channels();
+    unsigned int prohibit_channels();
+    unsigned int fifo_err(void);
+    unsigned int reset_counters();
+    unsigned int stop_counters();
+    unsigned int start_counters();
+    unsigned int read_counters();
+    unsigned int read_3RG();
+*/
+
 
 /** ----------------------------------------------------------------
  * Reading events from buffer and write it to binary data file (fout)\n
  *
- * \param flag    write (0) or not (not 0) to file fkadf with name Event\n
  * \return 0
  */
 unsigned int get_event()
@@ -25,6 +39,7 @@ unsigned int get_event()
     fprintf(fout, "k");
     read_3RG(); // read registers 3 times
 
+    /// \todo Сначала писать в массив, а потом весь массив в файл.
     for(a = 1; a <= AddrOn[0]; a++)
     {
         BaseAddr = AddrOn[a];
@@ -44,6 +59,42 @@ unsigned int get_event()
     return 0;
 }
 
+/** ----------------------------------------------------------------
+ * Reading events from buffer and write it to binary data file (fout)\n
+ *
+ * \return 0
+ */
+/*
+unsigned int get_event_old()
+{
+    unsigned char a = 0;
+    unsigned int i = 0, j = 0, dj = 0;
+    short int fadc_data = 0;
+    //unsigned short int kadr_data = 0;
+
+    fprintf(fout, "k");
+    read_3RG(); // read registers 3 times
+
+    /// \todo Сначала писать в массив, а потом весь массив в файл.
+    for(a = 1; a <= AddrOn[0]; a++)
+    {
+        BaseAddr = AddrOn[a];
+        for (i = 0; i < Buf2; i++)
+        {
+            for(j = 0; j < CHANMAX; j++)
+            {
+                dj = (2 * (int)(j % 4)) + 0x10 * (int)(j/4);
+                fadc_data = ( inw( BaseAddr + dj ) );  // read word
+                Conv.tInt = fadc_data;
+                fprintf(fout, "%c%c", Conv.tChar[1], Conv.tChar[0]); // print to file
+            }
+        }
+    }
+
+    //fflush(fout);
+    return 0;
+}
+*/
 
 /** --------------------------------------------------------------
  * Read FADC buffer flags

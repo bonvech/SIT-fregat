@@ -143,20 +143,44 @@ LEVELS:
 
     // Main Operation loop
     res = Operate(Fadc, vip, Trigger, Vent, LED, Bar);
+
+    // after exit from main loop:
     if(dout) fflush(dout);
 
     if(res == 2) // levels
+    {
+        sprintf(msc_out, "Status: Command to set levels received");
+        print_status_to_file();
         goto LEVELS;
+    }
 
     vip.turn_off();
     if(res == 3) // Disable
+    {
+        sprintf(msc_out, "Status: DISABLE reseived");
+        print_status_to_file();
         goto WAIT_ENABLE;
+    }
     if(res == 0) // Time off
     {
+        sprintf(msc_out, "Status: Time OFF");
+        print_status_to_file();
+
         Fadc.turn_off_fadc_boards();
         write_disable();
-        // set fileNumber to 0
         FileNum = 0;
+
+        //  Open new debug file
+        print_debug((char*)"debug close:\n");
+        if(dout) fflush(dout);
+        sleep(10);  // 10sec
+        if(dout) fclose(dout);
+        printf("               closed\n");  // !!!! no print to debug in this place !!!
+
+        open_debug_file();
+        print_debug((char*)"debug open! \n");
+        if(dout) fflush(dout);
+
         goto WAIT_ENABLE;
     }
 

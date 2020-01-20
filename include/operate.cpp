@@ -42,6 +42,9 @@ int save_eventnumber_to_file();
 int read_command_file(void);
 //int print_log_parameters(FILE *fileout);
 int print_everymin_parameters(FILE *fileout);
+int print_everymin_mini_parameters(FILE *fileout);
+char * sprint_freq(char text[], double freq);
+void fill_chtext();
 
 
 
@@ -158,7 +161,7 @@ void Every_min_mini(SiPM &vip,
 
 
     /// -- print all parameters to stdout
-    if(stdout) print_everymin_parameters(stdout);
+    if(stdout) print_everymin_mini_parameters(stdout);
     fprintf(dout, "B: %.1f T: %.1f ou: %i in: %i\n", Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
     print_debug((char*)"\n");
     print_debug(msc_out);
@@ -1262,18 +1265,68 @@ int print_log_parameters(FILE *fileout)
 
 
 /** -------------------------------------------------------
- *  \brief print every min log parameters to file
+ *  \brief print every min mini log parameters to file
  */
-int print_everymin_parameters(FILE *fileout)
+int print_everymin_mini_parameters(FILE *fileout)
 {
     time_t t;
 
     time(&t);
     fprintf(fileout, "%s%s\n%s", ctime(&t), vip_out, bar_out); //, incl_out);
     fprintf(fileout, "Computer:%s%s\n", pwr_out, adc_out);
-    fprintf(fileout, "%s", freq_out);
-    //fprintf(fileout, "%s\n%s%s\n", led_out, adc_out, pwr_out);
-    //fprintf(fileout, "-----------------------\n");
     return 0;
 }
-// ----------------------------------------------
+
+
+/** -------------------------------------------------------
+ *  \brief print every min log parameters to file
+ */
+int print_everymin_parameters(FILE *fileout)
+{
+    print_everymin_mini_parameters(fileout);
+    fprintf(fileout, "%s", freq_out);
+    fprintf(fileout, "\n%s\n%s", chtext_out, chfreq_out);
+    //fprintf(fileout, "-----------------------");
+    return 0;
+}
+
+/** -------------------------------------------------------
+ *  \brief print every min channel counter frequence to chfreq_out[] string
+ */
+char * sprint_freq(char text[], double freq)
+{
+    if(freq < 1)
+    {
+        sprintf(text, " %3.0fm", freq * 1000);
+    }
+    else if(freq >= 1000000)
+    {
+        sprintf(text, " %3.0fM", freq / 1000000);
+    }
+    else if(freq >= 1000)
+    {
+        sprintf(text, " %3.0fK", freq / 1000);
+    }
+    else
+    {
+        sprintf(text, " %3.0f ", freq);
+    }
+
+    return text;
+}
+
+
+/** -------------------------------------------------------
+ *  \brief fill chtext_out[] string
+ */
+void fill_chtext()
+{
+    char text[30] = "";
+    chtext_out[0] = 0;
+
+    for(int i = 0; i < 64; i++)
+    {
+        sprintf(text, " CH%02d", i+1);
+        strcat(chtext_out, text);
+    }
+}

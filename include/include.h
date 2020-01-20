@@ -111,19 +111,9 @@ struct input_parameters
     unsigned short lmax;    ///< max level in fadc channel
     unsigned char  umax;    ///< max U_high in hv channel
     unsigned char  umin;    ///< min U_high in hv channel
-/*
-    unsigned char  h_umax;  ///< max U_high for HAMAMATSU
-    unsigned char  h_umin;  ///< min U_high for HAMAMATSU
-    unsigned char  h_vip;   ///< for HAMAMATSU
-    unsigned char  h_chan;  ///< for HAMAMATSU
-    */
     float rate;             ///< rate in one channel
     float maxcur;           ///< maximal current
     float workcur;          ///< work current
-/*
- *  float h_maxcur;         ///< max current for HAMAMATSU  
-    float h_workcur;        ///< work current for HAMAMATSU
- */
     int hvchan;             ///< number of vip channels
     int onscreen;           ///< printf to screen(1) or no (0)
     int wait;               ///< wait begin time or start now
@@ -136,7 +126,6 @@ Work;     ///< Structure of parameters to work with
 FILE *dout;   ///< debug out file
 FILE *fwork;  ///< debug out file
 FILE *fout;   ///< data out file
-//FILE *fkadr;  ///< one event file
 FILE *ffmin;  ///< every min file
 FILE *f5sec;  ///< every 5min file
 
@@ -144,6 +133,7 @@ FILE *f5sec;  ///< every 5min file
 int  EventNumber = 0;       ///< number of current event
 int  LastEventNumber = 0;   ///< number of start event of current min
 int  commandin[21] = {0};   ///< command from file string
+
 
 char vip_out[1024]  = "Mosaic is not available now";  ///< vip ADC info string
 char time_out[100]  = "time_out init string";         ///< time_ms info string 
@@ -156,6 +146,8 @@ char kadr_out[256]  = "event counter init string";        ///< event frequency i
 char led_out[4096]  = "led_out init string";          ///< LED info string
 char gps_bstamp[30] = "gps_bstamp init string";       ///< gps_bstamp info string
 char gps_sstamp[30] = "gps_sstamp init string";       ///< gps_sstamp info string
+char chfreq_out[400] = "channel frequency init string";  ///< channel frequency info string - 321 byte
+char chtext_out[400] = "channel numbering text string";  ///< channel number text info string - 321 byte
 
 
 /**

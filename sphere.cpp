@@ -210,6 +210,7 @@ EXIT:
     print_debug((char*)"out vent off:\n");
     Vent.set_out_vent(0);
 
+    
     // -------------------------------------
     ///         6) Close ports and files
     // -------------------------------------
@@ -231,6 +232,11 @@ int open_ports_and_files()
 {
     int  res = 0;
 
+    //  print info status
+    sprintf(msc_out, "Status: Open ports and files");
+    print_status_to_file();
+
+
     Last.temp_top = 0;
     Last.temp_bot = 0;
     Last.high_inn = 0;
@@ -238,6 +244,7 @@ int open_ports_and_files()
 
     GetIOPortsAccess();
     open_debug_file();
+
 
     // -------------------------------------
     // Open files for online telemetry monitoring 
@@ -254,6 +261,9 @@ int open_ports_and_files()
     {
         kill_competitor();  // alpha:  kill process PROC_TO_KILL 
     }
+
+    // fill chtext_out[] string
+    fill_chtext();
 
     //  print info status
     sprintf(msc_out, "Status: Initialization");
@@ -369,6 +379,9 @@ int wait_enable(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &V
 
     kadr_out[0] = '\0';
     freq_out[0] = '\0';
+    chfreq_out[0] = 0;
+
+
     Every_min_mini(vip, Vent, LED, Bar);
 
 

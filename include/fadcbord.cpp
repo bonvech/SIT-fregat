@@ -15,6 +15,7 @@
 void timestamp_to_file(FILE *ff);
 void print_debug(char * message);
 void print_time_ms(FILE *ff);
+char * sprint_freq(char text[], double freq);
 
 
 extern input_parameters Work;

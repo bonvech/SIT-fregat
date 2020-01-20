@@ -75,7 +75,6 @@ unsigned int get_event_old()
     fprintf(fout, "k");
     read_3RG(); // read registers 3 times
 
-    /// \todo Сначала писать в массив, а потом весь массив в файл.
     for(a = 1; a <= AddrOn[0]; a++)
     {
         BaseAddr = AddrOn[a];
@@ -319,12 +318,16 @@ unsigned int start_counters()
 unsigned int read_counters()
 {
     unsigned short rate = 1;
-    unsigned short count_addr[9] = {8,0xA,0xC,0x1A,0x1C,0x2A,0x2C,0x3A,0x3C};
+    unsigned short count_addr[9] = {8, 0xA, 0xC, 0x1A, 0x1C, 0x2A, 0x2C, 0x3A, 0x3C};
     FILE *fthr = NULL;
+    long period = Work.period; //300; // sec - period
+    char text[15] = "";
 
+    chfreq_out[0] = 0;
 
-    printf("\n  R: ");
-    if(dout) fprintf(dout,"\n  R: ");
+    print_debug((char *)"\n  R: ");
+    //printf("\n  R: ");
+    //if(dout) fprintf(dout,"\n  R: ");
     if(fout) fprintf(fout, "r");
     if((fthr = fopen("levels.dat", "a")) == NULL)
     {
@@ -346,10 +349,15 @@ unsigned int read_counters()
             if(fthr) fprintf(fthr, "%5i\t", rate);
             Conv.tInt = rate;
             if(fout) fprintf(fout, "%c%c", Conv.tChar[1], Conv.tChar[0]); // print to file
+
+            strncat(chfreq_out, sprint_freq(&text[0], (double)rate/period), 5);
         }
     }
-    printf("\n");
-    if(dout) fprintf(dout,"\n");
+
+    print_debug((char *)"\n");
+    //printf("\n");
+    //if(dout) fprintf(dout,"\n");
+
     if(fthr) fprintf(fthr,"\n");
     if(fthr) fclose(fthr);
     return 0;

@@ -16,6 +16,10 @@
 #define TIME_SHIFT 0 // 3600
 
 
+// This file functions
+int mcopy(unsigned short dim1[], unsigned short dim2[], int size);
+int read_input_files();
+int  read_and_set_params_from_file();
 int  read_chan_from_file(unsigned short *trig, unsigned short *hvtrig);
 struct time_onoff  read_date_from_file();
 int  read_param_from_file(input_parameters &Param);
@@ -53,12 +57,12 @@ int mcopy(unsigned short dim1[], unsigned short dim2[], int size)
 int read_input_files() 
 {
     unsigned short kk = 0;
-    int res = 0;
-    char nname[100] = {0};
-    char info[100]  = {0};
+    //char nname[100] = {0};
+    char info[120]  = "";
     FILE *fe;
 
-    /// -- read Date from file --
+
+    /// -- read Date from file
     Work.timeOnOff = read_date_from_file();
     if(Work.timeOnOff.time_on < 10)
     {
@@ -66,18 +70,22 @@ int read_input_files()
         return -1;
     }
 
-    /// -- read EventNumber from file --
-    strcpy(nname, ENUM_FILE);
-    if ( (fe = fopen(nname,"r")) == NULL)
+    /// -- read EventNumber from file
+    //strcpy(nname, ENUM_FILE);
+    //!!!!!if ( (fe = fopen(nname,"r")) == NULL)
+    if ( (fe = fopen(ENUM_FILE,"r")) == NULL)
     {
-        printf("File Data file %s not found!\n", nname);
+        sprintf(info, "File Data file %s not found!\n", ENUM_FILE);
+        print_debug(info);
         EventNumber = 0; 
     }
     else
     {
-        if(fscanf(fe, "%d", &EventNumber) != 1) 
+        if(fscanf(fe, "%d", &EventNumber) != 1)
         {
-            printf("File \"trans.config\" cannot be read! \nEvent numeration start from 0! ");
+            sprintf(info,
+                "File \"%s\" cannot be read! \nEvent numeration starts from 0!\n", ENUM_FILE);
+            print_debug(info);
             EventNumber = 0;
         }
         fclose (fe);
@@ -86,38 +94,42 @@ int read_input_files()
     print_debug(info);
     LastEventNumber = EventNumber;
 
+
     /// -- set defaults parameters 
     init_param();
     set_default_parameters(Default);
     if(dout) fprintf(dout, "\nDefaults:");
     print_param(Default, dout);
 
-    /// -- read input parameters
-    res = read_param_from_file(Input);
-    if(res != 0)
-    {
-        sprintf(info, "\n\nErrors in read %s file: %i\n", PARAM_FILE, res);
-        print_debug(info);
-    }
 
-    //printf("Input:\n");
-    if(dout) fprintf(dout, "Input:");
-    print_param(Input, dout);
-
-    /// -- set work parameters
-    if(res == -1)
-        set_default_parameters(Work);
-    else
-        set_work_parameters();
-    //printf("\nWork:\n");
-    if(dout) fprintf(dout,"\nWork:");
-    print_param(Work, dout);
+    /// -- read and set input parameters from file
+    kk = read_and_set_params_from_file();
+//     /// -- read input parameters
+//     res = read_param_from_file(Input);
+//     if(res != 0)
+//     {
+//         sprintf(info, "\n\nErrors in read %s file: %i\n", PARAM_FILE, res);
+//         print_debug(info);
+//     }
+// 
+//     //printf("Input:\n");
+//     if(dout) fprintf(dout, "Input:");
+//     print_param(Input, dout);
+// 
+//     /// -- set work parameters
+//     if(res == -1)
+//         set_default_parameters(Work);
+//     else
+//         set_work_parameters();
+//     //printf("\nWork:\n");
+//     if(dout) fprintf(dout,"\nWork:");
+//     print_param(Work, dout);
 
 
     /// -- read trigger labels from file --
     kk = read_chan_from_file(Input.trigger_onoff, Input.hvtrig);
-    if( !kk)  mcopy(Input.trigger_onoff,    Work.trigger_onoff, Work.hvchan);
-    else      mcopy(Default.trigger_onoff,  Work.trigger_onoff, Work.hvchan);
+    if( !kk)  mcopy(Input.trigger_onoff,    Work.trigger_onoff,  Work.hvchan);
+    else      mcopy(Default.trigger_onoff,  Work.trigger_onoff,  Work.hvchan);
     if( !kk)
     {
         //printf("HV-trig:\n");
@@ -129,6 +141,7 @@ int read_input_files()
         }
     }
 
+    // print all trigger labels
     for(kk = 0; kk < Work.hvchan; kk++)
     {
         if(dout) fprintf(dout, "i = %2i, work = %2i  inp = %2i  def = %2i\n",
@@ -140,14 +153,52 @@ int read_input_files()
 
 
 /** --------------------------------------
+ * Read input file "sparam.inp" with work parameters to structure Input and set parameters to structure Work
+ * \brief Read from file and set work parameters
+ *
+ * \return -1 - если неверно прочитан файл\par
+ *          0 - в случае успеха
+*/
+int read_and_set_params_from_file()
+{
+    int res = 0;
+    char info[100]  = {0};
+
+    // -- read input parameters
+    res = read_param_from_file(Input);
+    if(res != 0)
+    {
+        sprintf(info, "\n\nWARNING: Errors in read %s file: %i\n", PARAM_FILE, res);
+        print_debug(info);
+    }
+
+    //printf("Input:\n");
+    if(dout) fprintf(dout, "Input:");
+    print_param(Input, dout);
+
+    /// -- set work parameters
+    if(res == -1)
+        return -1;
+    else
+        set_work_parameters();
+
+    //printf("\nWork:\n");
+    if(dout) fprintf(dout,"\nWork:");
+    print_param(Work, dout);
+
+    return 0;
+}
+
+
+/** --------------------------------------
  * \brief Read trigger labels
- * 
+ *
  * Read trigger labels from file channels.inp. Пишет копию данных файла в ./log/channel.bak.
- * 
+ *
  * Заполняет массив разрешений каналов триггера trig[] и массив hvtrig[hvps] (нумерация с 0).
- * 
+ *
  * \return -1 - если неверно прочитан файл;\par
- *          0 - в случае успеха 
+ *          0 - в случае успеха
 */
 int read_chan_from_file(unsigned short *trig, unsigned short *hvtrig)
 {
@@ -204,7 +255,6 @@ int read_chan_from_file(unsigned short *trig, unsigned short *hvtrig)
         //printf("trig[%2i - 1] = %i, hv= %i \n", num, trigon, hvps);
         if(dout) fprintf(dout, "trig[%2i - 1] = %i, hv= %i \n", num, trigon, hvps);
         //printf("trig[%2i - 1] = %i, hv= %i kk = %i\n", num, trigon, hvps, kk);
-
     }
     if(fbak) fclose (fbak);
     fclose(fchan);

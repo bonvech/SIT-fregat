@@ -487,6 +487,10 @@ int prepare_for_measurements(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger
     sprintf(msc_out, "Status: Start");
     print_status_to_file();
 
+
+    // read and set input parameters from file
+    read_and_set_params_from_file();
+
     // -------------------------------------
     ///         Set lamp on and configure LEDs
     LED.set_config_from_file();

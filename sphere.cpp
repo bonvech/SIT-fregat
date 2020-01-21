@@ -232,11 +232,6 @@ int open_ports_and_files()
 {
     int  res = 0;
 
-    //  print info status
-    sprintf(msc_out, "Status: Open ports and files");
-    print_status_to_file();
-
-
     Last.temp_top = 0;
     Last.temp_bot = 0;
     Last.high_inn = 0;
@@ -254,6 +249,11 @@ int open_ports_and_files()
         sprintf(debug, "\n\nErrors to open telemetry files >%d!\n\n", res);
         print_debug(debug);
     }
+
+    //  print info status
+    sprintf(msc_out, "Status: Open ports and files");
+    print_status_to_file();
+
 
     // -------------------------------------
     // Kill another programm that works with apparatus

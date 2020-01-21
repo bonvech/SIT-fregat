@@ -337,6 +337,8 @@ unsigned int read_counters()
     }
 
     timestamp_to_file(fthr);
+    print_time_ms(fthr);
+
     if(fthr) fprintf(fthr,"R:\t");
     for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {

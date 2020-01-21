@@ -1296,19 +1296,19 @@ char * sprint_freq(char text[], double freq)
 {
     if(freq < 1)
     {
-        sprintf(text, " %3.0fm", freq * 1000);
+        sprintf(text, "%3.0fm ", freq * 1000);
     }
     else if(freq >= 1000000)
     {
-        sprintf(text, " %3.0fM", freq / 1000000);
+        sprintf(text, "%3.0fM ", freq / 1000000);
     }
     else if(freq >= 1000)
     {
-        sprintf(text, " %3.0fK", freq / 1000);
+        sprintf(text, "%3.0fK ", freq / 1000);
     }
     else
     {
-        sprintf(text, " %3.0f ", freq);
+        sprintf(text, "%3.0f  ", freq);
     }
 
     return text;
@@ -1325,7 +1325,7 @@ void fill_chtext()
 
     for(int i = 0; i < 64; i++)
     {
-        sprintf(text, " CH%02d", i+1);
+        sprintf(text, "CH%02d ", i+1);
         strcat(chtext_out, text);
     }
 }

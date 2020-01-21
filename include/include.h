@@ -34,7 +34,7 @@
 
 #define LEVELS_CONFIG_FILE  "./config/levels.config"   ///< File to read levels from
 #define LEVELS_INPUT_FILE   "./config/levels.inp"      ///< File to read levels from
-#define LEVELS_LOG_FILE     "./log/levels.inp"         ///< File to write levels to
+#define LEVELS_LOG_FILE     "./log/levels.dat"         ///< File to write levels to
 
 
 // --- for levels.cpp

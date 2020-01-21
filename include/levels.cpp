@@ -251,8 +251,7 @@ int set_THR_from_file(char* fname)
 
 
     /// -- set levels ----------------------------
-    set_THR();
-    print_THR_to_file();
+    set_THR(); // and print_THR_to_file();
 
 
     if(dout) fprintf(dout, "===> end of file \"%s\" <=====\n", fname);
@@ -294,7 +293,7 @@ int print_THR_to_file(void)
     fflush(fthr);
     fprintf(dout, "levels file %s closing ... ", name);
     fclose(fthr);
-    printf(". done \n");
+    fprintf(dout, ". done \n");
     return 0;
 }
 

@@ -30,6 +30,7 @@ class fadc_board : public fadc
     char debug[250];           ///< Strinf for debug information
 
 public:
+    int THR[BOARD+1][9];       ///< array to hold threshold levels
     unsigned int   AddrOn[16]; ///< Adresses of FADC boards
     unsigned int   SerNum[16]; ///< Serial numbers of FADC boards
     ssize_t        BIN_size;   ///< Size of file with firmware

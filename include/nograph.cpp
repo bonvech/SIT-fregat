@@ -329,9 +329,11 @@ unsigned int read_counters()
     //printf("\n  R: ");
     //if(dout) fprintf(dout,"\n  R: ");
     if(fout) fprintf(fout, "r");
-    if((fthr = fopen("levels.dat", "a")) == NULL)
+
+    //if((fthr = fopen("levels.dat", "a")) == NULL)
+    if((fthr = fopen(LEVELS_LOG_FILE, "a")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file \"levels.dat\" is not open!");
+        if(dout) fprintf(dout, "Data file \"%s\" is not open!", LEVELS_LOG_FILE);
     }
 
     timestamp_to_file(fthr);

@@ -30,8 +30,12 @@
 #define ENABLE_FILE    "/var/www/htdocs/enable.txt"    ///< file to enable status
 #define EVERYMIN_FILE  "/var/www/htdocs/1m.data"       ///< file to write every min log
 #define EVERYSEC_FILE  "/var/www/htdocs/5s.data"       ///< file to write every sec log
-#define LEVELS_FILE    "./config/levels.config"        ///< File to read levels from
 #define WORK_FILE      "./log/fadc_work.dat"           ///< output file to write fadc information
+
+#define LEVELS_CONFIG_FILE  "./config/levels.config"   ///< File to read levels from
+#define LEVELS_INPUT_FILE   "./config/levels.inp"      ///< File to read levels from
+#define LEVELS_LOG_FILE     "./log/levels.inp"         ///< File to write levels to
+
 
 // --- for levels.cpp
 #define BOARD 8       ///< number of FADC boards with pmt [1-8]
@@ -103,6 +107,7 @@ struct input_parameters
     time_t   period;                   ///< period to change data files and checvk apparatus, 1200 sec
     unsigned short trigger_onoff[112]; ///< channels trigger array
     unsigned short hvtrig[112];        ///< hv triggers
+    unsigned short autolevels;         ///< Auto set levels flag: 1 - set auto, 0 - read from file
     unsigned short buf1;    ///< Trigger shift size
     unsigned short buf2;    ///< FADC Buffer size
     unsigned short master;  ///< trigger

@@ -445,11 +445,19 @@ int read_param_from_file(input_parameters &Param)
              //printf("kk = %i Period= %ld",kk, Param.period);
              continue;
         }
+        if( !strcmp(buf,"AUTOLEVELS") )
+        {
+            kk = sscanf(line, "%s %hu", buf, &uspar);
+            if(kk > 1)    Param.autolevels = uspar;
+            else          err++;
+            continue;
+        }
+
         if( !strcmp(buf,"MASTER") )
         {
             kk = sscanf(line, "%s %hu", buf, &uspar);
             if(kk > 1)    Param.master = uspar;
-            else      err++;
+            else          err++;
             //printf("kk = %i Period= %i",kk, Param.master);
             continue;
         }
@@ -457,7 +465,7 @@ int read_param_from_file(input_parameters &Param)
         {
             kk = sscanf(line, "%s %hu", buf, &uspar);
             if(kk > 1)    Param.gmaster = uspar;
-            else      err++;
+            else          err++;
             //printf("kk = %i Period= %i",kk, Param.gmaster);
             continue;
         }
@@ -465,21 +473,21 @@ int read_param_from_file(input_parameters &Param)
         {
             kk = sscanf(line, "%s %f", buf, &ffpar);
             if(kk > 1)    Param.maxcur = ffpar;
-            else      err++;
+            else          err++;
             continue;
         }
         if( !strcmp(buf,"WORKCUR") )
         {
             kk = sscanf(line, "%s %f", buf, &ffpar);
             if(kk > 1)    Param.workcur = ffpar;
-            else      err++;
+            else          err++;
             continue;
         }
         if( !strcmp(buf,"LMIN") )
         {
             kk = sscanf(line, "%s %hu", buf, &uspar);
             if(kk > 1)    Param.lmin = uspar;
-            else      err++;
+            else          err++;
             continue;
         }
         if( !strcmp(buf,"LMAX") )
@@ -689,6 +697,8 @@ int print_param(input_parameters Param, FILE *ff)
     sprintf(info, "PERIOD  %4ld\n", Param.period);
     fprintf(ff, "%s", info);
     //print_debug(info);
+    sprintf(info, "AUTOLEVELS  %4u\n", Param.autolevels);
+    fprintf(ff, "%s", info);
 
     sprintf(info, "MASTER  %4u\n", Param.master);
     fprintf(ff, "%s", info);
@@ -773,7 +783,8 @@ int init_param()
     Work.maxcur  = 0.01;  // mA
     Work.workcur = 0.01;  // mA
     Work.period  = 0;     //1200; // sec
-    Work.buf1    = 130;   //  buffer size
+    Work.autolevels = 1;  // auto levels on
+    Work.buf1    = 130;   // buffer size
     Work.buf2    = 510;   // fadc buffer size
     Work.lmin    = 0;     // min level in fadc channel
     Work.lmax    = 8190;  // max level in fadc channel
@@ -799,6 +810,7 @@ int init_param()
     Input.maxcur  = 0.01;  // mA
     Input.workcur = 0.01;  // mA
     Input.period  = 0;  //1200; // sec
+    Input.autolevels = 1;  // auto levels on
     Input.buf1    = 130;
     Input.buf2    = 510;
     Input.lmin    = 0;  // min level in fadc channel
@@ -841,8 +853,7 @@ int set_work_parameters()
     if(Input.period)  Work.period = Input.period;
     else              Work.period = Default.period;
 
-    if(Input.period)  Work.period = Input.period;
-    else              Work.period = Default.period;
+    Work.autolevels = Input.autolevels;
 
     if(Input.buf1)    Work.buf1 = Input.buf1;
     else              Work.buf1 = Default.buf1;
@@ -929,20 +940,21 @@ int set_default_parameters(input_parameters &Param)
         Param.trigger_onoff[i] = trigger_onoff[i];
     }
 
-    Param.maxcur  = MAXCURR;  // mA
+    Param.maxcur  = MAXCURR;   // mA
     Param.workcur = WORKCURR;  // mA
     Param.period  = 300;   //1200; // sec
-    Param.buf1    = BUF1; //130;
+    Param.autolevels = 1;  // 1
+    Param.buf1    = BUF1;  //130;
     Param.buf2    = BUFF2; //512;
-    Param.lmin    = 1;    // min level in fadc channel
-    Param.lmax    = 8192; // max level in fadc channel
-    Param.umax    = 250;  // max U_high (hv) on PMT
-    Param.umin    = 169;  // max U_high (hv) on PMT
-    Param.rate    = 1.0;  // rate in one channel
+    Param.lmin    = 1;     // min level in fadc channel
+    Param.lmax    = 8192;  // max level in fadc channel
+    Param.umax    = 250;   // max U_high (hv) on PMT
+    Param.umin    = 169;   // max U_high (hv) on PMT
+    Param.rate    = 1.0;   // rate in one channel
     Param.hvchan  = HVCHANN;  // number of vip channels
-    Param.onscreen = 0;  // printf to screen(1) or no (0)
-    Param.master  =  0;  // master local
-    Param.gmaster  =  0; // master global
+    Param.onscreen = 0;    // printf to screen(1) or no (0)
+    Param.master  =  0;    // master local
+    Param.gmaster  =  0;   // master global
     Param.wait    =  1;
     Param.off     =  1;
 /*    // 2012: for Hamamatsu

@@ -6,9 +6,35 @@
  */
 
 
-int THR[BOARD+1][9];                              ///< array to hold threshold levels
+/** ----------------------------------------------------------
+ * \brief Set threshold levels in all measuring channels.
+ *
+ * Выставление порогов срабатывания измерительных каналов.
+ */
+void levels(void)
+{
+    struct timeval tv0, tv1;
+    long delta = 0;
+
+    gettimeofday(&tv0, NULL);
+
+    if(Work.autolevels)
+        levels_auto();
+    else
+        if( set_THR_from_file((char*) LEVELS_INPUT_FILE) != 0)
+            set_THR_from_file((char*) LEVELS_CONFIG_FILE);
+
+    print_THR_to_file();
+    print_THR_to_configfile();
 
 
+    // count and print time
+    gettimeofday(&tv1, NULL);
+    delta = tv1.tv_sec - tv0.tv_sec;
+    sprintf(debug, "\n==levels==> delta = %ld sec\n", delta);
+    print_debug(debug);
+    if(dout) fflush(dout);
+}
 
 
 /** ----------------------------------------------------------
@@ -16,7 +42,7 @@ int THR[BOARD+1][9];                              ///< array to hold threshold l
  *
  * Процедура автоматического выставления порогов срабатывания измерительных каналов.
  */
-void levels(void)
+void levels_auto(void)
 {
     unsigned short ii = 1, jj = 1; //, need = 1;
     int lmax = 8191, dl = 100;
@@ -57,16 +83,6 @@ void levels(void)
         correct_THR_plus(1);
         //THR_save(jj); //
     }
-
-//    for (jj = 1; jj<=1; jj++)
-//    {
-//	set_THR();
-//	correct_THR_up();
-//	manual_THR();
-//    }
-
-    print_THR_to_file();
-    print_THR_to_configfile();
 }
 
 
@@ -111,15 +127,16 @@ unsigned char set_THR(void)
 
 
 /** ----------------------------------------------------------
- *  \brief  Set levels from file LEVELS_FILE
- * 
- *  Процедура выставления порогов. Пороги читаются из конфигурационного файла LEVELS_FILE.
+ *  \brief  Set levels from file 
+ *
+ * Процедура выставления порогов. 
+ * Пороги читаются из конфигурационного файла LEVELS_CONFIG_FILE or LEVELS_INPUT_FILE.
  *  \return 0  -- OK\par 
  *          1  -- error  in file opening\par 
  *          2  -- errors in file reading\par
  *          3  -- errors in testing levels
  */
-int set_THR_from_file(void)
+int set_THR_from_file(char* fname)
 {
     FILE *fthr = NULL;
     char  buf[ 1200] = {0};
@@ -130,14 +147,16 @@ int set_THR_from_file(void)
     //unsigned short lpar = 0; //, lnum = 0;
     int lpar = 0, linesize=0; //, lnum = 0;
 
+
     /// -- open config file --------------------------
-    if((fthr = fopen(LEVELS_FILE, "r")) == NULL)
+    if((fthr = fopen(fname, "r")) == NULL)
     {
-        if(dout) fprintf(dout, "Data file %s is not open!", LEVELS_FILE);
+        if(dout) fprintf(dout, "Data file %s is not open!", fname);
         return 1;  // error
     }
-    sprintf(debug,  "\n===> LEVELS from \"%s\"  <=====\n", LEVELS_FILE);
+    sprintf(debug,  "\n===> LEVELS from \"%s\"  <=====\n", fname);
     print_debug(debug);
+
 
     /// -- read levels from config file ----------
     err = 0;
@@ -176,6 +195,8 @@ int set_THR_from_file(void)
             }
         }
     }
+    fclose(fthr);
+
     if (err)
     {
         sprintf(debug, "\nRead_levels: %d errors!", err);
@@ -218,6 +239,7 @@ int set_THR_from_file(void)
         print_debug(debug);
     }
 
+
     /// -- write levels to array THR -------------------
     for(ii = 1; ii <= AddrOn[0]; ii++ )
     {
@@ -227,13 +249,13 @@ int set_THR_from_file(void)
         }
     }
 
+
     /// -- set levels ----------------------------
     set_THR();
     print_THR_to_file();
 
-    fclose(fthr);
 
-    if(dout) fprintf(dout, "===> end of file \"%s\" <=====\n", LEVELS_FILE);
+    if(dout) fprintf(dout, "===> end of file \"%s\" <=====\n", fname);
     if(dout) fprintf(dout, "=============================================\n");
     return 0;
 }
@@ -242,14 +264,13 @@ int set_THR_from_file(void)
 /** ----------------------------------------------------------
  *  \brief print_THR_to log file
  *
- *  Print threshold levels to file "./log/levels.dat"
+ *  Print threshold levels to file LEVELS_LOG_FILE("./log/levels.dat")
  */
 int print_THR_to_file(void)
 {
     FILE *fthr;
     unsigned char ii = 0, jj = 0;
-    char name[] = "./log/levels.dat";
-
+    char name[] = LEVELS_LOG_FILE; //"./log/levels.dat";
 
     if((fthr = fopen(name, "a")) == NULL)
     {
@@ -271,7 +292,7 @@ int print_THR_to_file(void)
 
     fprintf(fthr, " \n");
     fflush(fthr);
-    printf("levels file %s closing ... ", name);
+    fprintf(dout, "levels file %s closing ... ", name);
     fclose(fthr);
     printf(". done \n");
     return 0;
@@ -281,13 +302,13 @@ int print_THR_to_file(void)
 /** ----------------------------------------------------------
  *  \brief print_THR_to_configfile
  * 
- *  Print threshold levels to file LEVELS_FILE = "./config/levels.config"
+ *  Print threshold levels to file LEVELS_CONFIG_FILE = "./config/levels.config"
  */
 int print_THR_to_configfile(void)
 {
     FILE *fthr;
     unsigned char ii = 0, jj = 0;
-    char name[] = "./config/levels.config";
+    char name[] = LEVELS_CONFIG_FILE; //"./config/levels.config";
 
     if((fthr = fopen(name, "w")) == NULL)
     {
@@ -313,16 +334,16 @@ int print_THR_to_configfile(void)
     //fflush(fthr);
     fprintf(fthr, " \n");
     fflush(fthr);
-    printf("levels.config file  %s closing ... ", name);
+    fprintf(dout, "levels file  \"%s\" closing ... ", name);
     fclose(fthr);
-    printf(". done \n");
+    fprintf(dout, ". done \n");
     return 0;
 }
 
 
 /** ----------------------------------------------------------
  *  \brief One step of levels correction.
- * 
+ *
  *  One step of threshold levels correction. Correct levels in array THR[][] according to counting rate.\par
  *  The minimum rate is 0.8 Hz.
  */

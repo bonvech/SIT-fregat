@@ -269,7 +269,7 @@ int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, 
 
     // Set configurations from file
     LED.set_config_from_file();
-    Fadc.set_THR_from_file();
+    Fadc.set_THR_from_file((char*)LEVELS_CONFIG_FILE);
 
     //-----------------
     //simulate_event(Fadc, Trigger);
@@ -316,7 +316,6 @@ int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent)
     //Trigger.status();
 
     /// Stop FADC counters
-    //Fadc.print_THR_to_file();
     Fadc.stop_counters();
     Fadc.read_counters();
 

@@ -529,13 +529,16 @@ int prepare_for_measurements(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger
     sprintf(msc_out, "Status: Set levels");
     print_status_to_file();
 
-    gettimeofday(&tv0, NULL);
     Fadc.levels();
-    gettimeofday(&tv1, NULL);
-    delta = tv1.tv_sec - tv0.tv_sec;
-    printf("\n==levels==>delta = %ld sec\n", delta);
-    if(dout) fprintf(dout, "\n==levels==> delta = %ld sec\n", delta);
-    if(dout) fflush(dout);
+//     gettimeofday(&tv0, NULL);
+// 
+//     Fadc.levels();
+// 
+//     gettimeofday(&tv1, NULL);
+//     delta = tv1.tv_sec - tv0.tv_sec;
+//     printf("\n==levels==>delta = %ld sec\n", delta);
+//     if(dout) fprintf(dout, "\n==levels==> delta = %ld sec\n", delta);
+//     if(dout) fflush(dout);
 
     // -------------------------------------
     ///          Trigger status

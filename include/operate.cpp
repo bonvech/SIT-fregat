@@ -252,6 +252,7 @@ int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, 
 {
     char info[100] = {""};
 
+    EventNumberBefore = EventNumber;
     // Open new binary data file
     open_data_file(Fadc);
 
@@ -269,7 +270,7 @@ int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, 
 
     // Set configurations from file
     LED.set_config_from_file();
-    Fadc.set_THR_from_file((char*)LEVELS_CONFIG_FILE);
+    Fadc.set_THR_from_file( (char*) LEVELS_CONFIG_FILE);
 
     //-----------------
     //simulate_event(Fadc, Trigger);
@@ -317,7 +318,7 @@ int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent)
 
     /// Stop FADC counters
     Fadc.stop_counters();
-    Fadc.read_counters();
+    Fadc.read_counters(EventNumber - EventNumberBefore);
 
     check_temperature(Fadc, Vent);
     vip.measure_high(); // 2010.03.11
@@ -1294,7 +1295,11 @@ int print_everymin_parameters(FILE *fileout)
  */
 char * sprint_freq(char text[], double freq)
 {
-    if(freq < 1)
+    if(freq < 0.001)
+    {
+        sprintf(text, "     ");
+    }
+    else if(freq < 1)
     {
         sprintf(text, "%3.0fm ", freq * 1000);
     }

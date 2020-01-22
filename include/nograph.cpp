@@ -315,7 +315,7 @@ unsigned int start_counters()
 /** --------------------------------------------------------------
  * Read FADC counters
  */
-unsigned int read_counters()
+unsigned int read_counters(int number)
 {
     unsigned short rate = 1;
     unsigned short count_addr[9] = {8, 0xA, 0xC, 0x1A, 0x1C, 0x2A, 0x2C, 0x3A, 0x3C};
@@ -354,7 +354,7 @@ unsigned int read_counters()
             Conv.tInt = rate;
             if(fout) fprintf(fout, "%c%c", Conv.tChar[1], Conv.tChar[0]); // print to file
 
-            strncat(chfreq_out, sprint_freq(&text[0], (double)rate/period), 5);
+            strncat(chfreq_out, sprint_freq(&text[0], (double)(rate - number)/period), 5);
         }
     }
 

@@ -131,8 +131,8 @@ unsigned char set_THR(void)
  *
  * Процедура выставления порогов. 
  * Пороги читаются из конфигурационного файла LEVELS_CONFIG_FILE or LEVELS_INPUT_FILE.
- *  \return 0  -- OK\par 
- *          1  -- error  in file opening\par 
+ *  \return 0  -- OK\par
+ *          1  -- error  in file opening\par
  *          2  -- errors in file reading\par
  *          3  -- errors in testing levels
  */
@@ -145,7 +145,7 @@ int set_THR_from_file(char* fname)
     int   Lev[BOARD+1][9];
     unsigned char  ii = 0, jj = 0;
     //unsigned short lpar = 0; //, lnum = 0;
-    int lpar = 0, linesize=0; //, lnum = 0;
+    int lpar = 0, linesize=0;  //, lnum = 0;
 
 
     /// -- open config file --------------------------

@@ -136,7 +136,8 @@ FILE *f5sec;  ///< every 5min file
 
 
 int  EventNumber = 0;       ///< number of current event
-int  LastEventNumber = 0;   ///< number of start event of current min
+int  LastEventNumber = 0;   ///< number of start event of current minute
+int  EventNumberBefore = 0; ///< number of start event of current period
 int  commandin[21] = {0};   ///< command from file string
 
 

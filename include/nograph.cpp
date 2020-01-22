@@ -3,7 +3,7 @@
  * \brief Часть класса fadc_board. Работа с буфером FADC
  *
  * Функции, выполняемые с измерительными каналами во время измерений. Часть класса fadc_board
- * \date Modified 2019.10.31
+ * \date Modified 2019.10.31, 2020.01
  */
 
 
@@ -25,7 +25,8 @@ public:
 
 
 /** ----------------------------------------------------------------
- * Reading events from buffer and write it to binary data file (fout)\n
+ * Reading events from buffer and write it to array in memory, 
+ *  not to binary data file (fout)\n
  *
  * \return 0
  */
@@ -224,7 +225,7 @@ unsigned int prohibit_channels()
 
 /** --------------------------------------------------------------
  * Check fifo error
- * \return 1 if there is error in RG0: bit 8
+ * \return 1     if there is error in RG0: bit 8
  */
 unsigned int fifo_err(void)
 {

@@ -171,7 +171,7 @@ void Every_min_mini(SiPM &vip,
     ffmin = freopen(EVERYMIN_FILE, "wt", ffmin);
     if(ffmin)
     {
-        print_everymin_parameters(ffmin);
+        print_everymin_mini_parameters(ffmin);
         fflush(ffmin);
     }
 

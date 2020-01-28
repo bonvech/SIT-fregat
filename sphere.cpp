@@ -210,7 +210,7 @@ EXIT:
     print_debug((char*)"out vent off:\n");
     Vent.set_out_vent(0);
 
-    
+
     // -------------------------------------
     ///         6) Close ports and files
     // -------------------------------------

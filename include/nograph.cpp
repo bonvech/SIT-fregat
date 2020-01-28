@@ -35,11 +35,16 @@ unsigned int get_event()
     unsigned char a = 0;
     unsigned int i = 0, j = 0, dj = 0;
     short int fadc_data = 0;
+
+    long delta = 0, t0 = 0, t1 = 0;
+    struct timeval tv0, tv1;
+
     //unsigned short int kadr_data = 0;
 
     fprintf(fout, "k");
     read_3RG(); // read registers 3 times
 
+    gettimeofday(&tv0, NULL);
     /// \todo Сначала писать в массив, а потом весь массив в файл.
     for(a = 1; a <= AddrOn[0]; a++)
     {
@@ -56,7 +61,15 @@ unsigned int get_event()
         }
     }
 
-    //fflush(fout);
+    gettimeofday(&tv1, NULL);
+    t1 = tv1.tv_sec % 9000 * 1000000 + tv1.tv_usec;
+    t0 = tv0.tv_sec % 9000 * 1000000 + tv0.tv_usec;
+    delta = t1 - t0;
+    sprintf(debug, "\nget_event: delta = %ld.%06ld sec = %f s\n", 
+            delta/1000000, delta%1000000, (double)delta/1000000);
+    print_debug(debug);
+    if(dout) fflush(dout);
+
     return 0;
 }
 

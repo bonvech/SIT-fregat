@@ -15,8 +15,9 @@
 
 int FileNum = 0;        ///< number of output data file
 int NumBar  = 2;        ///< number of barometers in use
-unsigned int  sec5 = 0; ///<  number to make flag to write 5sec file
+unsigned int  sec5 = 0; ///< number to make flag to write 5sec file
 char debug[100];        ///< debug string
+int N_fifo_err = 0;     ///< counter for fifo-errors events
 
 
 // --- functions --- 
@@ -389,17 +390,21 @@ unsigned char GetEvent( fadc_board    &Fadc,
 {
     unsigned char Over = 0, Err = 0, num = 0;
     struct timeval tv0 = {0};
+    short int Trigger_time = 0;
     int Inclination = 0, Magnitation = 0;
-    char info[100] = {0};
+    int kadr = 0;    // counter of writed events
 
     get_time_ms();
 
+    // --- read number of events in buffer
     num = Trigger.buffer_event_number(TG);
-    //sprintf(info, " num = %i\n", num);
-    //print_debug(info);
 
-    if(num == 4)
+    if(num >= 4)
     {
+        sprintf(debug, " num = %i\n", num);
+        print_debug(debug);
+
+        // check buffer overflow
         if(Trigger.buffer_is_overflow(TG))
         {
             Trigger.trigger_prohibit();
@@ -409,87 +414,87 @@ unsigned char GetEvent( fadc_board    &Fadc,
         }
     }
 
-    // !!!!!!! print kadr to virtual event file
-    //2019!!!fkadr = freopen("event", "w", fkadr); // 2018
-    //if(fkadr) fprintf(fkadr, "%2i\n", EventNumber + 1); 
 
     //  --------- get events from buffer -------
     for(int i = 0; i < num; i++)
     {
-        // ---------- read event  --------
         EventNumber ++;
-        //sprintf(event_out, "<K%05d>g%5s", EventNumber, gps_bstamp);
-        fprintf(fout, "<K%05d>g%c%c%c%c%c", EventNumber,
-                gps_bstamp[0],gps_bstamp[1],gps_bstamp[2],gps_bstamp[3],gps_bstamp[4]);
-        sprintf(info, "\n<K%05d>  Time: %13s   ",  EventNumber, gps_sstamp);
-        print_debug(info);
+        sprintf(debug, "\n<K%05d>  Time: %13s   ",  EventNumber, gps_sstamp);
+        print_debug(debug);
+        Trigger_time = Trigger.tg_read_time();
 
+        if(dout) fprintf(dout, "\nCheck Fiifo-err before\n");
+        Err = Fadc.fifo_err();
+        if(Err)
+            break;
+
+        // ---------- read one event  --------
+        Fadc.get_event_data();
+
+        // ---------- check fifo_err  --------
+        if(dout) fprintf(dout, "Check Fiifo-err after");
+        Err = Fadc.fifo_err();
+        if(Err)
+            break;
+
+        // ---------- print one event  --------
+        fprintf(fout, "<K%05d>g%c%c%c%c%c", EventNumber, gps_bstamp[0],gps_bstamp[1],gps_bstamp[2],gps_bstamp[3],gps_bstamp[4]);
 
         // -- print localtime (sec)
         gettimeofday(&tv0, NULL);
         Conv.tInt = tv0.tv_sec;
         fprintf(fout, "t%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
-        //strncat(event_out, tmp, 5);
 
         // -- print trigger time
-        Conv.tInt = Trigger.tg_read_time();
+        Conv.tInt = Trigger_time;
         fprintf(fout, "e%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
-        //strncat(event_out, tmp, 5);
 
         // -- print Inclinometer
         Conv.tInt = Inclination;
         fprintf(fout, "I%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
-        //strncat(event_out, tmp, 5);
 
         // -- print Magnitometer
         Conv.tInt = Magnitation;
         fprintf(fout, "m%c%c%c%c", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
-        //strncat(event_out, tmp, 5);
-
-        // -- print event_out to event file
-        //fprintf(fout, "%s", event_out); 
 
         // -- print currents to event file
-        //Vip.print_currents(stdout);
         Vip.print_currents_to_binary(fout);
 
         // -- print fadc data to event file
-        Fadc.get_event();
+        Fadc.print_event_data();
+
+        // -- end event
         fprintf(fout, "</K%05d>", EventNumber);
-        //fprintf(fout, "%s", event_out);
-        fflush(fout);
-
-        //sprintf(info, "t-%3i-%3i-%3i-%3i\n", Conv.tChar[3], Conv.tChar[2], Conv.tChar[1], Conv.tChar[0]);
-        //print_debug(info);
-
-        // check fifo_err
-        if(!Err)
-        {
-            if(Fadc.fifo_err())
-            {
-                if(!Over)
-                {
-                    Trigger.trigger_prohibit();
-                    Fadc.prohibit_channels();
-                    Err = 1;
-                    print_debug((char*)"OverErr = 1\n");
-                }
-            }
-        }
+        kadr ++;
     }
     save_eventnumber_to_file();
+    fflush( fout);
 
-    /// if overflow or error - clear buffer
-    if((Over) || (Err))
+    //   if error - prohibit trigger and channel work
+    if( Err )
+    {
+        sprintf(debug, "\nFifo_errors: %d !\n", Err);
+        print_debug(debug);
+        N_fifo_err ++;
+
+        if(!Over)
+        {
+            Trigger.trigger_prohibit();
+            Fadc.prohibit_channels();
+        }
+    }
+
+    //   if overflow or error - clear buffer
+    if( Over || Err )
     {
         Trigger.clear_buffer_overflow(TG);
         Fadc.reset_channels();
-        sprintf(info, "Fadc.fifo_err() = %i after\n", Fadc.fifo_err());
-        print_debug(info);
+        sprintf(debug, "Fadc.fifo_err() = %i after \n", Fadc.fifo_err());
+        print_debug(debug);
         Trigger.trigger_permit();
     }
 
-    return num;
+    return kadr;
 }
 
 
@@ -540,6 +545,8 @@ unsigned short Operate(fadc_board &Fadc,
     long period = Work.period; //300; // sec - period
     time_t timeoff = Work.timeOnOff.time_of;
 
+    N_fifo_err = 0;
+
 
     // print stop time to message
     ptm0 = localtime(&Work.timeOnOff.time_of);
@@ -561,7 +568,7 @@ unsigned short Operate(fadc_board &Fadc,
         // --- Every sec
         if((tv1.tv_sec-tv0sec.tv_sec) > 0)
         {
-            sprintf(kadr_out, "N_events = %d\n", kadr);
+            sprintf(kadr_out, "N_events = %d  N_fifo_err = %d\n", kadr, N_fifo_err);
             Every_sec(Fadc, Trigger, Vent);
             gettimeofday(&tv0sec, NULL);
         }
@@ -593,7 +600,7 @@ unsigned short Operate(fadc_board &Fadc,
 
         // --- New events !!
         if(Trigger.buffer_is_not_empty(TG) )
-        { 
+        {
             if (Fadc.read_buffer_flag())    //if there is data in FADC buffers
             {
                 ;
@@ -673,7 +680,7 @@ STOP:
 
 
 /** -------------------------------------------------------
- *  \brief Get and print time with milliseconds to stdout and debug file
+ *  \brief Get and print time with milliseconds
  *
  *  Get and print actual time with milliseconds to stdout and debug file
  */

@@ -1,7 +1,7 @@
 /**
  * \file fadcbord.cpp
  * \brief Класс fadc_board
- * 
+ *
  * Описание класса fadc_board
  */
 #ifndef _FADC_BOARD
@@ -46,6 +46,7 @@ public:
         Buf1 = Work.buf1;
         Buf2 = Work.buf2;
         RG1put = 0;
+        last_bin = 0;
 
         init();
     }

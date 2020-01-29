@@ -23,6 +23,91 @@ public:
     unsigned int read_3RG();
 */
 
+/// array to write event from buffer
+short int event_data[66000];  // BOARD * CHANMAX * 512  // 8 * 16 * 512
+int last_bin;
+
+
+/** ----------------------------------------------------------------
+ * Reading events from buffer and write it to array in memory\n
+ *
+ * \return 0
+ */
+unsigned int get_event_data()
+{
+    unsigned char a = 0;
+    unsigned int i = 0, j = 0, dj = 0;
+    short int fadc_data = 0;
+    int n = 0;
+    long delta = 0, t0 = 0, t1 = 0;
+    struct timeval tv0, tv1;
+
+    read_3RG(); // read registers 3 times
+    last_bin = 0;
+
+    gettimeofday(&tv0, NULL);
+    /// \todo Сначала писать в массив, а потом весь массив в файл.
+    for(a = 1; a <= AddrOn[0]; a++)
+    {
+        BaseAddr = AddrOn[a];
+        for (i = 0; i < Buf2; i++)
+        {
+            for(j = 0; j < CHANMAX; j++)
+            {
+                dj = (2 * (int)(j % 4)) + 0x10 * (int)(j/4);
+                fadc_data = ( inw( BaseAddr + dj ) );  // read word
+                event_data[n] = fadc_data;
+                n++;
+            }
+        }
+    }
+    last_bin = n;
+
+    // --- count and print time delta
+    gettimeofday(&tv1, NULL);
+    t1 = tv1.tv_sec % 9000 * 1000000 + tv1.tv_usec;
+    t0 = tv0.tv_sec % 9000 * 1000000 + tv0.tv_usec;
+    delta = t1 - t0;
+    sprintf(debug, "\nget_event_data: delta = %f s\n", (double)delta/1000000);
+    print_debug(debug);
+    if(dout) fflush(dout);
+
+    return 0;
+}
+
+
+/** ----------------------------------------------------------------
+ * Print event from array in memory to binary data file (fout)\n
+ *
+ * \return 0 - OK
+ */
+int print_event_data()
+{
+    long delta = 0, t0 = 0, t1 = 0;
+    struct timeval tv0, tv1;
+
+    gettimeofday(&tv0, NULL);
+
+    fprintf(fout, "k");
+    for (int i = 0; i < last_bin; i++)
+    {
+        Conv.tInt = event_data[i];
+        fprintf(fout, "%c%c", Conv.tChar[1], Conv.tChar[0]); // print to file
+    }
+    fflush(fout);
+
+    // --- count and print time delta
+    gettimeofday(&tv1, NULL);
+    t1 = tv1.tv_sec % 9000 * 1000000 + tv1.tv_usec;
+    t0 = tv0.tv_sec % 9000 * 1000000 + tv0.tv_usec;
+    delta = t1 - t0;
+    sprintf(debug, "\nprint_event_data: delta = %f sec\n", (double)delta/1000000);
+    print_debug(debug);
+    if(dout) fflush(dout);
+
+    return 0;
+}
+
 
 /** ----------------------------------------------------------------
  * Reading events from buffer and write it to array in memory, 
@@ -30,7 +115,7 @@ public:
  *
  * \return 0
  */
-unsigned int get_event()
+/*unsigned int get_event()
 {
     unsigned char a = 0;
     unsigned int i = 0, j = 0, dj = 0;
@@ -72,7 +157,7 @@ unsigned int get_event()
 
     return 0;
 }
-
+*/
 /** ----------------------------------------------------------------
  * Reading events from buffer and write it to binary data file (fout)\n
  *

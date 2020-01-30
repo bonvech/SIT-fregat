@@ -33,7 +33,7 @@
 #define WORK_FILE      "./log/fadc_work.dat"           ///< output file to write fadc information
 
 #define LEVELS_CONFIG_FILE  "./config/levels.config"   ///< File to read levels from
-#define LEVELS_INPUT_FILE   "./config/levels.inp"      ///< File to read levels from
+#define LEVELS_INPUT_FILE   "./config/levels.inp"      ///< File to read levels from first
 #define LEVELS_LOG_FILE     "./log/levels.dat"         ///< File to write levels to
 
 
@@ -138,7 +138,9 @@ FILE *f5sec;  ///< every 5min file
 int  EventNumber = 0;       ///< number of current event
 int  LastEventNumber = 0;   ///< number of start event of current minute
 int  EventNumberBefore = 0; ///< number of start event of current period
-int  commandin[21] = {0};   ///< command from file string
+int  TunkaNumber = 0;       ///< last syncro number from HISCORE
+
+int  commandin[21] = {0};   ///< commands from file string
 
 
 char vip_out[1024]  = "Mosaic is not available now";  ///< vip ADC info string
@@ -148,12 +150,13 @@ char pwr_out[1024]  = "pwr_out init string";          ///< power info string
 char msc_out[1024]  = "msc_out init string";          ///< info string
 char bar_out[1024]  = "bar_out init string";          ///< barometer info string
 char freq_out[256]  = "frequency init string";        ///< event frequency info string
-char kadr_out[256]  = "event counter init string";        ///< event frequency info string
+char kadr_out[256]  = "event counter init string";    ///< event frequency info string
 char led_out[4096]  = "led_out init string";          ///< LED info string
 char gps_bstamp[30] = "gps_bstamp init string";       ///< gps_bstamp info string
 char gps_sstamp[30] = "gps_sstamp init string";       ///< gps_sstamp info string
-char chfreq_out[400] = "channel frequency init string";  ///< channel frequency info string - 321 byte
-char chtext_out[400] = "channel numbering text string";  ///< channel number text info string - 321 byte
+char chfreq_out[400] = "channel frequency init str";  ///< channel frequency info string - 321 byte
+char chtext_out[400] = "channel numbering text str";  ///< channel number text info string - 321 byte
+char tunka_out[128] = "Tunka syncro text str";  ///< channel number text info string - 321 byte
 
 
 /**

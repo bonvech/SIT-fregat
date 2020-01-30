@@ -24,8 +24,8 @@ public:
 */
 
 /// array to write event from buffer
-short int event_data[66000];  // BOARD * CHANMAX * 512  // 8 * 16 * 512
-int last_bin;
+//short int event_data[66000];  // BOARD * CHANMAX * 512  // 8 * 16 * 512
+//int last_bin;
 
 
 /** ----------------------------------------------------------------
@@ -46,7 +46,6 @@ unsigned int get_event_data()
     last_bin = 0;
 
     gettimeofday(&tv0, NULL);
-    /// \todo Сначала писать в массив, а потом весь массив в файл.
     for(a = 1; a <= AddrOn[0]; a++)
     {
         BaseAddr = AddrOn[a];
@@ -62,6 +61,7 @@ unsigned int get_event_data()
         }
     }
     last_bin = n;
+    TunkaNumber = GetTunkaNumber();
 
     // --- count and print time delta
     gettimeofday(&tv1, NULL);

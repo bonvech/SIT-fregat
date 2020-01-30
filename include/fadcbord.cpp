@@ -19,7 +19,7 @@ char * sprint_freq(char text[], double freq);
 
 
 extern input_parameters Work;
-
+extern int TunkaNumber;
 
 //-------------------------------------------------------------
 //     ******************     MAIN BLOCK   ******************
@@ -37,6 +37,9 @@ public:
     unsigned short Buf1;       ///< Trigger shift size
     unsigned short Buf2;       ///< Buffer size
     unsigned short RG1put;     ///< RG1put ???
+    /// array to write event from buffer
+    short int event_data[66000]; // BOARD * CHANMAX * 512  // 8 * 16 * 512
+    int last_bin;              ///< index of last number in event_data
 
     /// constructor
     fadc_board() 
@@ -74,6 +77,7 @@ public:
 
 #include "levels.cpp"
 #include "nograph.cpp"
+#include "tunka_sync.cpp"
 
 };  // end of class fadc_board
 

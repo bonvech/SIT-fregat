@@ -73,8 +73,8 @@ int Every_sec_mini(  fadc_board    &Fadc,
         f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
         if(f5sec)
         {
-            sprintf(tunka_out, "HISCORE syncro: %4d\n", TunkaNumber);
-            fprintf(f5sec, "%s\n%s\n%s%s", time_out, msc_out, kadr_out, tunka_out);
+            //sprintf(tunka_out, "HISCORE syncro: %4d\n", TunkaNumber);
+            fprintf(f5sec, "%s\n%s\n%s", time_out, msc_out, kadr_out);
             //fprintf(f5sec, "Temperatures: B: %.1f T: %.1f", Last.temp_bot, Last.temp_top);
             fprintf(f5sec, "Temperatures: B: %.1f T: %.1f ou: %i in: %i", 
                                 Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
@@ -114,7 +114,8 @@ int Every_sec(  fadc_board    &Fadc,
         f5sec = freopen(EVERYSEC_FILE, "wt", f5sec);
         if(f5sec)
         {
-            fprintf(f5sec, "%s\n%s\n%s", time_out, msc_out, kadr_out);
+            sprintf(tunka_out, "HISCORE syncro: %d", TunkaNumber);
+            fprintf(f5sec, "%s\n%s\n%s%s\n", time_out, msc_out, kadr_out, tunka_out);
             //fprintf(f5sec, "Temperatures: B: %.1f T: %.1f", Last.temp_bot, Last.temp_top);
             fprintf(f5sec, "Temperatures: B: %.1f T: %.1f ou: %i in: %i", 
                                 Last.temp_bot, Last.temp_top, Last.high_out, Last.high_inn);
@@ -569,7 +570,7 @@ unsigned short Operate(fadc_board &Fadc,
         // --- Every sec
         if((tv1.tv_sec-tv0sec.tv_sec) > 0)
         {
-            sprintf(kadr_out,  "N_events = %d  N_fifo_err = %d\n", kadr, N_fifo_err);
+            sprintf(kadr_out,  "N_events = %d   N_faults = %d   ", kadr, N_fifo_err);
             Every_sec(Fadc, Trigger, Vent);
             gettimeofday(&tv0sec, NULL);
         }

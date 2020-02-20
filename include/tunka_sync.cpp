@@ -22,10 +22,15 @@ int GetTunkaNumber()
 {
     int threshold = 304, amax = 0, amin = 1000;
     int i = 0, k = 0, bit = 0, n = 0;
-    int pulse[2 * Buf2] = {0};
+    int pulse[2 * Buf2];
     int ind = 0, base = 0;
     int Syncro[100] = {0};
     const short chanmax = 16;
+
+    for (i = 0; i < 2 * Buf2; i++)
+    {
+        pulse[i] = 0;
+    }
 
     base = 7 * Buf2 * chanmax;
     for (i = 0; i < Buf2; i++)

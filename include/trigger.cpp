@@ -276,9 +276,9 @@ unsigned char trigger_board::set_global_threshould(unsigned short int Thre)
 {
     //if((Thre !=1 ) || (Thre != 3) || (Thre != 7) )
     //if(!((Thre == 0 ) ||(Thre == 1 ) || (Thre == 3) || (Thre == 7)) )
-    if(Thre > 20 ) 
+    if(Thre > 49 ) 
     {
-        sprintf(debug, "\nError: set_threshold: trigger TGGTHR is out of possible values > 20 !!\n");
+        sprintf(debug, "\nError: set_threshold: trigger TGGTHR is out of possible values > 49 !!\n");
         print_debug(debug);
         return 1; // error
     }

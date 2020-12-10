@@ -271,6 +271,10 @@ unsigned char trigger_board::set_local_threshould(unsigned short int Thre)
 
 /** -------------------------------------------------------
  * \brief Set global trigger GN
+ * 
+ * \warning threshold > G49 will not set
+ * \return 0 - Ok\par
+ *         1 - error: G > G49
  */
 unsigned char trigger_board::set_global_threshould(unsigned short int Thre)
 {

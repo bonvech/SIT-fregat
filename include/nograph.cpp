@@ -425,8 +425,6 @@ unsigned int read_counters(int number)
     chfreq_out[0] = 0;
 
     print_debug((char *)"\n  R: ");
-    //printf("\n  R: ");
-    //if(dout) fprintf(dout,"\n  R: ");
     if(fout) fprintf(fout, "r");
 
     //if((fthr = fopen("levels.dat", "a")) == NULL)
@@ -435,9 +433,8 @@ unsigned int read_counters(int number)
         if(dout) fprintf(dout, "Data file \"%s\" is not open!", LEVELS_LOG_FILE);
     }
 
-    timestamp_to_file(fthr);
-    print_time_ms(fthr);
-
+    if(fthr) timestamp_to_file(fthr);
+    if(fthr) print_time_ms(fthr);
     if(fthr) fprintf(fthr,"R:\t");
     for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {
@@ -461,6 +458,90 @@ unsigned int read_counters(int number)
     //printf("\n");
     //if(dout) fprintf(dout,"\n");
 
+    if(fthr) fprintf(fthr,"\n");
+    if(fthr) fclose(fthr);
+    return 0;
+}
+
+
+/** --------------------------------------------------------------
+ * Read FADC counters and correct levels
+ */
+unsigned int read_counters_and_correct_levels(int number)
+{
+    unsigned short rate = 1;
+    unsigned short count_addr[9] = {8, 0xA, 0xC, 0x1A, 0x1C, 0x2A, 0x2C, 0x3A, 0x3C};
+    long period = Work.period; // 60; // sec - period
+    float Rate  = Work.rate;   // 0.5
+    float rmax = 1.5,   rmin = 0.125;
+    float maxkoef = 3., minkoef = 0.3;
+    char text[15] = "";
+    FILE *fthr = NULL;
+
+    if(Rate <= 1.0) //if(Rate == 1)
+    {
+        rmin = 0.8;
+        rmax = 2.;
+    }
+    else
+    {
+        rmin = Rate * minkoef;
+        rmax = Rate * maxkoef;
+    }
+    rmin *= period;
+    rmax *= period;
+
+    chfreq_out[0] = 0; // string to write count rates to web interface
+
+    // open log file "levels.dat" to write levels
+    if((fthr = fopen(LEVELS_LOG_FILE, "a")) == NULL)
+    {
+        if(dout) fprintf(dout, "Data file \"%s\" is not open!", LEVELS_LOG_FILE);
+    }
+
+    print_debug((char *)"\n  R: ");
+    if(fout) fprintf(fout, "r");
+    if(fthr) fprintf(fthr,"R:\t");
+
+    if(fthr) timestamp_to_file(fthr);
+    if(fthr) print_time_ms(fthr);
+
+    for(unsigned char i = 1; i <= AddrOn[0]; i++)
+    {
+        BaseAddr = AddrOn[i];
+        for(int j = 1; j <= CHANPMT; j++) // CHANPMT=8
+        {
+            // read channel counter: number of counters per period
+            rate = inw(BaseAddr + count_addr[j]);
+
+            // print channel counter
+            printf(" %5i", rate);
+            if(dout) fprintf(dout, " %5i", rate);
+            if(fthr) fprintf(fthr, "%5i\t", rate);
+            Conv.tInt = rate;
+            if(fout) fprintf(fout, "%c%c", Conv.tChar[1], Conv.tChar[0]); // print to file
+
+            // print channel rate to web interface string
+            strncat(chfreq_out, sprint_freq(&text[0], (double)(rate - number)/period), 5);
+
+            // if channel if off - skip level change
+            if( !Work.trigger_onoff[ (i - 1) * CHANPMT + j - 1] )
+            {
+                continue;
+            }
+
+            // correct channel levels
+            if( (rate > rmax) && (THR[i][j] < Work.lmax) )
+                    THR[i][j] += 1;
+            if( (rate < rmin) && (THR[i][j] > Work.lmin) )
+                    THR[i][j] -= 1;
+        }
+    }
+
+    // save new levels to config file()
+    print_THR_to_configfile();
+
+    print_debug((char *)"\n");
     if(fthr) fprintf(fthr,"\n");
     if(fthr) fclose(fthr);
     return 0;

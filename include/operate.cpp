@@ -49,9 +49,9 @@ void fill_chtext();
 
 
 
-//================================================
-// ================= Every_sec  ==================
-/** -------------------------------------------------------
+//  ================================================
+//  ================= Every_sec  ===================
+/** ================================================
  * \brief Every second function to control parameters of turned off detector
  *
  * Reading and check temperature in electronics box.\n
@@ -91,7 +91,7 @@ int Every_sec_mini(  fadc_board    &Fadc,
 }
 
 
-/** -------------------------------------------------------
+/** ================================================
  * \brief Every second function to control parameters
  * \todo  check Trigger functions
  *
@@ -134,9 +134,9 @@ int Every_sec(  fadc_board    &Fadc,
 }
 
 
-//================================================
-// ================= Every_min  ==================
-/** -------------------------------------------------------
+//  ================================================
+//  ================= Every_min  ===================
+/** ================================================
  *  \brief Every minute MINI function to control parameters of turned off detector
  *
  * Read the temperature, barometers, ventillator, LED.\n
@@ -182,7 +182,7 @@ void Every_min_mini(SiPM &vip,
 }
 
 
-/** -------------------------------------------------------
+/** ================================================
  *  \brief Every minute function to control parameters
  *
  * Reading of temperature, current, trigger status, barometers, vip, ventillator,  mosaic temperature.\n
@@ -246,9 +246,9 @@ int Every_min(  fadc_board &Fadc,
 }
 
 
-//================================================
-// =================   Before   ==================
-/** -------------------------------------------------------
+//  ================================================
+//  =================   Before   ===================
+/** ================================================
  *  \brief Procedure to run before work period
  */
 int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED)
@@ -308,9 +308,9 @@ int Before(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, 
 }
 
 
-//================================================
-// =================    After   ==================
-/** -------------------------------------------------------
+//  ================================================
+//  =================    After   ===================
+/** ================================================
  *  \brief Procedure to run after the work period
  */
 int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent)
@@ -321,7 +321,8 @@ int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent)
 
     /// Stop FADC counters
     Fadc.stop_counters();
-    Fadc.read_counters(EventNumber - EventNumberBefore);
+    //Fadc.read_counters(EventNumber - EventNumberBefore);
+    Fadc.read_counters_and_correct_levels(EventNumber - EventNumberBefore);
 
     check_temperature(Fadc, Vent);
     vip.measure_high(); // 2010.03.11
@@ -335,9 +336,9 @@ int After(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent)
 }
 
 
-//================================================
-// =================   Period   ==================
-/** -------------------------------------------------------
+//  ================================================
+//  =================   Period   ===================
+/** ================================================
  *  \brief Procedure to run every work period
  */
 int Period(fadc_board &Fadc, SiPM &vip, trigger_board &Trigger, lvps_dev &Vent, led &LED)
@@ -379,9 +380,9 @@ int simulate_event(fadc_board &Fadc, trigger_board &Trigger)
 }
 
 
-//================================================
-// ================= GetEvent  ===================
-/** -------------------------------------------------------
+//  ================================================
+//  ================== GetEvent  ===================
+/** ================================================
  *  \brief Get event if there is any event in buffer
  *  \return number of detected events
  */
@@ -516,9 +517,9 @@ unsigned char GetEvent(fadc_board &Fadc, trigger_board &Trigger)
 */
 
 
-//================================================
-// ================= operate  ====================
-/** -------------------------------------------------------
+//  ================================================
+//  ================= operate  =====================
+/** ================================================
  *  \brief The main function of measuring procedure
  *
  *  Проверяет время. Запускает процедуры каждую секунду, минуту и период.\n

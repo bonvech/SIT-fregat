@@ -27,24 +27,24 @@ extern int TunkaNumber;
 /// Class for FADC board
 class fadc_board : public fadc
 {
-    char debug[250];           ///< Strinf for debug information
-
+    char debug[250] = "";          ///< String for debug information
+    /// address of counters
+    unsigned short count_addr[9] = {8, 0xA, 0xC, 0x1A, 0x1C, 0x2A, 0x2C, 0x3A, 0x3C};
+    int THR[BOARD+1][9];           ///< array to hold threshold levels
+    unsigned int   SerNum[16];     ///< Serial numbers of FADC boards
+    ssize_t        BIN_size = 0;   ///< Size of file with firmware
+    unsigned short RG1put = 0;     ///< RG1put bytes to write to RG1 register of fadc board
+    unsigned short Buf1 = 100;     ///< Trigger shift size
 public:
-    int THR[BOARD+1][9];       ///< array to hold threshold levels
-    unsigned int   AddrOn[16]; ///< Adresses of FADC boards
-    unsigned int   SerNum[16]; ///< Serial numbers of FADC boards
-    ssize_t        BIN_size;   ///< Size of file with firmware
-    unsigned short Buf1;       ///< Trigger shift size
-    unsigned short Buf2;       ///< Buffer size
-    unsigned short RG1put;     ///< RG1put ???
+    unsigned short Buf2 = 100;     ///< Buffer size
+    unsigned int   AddrOn[16];     ///< Adresses of FADC boards
     /// array to write event from buffer
-    short int event_data[66000]; // BOARD * CHANMAX * 512  // 8 * 16 * 512
-    int last_bin;              ///< index of last number in event_data
+    short int event_data[66000];   // BOARD * CHANMAX * 512  // 8 * 16 * 512
+    int last_bin = 0;              ///< index of last number in event_data
 
     /// constructor
     fadc_board() 
     {
-        //short kk;
         BIN_size = 0;
         Buf1 = Work.buf1;
         Buf2 = Work.buf2;

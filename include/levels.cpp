@@ -343,13 +343,14 @@ int print_THR_to_configfile(void)
 /** ----------------------------------------------------------
  *  \brief One step of levels correction.
  *
- *  One step of threshold levels correction. Correct levels in array THR[][] according to counting rate.\par
+ *  One step of threshold levels correction. 
+ *  Correct levels in array THR[][] according to counting rate.\par
  *  The minimum rate is 0.8 Hz.
  */
 unsigned short int correct_THR(unsigned short dlev)
 {
     /// address of counters
-    unsigned short count_addr[9] = {8,0xA,0xC,0x1A,0x1C,0x2A,0x2C,0x3A,0x3C};
+    //unsigned short count_addr[9] = {8,0xA,0xC,0x1A,0x1C,0x2A,0x2C,0x3A,0x3C};
     unsigned short sta = 0,  dis = 2, rate = 1;
     unsigned short ii = 0,   jj = 0;
     unsigned short lmin = 2, rtime = 4;
@@ -393,6 +394,8 @@ unsigned short int correct_THR(unsigned short dlev)
         RG1put  = set_bit_1(RG1put,  2); // set permit trigger2
         RG1put  = set_bit_0(RG1put,  9); // set default counter1
         RG1put  = set_bit_0(RG1put, 11); // set default counter2
+
+        // start counters
         RG1put  = set_bit_1(RG1put,  8); // set start counter1
         RG1put  = set_bit_1(RG1put, 10); // set start counter2
         set_RGs( RG1put, BaseAddr + 10); // start //RG1(4,7,10)
@@ -400,11 +403,12 @@ unsigned short int correct_THR(unsigned short dlev)
     sleep(rtime); // count some time
 
     /// --- stop  all boards
+    /// \todo change to stop_counters()
     for(ii = 1; ii<= AddrOn[0]; ii++)
     {
         BaseAddr = AddrOn[ii];
-        RG1put  = set_bit_0(RG1put, 8);  // stop
-        RG1put  = set_bit_0(RG1put, 10); // stop
+        RG1put  = set_bit_0(RG1put, 8);  // stop counter1
+        RG1put  = set_bit_0(RG1put, 10); // stop counter2
         set_RGs( RG1put, BaseAddr+10);   // stop //RG1(4,7,10)
     }
 
@@ -444,10 +448,10 @@ unsigned short int correct_THR(unsigned short dlev)
                 {
                     sta = inw(BaseAddr + 0x8 + 0x10*(int)((jj-1)/2));
                     dis = 9 + (int(jj-1)%2);
-                    if(get_bit(sta,dis)) // if diskriminator vyshe poroga - porog nizok
+                    if(get_bit(sta, dis)) // if diskriminator vyshe poroga - porog nizok
                     {
                         lev += dlev;
-                        if(lev < lmin) lev = lmin;
+                        if(lev > lmax) lev = lmax;
                         sprintf(debug, "+");
                         print_debug(debug);
                     }
@@ -460,7 +464,7 @@ unsigned short int correct_THR(unsigned short dlev)
                 sprintf(debug, "d");
                 print_debug(debug);
             }
-            THR[ii][jj] = lev; //thr matrix (!?)
+            THR[ii][jj] = lev; // array with thresholds
         }
         sprintf(debug, "\n");
         print_debug(debug);
@@ -478,7 +482,7 @@ unsigned short int correct_THR(unsigned short dlev)
 unsigned short int correct_THR_plus(unsigned short dlev)
 {
     // count_addr - address of count
-    unsigned short count_addr[9] = {8,0xA,0xC,0x1A,0x1C,0x2A,0x2C,0x3A,0x3C};
+    //unsigned short count_addr[9] = {8,0xA,0xC,0x1A,0x1C,0x2A,0x2C,0x3A,0x3C};
     unsigned short rtime = 4;
     unsigned short sta = 0,  dis = 2, rate = 1;
     unsigned short ii = 0,   jj = 0;

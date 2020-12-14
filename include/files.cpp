@@ -167,6 +167,7 @@ unsigned int init_data_file(FILE* file, fadc_board &Fadc)
         f = new_filename(filename, num);
         printf("main: %s\n", filename);
  *  \endcode
+ * \todo change localtime to gmtime here
 */
 char new_filename(char *filename, unsigned int filenum)
 {

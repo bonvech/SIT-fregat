@@ -23,7 +23,9 @@ unsigned int init_data_file(FILE* file, fadc_board &Fadc);
 char new_filename(char *filename, unsigned int filenum);
 void time_to_file();
 void timestamp_to_file(FILE *ff);
+
 int open_debug_file();
+void reopen_debug_file();
 int open_data_file(fadc_board &Fadc);
 int open_telemetry_files();
 
@@ -247,6 +249,24 @@ int open_debug_file()
     return 0;
 }
 
+
+/** -----------------------------------------------
+ * Reopen debug file
+ */
+void reopen_debug_file()
+{
+    //  Close old debug file
+    print_debug((char*)"debug close:\n");
+    if(dout) fflush(dout);
+    sleep(10);  // 10sec
+    if(dout) fclose(dout);
+    printf("               closed\n");  // !!!! no print to debug in this place !!!
+
+    //  Open new debug file
+    open_debug_file();
+    print_debug((char*)"debug open! \n");
+    if(dout) fflush(dout);
+}
 
 /** -------------------------------------------------------
  * Open and init binary data file with current time in filename

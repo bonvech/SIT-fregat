@@ -472,24 +472,13 @@ unsigned int read_counters_and_correct_levels(int number)
     unsigned short rate = 1;
     unsigned short count_addr[9] = {8, 0xA, 0xC, 0x1A, 0x1C, 0x2A, 0x2C, 0x3A, 0x3C};
     long period = Work.period; // 60; // sec - period
-    float Rate  = Work.rate;   // 0.5
     float rmax = 1.5,   rmin = 0.125;
     float maxkoef = 3., minkoef = 0.3;
     char text[15] = "";
     FILE *fthr = NULL;
 
-    if(Rate <= 1.0) //if(Rate == 1)
-    {
-        rmin = 0.8;
-        rmax = 2.;
-    }
-    else
-    {
-        rmin = Rate * minkoef;
-        rmax = Rate * maxkoef;
-    }
-    rmin *= period;
-    rmax *= period;
+    rmin = Work.rate * minkoef * period;
+    rmax = Work.rate * maxkoef * period;
 
     chfreq_out[0] = 0; // string to write count rates to web interface
 
@@ -499,13 +488,12 @@ unsigned int read_counters_and_correct_levels(int number)
         if(dout) fprintf(dout, "Data file \"%s\" is not open!", LEVELS_LOG_FILE);
     }
 
-    print_debug((char *)"\n  R: ");
-    if(fout) fprintf(fout, "r");
-    if(fthr) fprintf(fthr,"R:\t");
-
     if(fthr) timestamp_to_file(fthr);
     if(fthr) print_time_ms(fthr);
+    if(fthr) fprintf(fthr,"R:\t");
 
+    if(fout) fprintf(fout, "r");
+    print_debug((char *)"\n  R: ");
     for(unsigned char i = 1; i <= AddrOn[0]; i++)
     {
         BaseAddr = AddrOn[i];

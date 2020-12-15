@@ -104,6 +104,8 @@ WAIT_ENABLE:
     if(res == 2) // Time off
     {
         Fadc.turn_off_fadc_boards();
+        reopen_debug_file();
+        FileNum = 0;  // start file numeration for new day
         goto READ_START_TIME;
     }
 
@@ -168,18 +170,9 @@ LEVELS:
 
         Fadc.turn_off_fadc_boards();
         write_disable();
-        FileNum = 0;
+        FileNum = 0; // start file numeration for new day
 
-        //  Open new debug file
-        print_debug((char*)"debug close:\n");
-        if(dout) fflush(dout);
-        sleep(10);  // 10sec
-        if(dout) fclose(dout);
-        printf("               closed\n");  // !!!! no print to debug in this place !!!
-
-        open_debug_file();
-        print_debug((char*)"debug open! \n");
-        if(dout) fflush(dout);
+        reopen_debug_file();
 
         goto WAIT_ENABLE;
     }

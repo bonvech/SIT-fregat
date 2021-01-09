@@ -180,7 +180,8 @@ char new_filename(char *filename, unsigned int filenum)
     // make file name
     strcpy(filename, FILE_NAME);
     gettimeofday(&tv, NULL);
-    ptm = localtime (&tv.tv_sec);
+    //ptm = localtime (&tv.tv_sec);
+    ptm = gmtime (&tv.tv_sec);
     strftime(time_string, sizeof(time_string), "%Y-%m-%d_%H_%M", ptm);
     strcat(filename, time_string);
 

@@ -695,10 +695,11 @@ void get_and_print_time()
     long milliseconds;
 
     gettimeofday(&tv, NULL);
-    ptm = localtime (&tv.tv_sec);
+    //ptm = localtime (&tv.tv_sec);
+    ptm = gmtime (&tv.tv_sec);
     strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", ptm);
     milliseconds = tv.tv_usec/1000;
-    sprintf(time_string, "%s.%03ld\n", time_string, milliseconds);
+    sprintf(time_string, "%s.%03ld U\n", time_string, milliseconds); // U - UTC time
     print_debug(time_string);
 }
 
@@ -717,10 +718,11 @@ void get_time_ms()
     unsigned char gph = 0, gpm = 0, gps = 0;
 
     gettimeofday(&tv, NULL);
-    ptm = localtime (&tv.tv_sec);
+    //ptm = localtime (&tv.tv_sec);
+    ptm = gmtime (&tv.tv_sec);
     strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", ptm);
     milliseconds = tv.tv_usec/1000;
-    sprintf(time_out, "%s.%03ld", time_string, milliseconds);
+    sprintf(time_out, "%s.%03ld U", time_string, milliseconds);
 
     gph = (unsigned char) ptm->tm_hour;
     gpm = (unsigned char) ptm->tm_min;
@@ -735,7 +737,7 @@ void get_time_ms()
 
 /** -------------------------------------------------------
  *  \brief print_time_ms to file\par
- *  Get actual time to string time_out
+ *  Print actual time from string time_out to file
  */
 void print_time_ms(FILE *ff)
 {

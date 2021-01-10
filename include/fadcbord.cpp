@@ -27,20 +27,19 @@ extern int TunkaNumber;
 /// Class for FADC board
 class fadc_board : public fadc
 {
-    char debug[250];          ///< String for debug information
-    /// address of counters
-    unsigned short count_addr[9];
-    int THR[BOARD+1][9];           ///< array to hold threshold levels
-    unsigned int   SerNum[16];     ///< Serial numbers of FADC boards
-    ssize_t        BIN_size;   ///< Size of file with firmware
-    unsigned short RG1put;     ///< RG1put bytes to write to RG1 register of fadc board
-    unsigned short Buf1;     ///< Trigger shift size
+    char debug[250];              ///< String for debug information
+    unsigned short count_addr[9]; ///< address of counters
+    int THR[BOARD+1][9];          ///< array to hold threshold levels
+    unsigned int   SerNum[16];    ///< Serial numbers of FADC boards
+    ssize_t        BIN_size;      ///< Size of file with firmware
+    unsigned short RG1put;        ///< RG1put bytes to write to RG1 register of fadc board
+    unsigned short Buf1;          ///< Trigger shift size
 public:
-    unsigned short Buf2;     ///< Buffer size
-    unsigned int   AddrOn[16];     ///< Adresses of FADC boards
+    unsigned short Buf2;          ///< Buffer size
+    unsigned int   AddrOn[16];    ///< Adresses of FADC boards
     /// array to write event from buffer
-    short int event_data[66000];   // BOARD * CHANMAX * 512  // 8 * 16 * 512
-    int last_bin;              ///< index of last number in event_data
+    short int event_data[66000];  // BOARD * CHANMAX * 512  // 8 * 16 * 512
+    int last_bin;                 ///< index of last number in event_data
 
     /// constructor
     fadc_board() 
@@ -50,11 +49,11 @@ public:
         Buf2 = Work.buf2;
         RG1put = 0;
         last_bin = 0;
+        debug[0] = 0;
+
         unsigned short count_addr_init[9] = {8, 0xA, 0xC, 0x1A, 0x1C, 0x2A, 0x2C, 0x3A, 0x3C};
         for(short i = 0; i < 9; i++)
             count_addr[i] = count_addr_init[i];
-
-        debug[0] = 0;
 
         init();
     }
@@ -71,7 +70,8 @@ private:
     unsigned char write_to_registers(void);
     unsigned char Read1ResReg(unsigned char AddrDev, unsigned char AddrReg, unsigned short *RegRes);
     float read_fadc_temp(unsigned int addr);
-    float kod_2_fadc_temp(unsigned int kod);
+    //float kod_2_fadc_temp(unsigned int kod);
+    float kod_2_fadc_temp(short kod);
 
 public:
     int   init(void);
@@ -659,7 +659,7 @@ float fadc_board::read_fadc_temp(unsigned int addr)
         return -100;
     }
     Tem1 = kod_2_fadc_temp(Res1);
-    sprintf(debug, "  adr= %d  T= %6.2f oC", addr, Tem1);
+    sprintf(debug, "  adr= %d kod= %d T= %6.2f oC", addr, Res1, Tem1);
     //if(dout) fprintf(dout, "    T1 = %6.2f oC", Tem1);
     return Tem1;
 }
@@ -677,19 +677,15 @@ float fadc_board::read_fadc_temp(unsigned int addr)
 /// \todo запись всех температур в лог-файл
 float fadc_board::read1_average_fadc_temp(unsigned int addr)
 {
-    //unsigned int Res1 = 0, Sum = 0;
     float Tem1 = 0., Tem = 0.;
     unsigned short ii = 0, num = 0;
 
     for(ii = 1; ii <= AddrOn[0]; ii++)
     {
         BaseAddr = AddrOn[ii];
-        //printf("BaseAddr = %xh", BaseAddr);
-        //if(dout) fprintf(dout,"BaseAddr = %xh", BaseAddr);
 
         Tem = read_fadc_temp(addr);
-        //printf("ii = %i, Tem = %.2f num = %i\n", ii, Tem, num);
-        //if(dout) fprintf(dout, "ii = %i, Tem = %.2f num = %i\n", ii, Tem, num);
+        sprintf(debug, "ifadc= %d %s", ii, debug);
 
         if(Tem < -90)
         {
@@ -699,18 +695,14 @@ float fadc_board::read1_average_fadc_temp(unsigned int addr)
         }
         Tem1 += Tem;
         num ++;
-        //printf("ii = %i, Tem = %.2f num = %i\n", ii, Tem, num);
     }
     //printf("   => 1Tem1 = %6.2f oC num = %i <=\n", Tem1, num);
     //if(dout) fprintf(dout, "   => 1Tem1 = %6.2f oC num = %i  <=\n", Tem1, num);
 
-    if(num)  Tem1 /= (float)num;
-    else     return -100; // error
+    if(num == 0) 
+        return -100; // error 
 
-    //Tem1 = kod_2_fadc_temp(Sum);
-    //printf("    1T1av = %6.2f oC", Tem1);
-    //if(dout) fprintf(dout, "    1T1av = %6.2f oC", Tem1);
-    return Tem1;
+    return Tem1 / (float)num;
 }
 
 
@@ -753,7 +745,7 @@ unsigned short fadc_board::turn_off_fadc_boards(void)
 {
     unsigned short ii = 0;
 
-    for(ii = 1; ii<= AddrOn[0]; ii++)
+    for(ii = 1; ii <= AddrOn[0]; ii++)
     {
         BaseAddr = AddrOn[ii];
         if(!TX8(0x20, 0x02, 0x0C)) // error

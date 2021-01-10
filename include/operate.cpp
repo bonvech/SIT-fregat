@@ -426,7 +426,7 @@ unsigned char GetEvent( fadc_board    &Fadc,
         print_debug(debug);
         Trigger_time = Trigger.tg_read_time();
 
-        if(dout) fprintf(dout, "\nCheck Fiifo-err before\n");
+        //if(dout) fprintf(dout, "\nCheck Fiifo-err before\n");
         Err = Fadc.fifo_err();
         if(Err)
             break;
@@ -435,7 +435,7 @@ unsigned char GetEvent( fadc_board    &Fadc,
         Fadc.get_event_data();
 
         // ---------- check fifo_err  --------
-        if(dout) fprintf(dout, "Check Fiifo-err after");
+        //if(dout) fprintf(dout, "Check Fiifo-err after");
         Err = Fadc.fifo_err();
         if(Err)
             break;

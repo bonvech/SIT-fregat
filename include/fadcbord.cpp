@@ -659,7 +659,7 @@ float fadc_board::read_fadc_temp(unsigned int addr)
         return -100;
     }
     Tem1 = kod_2_fadc_temp(Res1);
-    //printf("    T1 = %6.2f oC", Tem1);
+    sprintf(debug, "  adr= %d  T= %6.2f oC", addr, Tem1);
     //if(dout) fprintf(dout, "    T1 = %6.2f oC", Tem1);
     return Tem1;
 }
@@ -721,7 +721,13 @@ float fadc_board::read1_average_fadc_temp(unsigned int addr)
     *
     * Convert temperature kod to degrees centigrade
     */
-float fadc_board::kod_2_fadc_temp(unsigned int kod)
+float fadc_board::kod_2_fadc_temp(short kod)
+{
+    float temp = (float)kod / 256.;
+    return temp;
+}
+
+/*float fadc_board::kod_2_fadc_temp(unsigned int kod)
 {
     float temp = 0.;
     unsigned short skod = 0;
@@ -735,7 +741,7 @@ float fadc_board::kod_2_fadc_temp(unsigned int kod)
 
     return temp;
 }
-
+*/
 
 /** ---------------------------------------------------------
  * \brief turn_off_fadc_boards

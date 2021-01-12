@@ -554,7 +554,7 @@ unsigned short Operate(fadc_board &Fadc,
     // print stop time to message
     ptm0 = localtime(&Work.timeOnOff.time_of);
     strftime(info, sizeof(info), "%Y-%m-%d %H:%M:%S", ptm0);
-    sprintf(msc_out, "Status: Operation. Waiting for stop time: %s", info);
+    sprintf(msc_out, "Status: Operation. Waiting for stop time: %s Irk", info);
     print_status_to_file();
 
     Every_min_mini(vip, Vent, LED, Bar);

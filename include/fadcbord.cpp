@@ -715,7 +715,8 @@ float fadc_board::read1_average_fadc_temp(unsigned int addr)
     */
 float fadc_board::kod_2_fadc_temp(short kod)
 {
-    float temp = (float)kod / 256.;
+    kod /= 64; // remove 6 lowest bit
+    float temp = (float)kod / 4.;
     return temp;
 }
 

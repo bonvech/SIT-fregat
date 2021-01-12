@@ -103,7 +103,7 @@ int CalculateTunkaNumber(int *Syncro)
         result2 *= 2;
         result2 += Syncro[bit[i] + 1];
     }
-    printf("Syncro: %d %d %d ", TunkaNumber, result1, result2);
+    //printf("Syncro: %d %d %d ", TunkaNumber, result1, result2);
 
     result = result2;
     /// If two numbers are different - compare it with syncro number of previous event

@@ -1,0 +1,4 @@
+<map id="led" name="led">
+<area shape="rect" id="node2" href="$classi2c.html" title="Base class for all devices of the SPHERE detector. " alt="" coords="5,5,44,32"/>
+<area shape="rect" id="node3" href="$structlconfig.html" title="Structure to hold LED configuration. " alt="" coords="68,5,128,32"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="node1" href="$classi2c.html" title="Base class for all devices of the SPHERE detector. " alt="" coords="5,81,44,108"/>
+<area shape="rect" id="node2" href="$classbarometer.html" title="Class for one barometer. " alt="" coords="92,5,172,32"/>
+<area shape="rect" id="node3" href="$classfadc.html" title="fadc" alt="" coords="109,56,155,83"/>
+<area shape="rect" id="node5" href="$classled.html" title="led" alt="" coords="113,107,151,133"/>
+<area shape="rect" id="node6" href="$classlvps.html" title="Class for lvps I2C interface. " alt="" coords="109,157,155,184"/>
+<area shape="rect" id="node4" href="$classfadc__board.html" title="Class for FADC board. " alt="" coords="220,56,307,83"/>
+<area shape="rect" id="node7" href="$classlvps__dev.html" title="lvps_dev" alt="" coords="226,132,301,159"/>
+<area shape="rect" id="node8" href="$classSiPM.html" title="SiPM" alt="" coords="236,183,291,209"/>
+</map>

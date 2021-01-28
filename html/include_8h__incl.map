@@ -1,0 +1,20 @@
+<map id="include/include.h" name="include/include.h">
+<area shape="rect" id="node16" href="$bit_8cpp.html" title="to make bit operations with numbers " alt="" coords="1353,80,1415,107"/>
+<area shape="rect" id="node17" href="$ioports_8cpp.html" title="Open and close Input&#45;output Access. " alt="" coords="1439,80,1526,107"/>
+<area shape="rect" id="node18" href="$lvpsdev_8cpp.html" title="Класс lvps_dev. Вентиллятор. " alt="" coords="1550,80,1642,107"/>
+<area shape="rect" id="node22" href="$fadcbord_8cpp.html" title="Класс fadc_board. " alt="" coords="1666,80,1763,107"/>
+<area shape="rect" id="node27" href="$trigger_8cpp.html" title="Класс trigger_board. Плата триггера. " alt="" coords="1788,80,1871,107"/>
+<area shape="rect" id="node28" href="$sipm_8cpp.html" title="Класс SiPM. Источники высоковольтного напряжения питания ФЭУ. " alt="" coords="1895,80,1969,107"/>
+<area shape="rect" id="node30" href="$readinp_8cpp.html" title="Чтение входных файлов " alt="" coords="1994,80,2083,107"/>
+<area shape="rect" id="node31" href="$led_8cpp.html" title="Класс led. LED calibration. " alt="" coords="2069,155,2133,181"/>
+<area shape="rect" id="node32" href="$bar_8cpp.html" title="Класс barometer. Board of LED calibration. " alt="" coords="2158,155,2223,181"/>
+<area shape="rect" id="node33" href="$files_8cpp.html" title="Функции для работы с файлами " alt="" coords="2210,80,2281,107"/>
+<area shape="rect" id="node34" href="$operate_8cpp.html" title="Функции, выполняемые во время основного цикла измерений. Вентиллятор. " alt="" coords="2305,80,2396,107"/>
+<area shape="rect" id="node19" href="$lvps_8cpp.html" title="Класс lvps. " alt="" coords="1411,155,1482,181"/>
+<area shape="rect" id="node21" href="$i2c_8cpp.html" title="Абстрактный базовый класс для i2c устройств " alt="" coords="2069,229,2133,256"/>
+<area shape="rect" id="node23" href="$fadc_8cpp.html" title="Класс fadc. Базовый для плат FADC. " alt="" coords="1507,155,1579,181"/>
+<area shape="rect" id="node24" href="$levels_8cpp.html" title="Класс fadc_board. Управление порогами " alt="" coords="1603,155,1685,181"/>
+<area shape="rect" id="node25" href="$nograph_8cpp.html" title="Increase all levels up to 1 unit. " alt="" coords="1709,155,1803,181"/>
+<area shape="rect" id="node26" href="$tunka__sync_8cpp.html" title="Часть класса fadc_board. Работа c синхроимпульсом от HISCORE. " alt="" coords="1827,155,1941,181"/>
+<area shape="rect" id="node29" href="$hvcalibr_8h.html" title="Калибровочные кривые " alt="" coords="1966,155,2045,181"/>
+</map>

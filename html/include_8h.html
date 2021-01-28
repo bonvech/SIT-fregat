@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SIT---Fregat: Файл include/include.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="SIT_intro_small.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SIT---Fregat
+   &#160;<span id="projectnumber">0.3</span>
+   </div>
+   <div id="projectbrief">SITsoftware</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Классы</a> &#124;
+<a href="#define-members">Макросы</a> &#124;
+<a href="#var-members">Переменные</a>  </div>
+  <div class="headertitle">
+<div class="title">Файл include.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Определение констант, подключение библиотек.  
+<a href="#details">Подробнее...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;sys/time.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;fcntl.h&gt;</code><br />
+<code>#include &lt;signal.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;sys/stat.h&gt;</code><br />
+<code>#include &lt;sys/mman.h&gt;</code><br />
+<code>#include &lt;sys/io.h&gt;</code><br />
+<code>#include &lt;sys/perm.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="bit_8cpp.html">bit.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ioports_8cpp.html">ioports.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="lvpsdev_8cpp.html">lvpsdev.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="fadcbord_8cpp.html">fadcbord.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="trigger_8cpp.html">trigger.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sipm_8cpp.html">sipm.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="readinp_8cpp.html">readinp.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8cpp.html">led.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bar_8cpp.html">bar.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="files_8cpp.html">files.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="operate_8cpp.html">operate.cpp</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для include.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="include_8h__incl.png" border="0" usemap="#include_2include_8h" alt=""/></div>
+<map name="include_2include_8h" id="include_2include_8h">
+<area shape="rect" id="node16" href="bit_8cpp.html" title="to make bit operations with numbers " alt="" coords="1353,80,1415,107"/>
+<area shape="rect" id="node17" href="ioports_8cpp.html" title="Open and close Input&#45;output Access. " alt="" coords="1439,80,1526,107"/>
+<area shape="rect" id="node18" href="lvpsdev_8cpp.html" title="Класс lvps_dev. Вентиллятор. " alt="" coords="1550,80,1642,107"/>
+<area shape="rect" id="node22" href="fadcbord_8cpp.html" title="Класс fadc_board. " alt="" coords="1666,80,1763,107"/>
+<area shape="rect" id="node27" href="trigger_8cpp.html" title="Класс trigger_board. Плата триггера. " alt="" coords="1788,80,1871,107"/>
+<area shape="rect" id="node28" href="sipm_8cpp.html" title="Класс SiPM. Источники высоковольтного напряжения питания ФЭУ. " alt="" coords="1895,80,1969,107"/>
+<area shape="rect" id="node30" href="readinp_8cpp.html" title="Чтение входных файлов " alt="" coords="1994,80,2083,107"/>
+<area shape="rect" id="node31" href="led_8cpp.html" title="Класс led. LED calibration. " alt="" coords="2069,155,2133,181"/>
+<area shape="rect" id="node32" href="bar_8cpp.html" title="Класс barometer. Board of LED calibration. " alt="" coords="2158,155,2223,181"/>
+<area shape="rect" id="node33" href="files_8cpp.html" title="Функции для работы с файлами " alt="" coords="2210,80,2281,107"/>
+<area shape="rect" id="node34" href="operate_8cpp.html" title="Функции, выполняемые во время основного цикла измерений. Вентиллятор. " alt="" coords="2305,80,2396,107"/>
+<area shape="rect" id="node19" href="lvps_8cpp.html" title="Класс lvps. " alt="" coords="1411,155,1482,181"/>
+<area shape="rect" id="node21" href="i2c_8cpp.html" title="Абстрактный базовый класс для i2c устройств " alt="" coords="2069,229,2133,256"/>
+<area shape="rect" id="node23" href="fadc_8cpp.html" title="Класс fadc. Базовый для плат FADC. " alt="" coords="1507,155,1579,181"/>
+<area shape="rect" id="node24" href="levels_8cpp.html" title="Класс fadc_board. Управление порогами " alt="" coords="1603,155,1685,181"/>
+<area shape="rect" id="node25" href="nograph_8cpp.html" title="Increase all levels up to 1 unit. " alt="" coords="1709,155,1803,181"/>
+<area shape="rect" id="node26" href="tunka__sync_8cpp.html" title="Часть класса fadc_board. Работа c синхроимпульсом от HISCORE. " alt="" coords="1827,155,1941,181"/>
+<area shape="rect" id="node29" href="hvcalibr_8h.html" title="Калибровочные кривые " alt="" coords="1966,155,2045,181"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Граф файлов, в которые включается этот файл:</div>
+<div class="dyncontent">
+<div class="center"><img src="include_8h__dep__incl.png" border="0" usemap="#include_2include_8hdep" alt=""/></div>
+<map name="include_2include_8hdep" id="include_2include_8hdep">
+<area shape="rect" id="node2" href="sphere_8cpp.html" title="Программа автономной работы установки СФЕРА в Тунке " alt="" coords="21,80,108,107"/>
+</map>
+</div>
+</div>
+<p><a href="include_8h_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionCharInt__converter.html">CharInt_converter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union type to conver Int to bytes.  <a href="unionCharInt__converter.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtime__onoff.html">time_onoff</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold onOff data.  <a href="structtime__onoff.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtemp.html">temp</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure to hold termometeres and ventillators  <a href="structtemp.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinput__parameters.html">input_parameters</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold work parameters.  <a href="structinput__parameters.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Макросы</h2></td></tr>
+<tr class="memitem:aad54ced9f8468790e93c9fd68ef08b52"><td class="memItemLeft" align="right" valign="top"><a id="aad54ced9f8468790e93c9fd68ef08b52"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#aad54ced9f8468790e93c9fd68ef08b52">PROC_TO_KILL</a>&#160;&#160;&#160;&quot;diag&quot;</td></tr>
+<tr class="memdesc:aad54ced9f8468790e93c9fd68ef08b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">filename of process to kill <br /></td></tr>
+<tr class="separator:aad54ced9f8468790e93c9fd68ef08b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab117546549783a058d0321a287699579"><td class="memItemLeft" align="right" valign="top"><a id="ab117546549783a058d0321a287699579"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>&#160;&#160;&#160;&quot;/home/Tunka/Data/s&quot;</td></tr>
+<tr class="memdesc:ab117546549783a058d0321a287699579"><td class="mdescLeft">&#160;</td><td class="mdescRight">first part of filename to write binary data <br /></td></tr>
+<tr class="separator:ab117546549783a058d0321a287699579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d4676733f5e850f451942b6d901382"><td class="memItemLeft" align="right" valign="top"><a id="a69d4676733f5e850f451942b6d901382"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a69d4676733f5e850f451942b6d901382">LOG_FILE</a>&#160;&#160;&#160;&quot;/home/Tunka/Data/log/log.txt&quot;</td></tr>
+<tr class="memdesc:a69d4676733f5e850f451942b6d901382"><td class="mdescLeft">&#160;</td><td class="mdescRight">filename to print log <br /></td></tr>
+<tr class="separator:a69d4676733f5e850f451942b6d901382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27cf9d031c1ff28124b2c5e445685795"><td class="memItemLeft" align="right" valign="top"><a id="a27cf9d031c1ff28124b2c5e445685795"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a27cf9d031c1ff28124b2c5e445685795">ENABLE_FILE</a>&#160;&#160;&#160;&quot;/var/www/htdocs/enable.txt&quot;</td></tr>
+<tr class="memdesc:a27cf9d031c1ff28124b2c5e445685795"><td class="mdescLeft">&#160;</td><td class="mdescRight">file to enable status <br /></td></tr>
+<tr class="separator:a27cf9d031c1ff28124b2c5e445685795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d9a54020e21981694a10daecdf4718e"><td class="memItemLeft" align="right" valign="top"><a id="a7d9a54020e21981694a10daecdf4718e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a7d9a54020e21981694a10daecdf4718e">EVERYMIN_FILE</a>&#160;&#160;&#160;&quot;/var/www/htdocs/1m.data&quot;</td></tr>
+<tr class="memdesc:a7d9a54020e21981694a10daecdf4718e"><td class="mdescLeft">&#160;</td><td class="mdescRight">file to write every min log <br /></td></tr>
+<tr class="separator:a7d9a54020e21981694a10daecdf4718e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf8c91bd142f97903bd9e502710b4dc"><td class="memItemLeft" align="right" valign="top"><a id="a1bf8c91bd142f97903bd9e502710b4dc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a1bf8c91bd142f97903bd9e502710b4dc">EVERYSEC_FILE</a>&#160;&#160;&#160;&quot;/var/www/htdocs/5s.data&quot;</td></tr>
+<tr class="memdesc:a1bf8c91bd142f97903bd9e502710b4dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">file to write every sec log <br /></td></tr>
+<tr class="separator:a1bf8c91bd142f97903bd9e502710b4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad749c2ee642dcc573b982765c08506e9"><td class="memItemLeft" align="right" valign="top"><a id="ad749c2ee642dcc573b982765c08506e9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ad749c2ee642dcc573b982765c08506e9">WORK_FILE</a>&#160;&#160;&#160;&quot;./log/fadc_work.dat&quot;</td></tr>
+<tr class="memdesc:ad749c2ee642dcc573b982765c08506e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">output file to write fadc information <br /></td></tr>
+<tr class="separator:ad749c2ee642dcc573b982765c08506e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d50d6112f329d45c506e41be19f022"><td class="memItemLeft" align="right" valign="top"><a id="a02d50d6112f329d45c506e41be19f022"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a02d50d6112f329d45c506e41be19f022">LEVELS_CONFIG_FILE</a>&#160;&#160;&#160;&quot;./config/levels.config&quot;</td></tr>
+<tr class="memdesc:a02d50d6112f329d45c506e41be19f022"><td class="mdescLeft">&#160;</td><td class="mdescRight">File to read levels from. <br /></td></tr>
+<tr class="separator:a02d50d6112f329d45c506e41be19f022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a482d1fc63dbd4db40735267868402a13"><td class="memItemLeft" align="right" valign="top"><a id="a482d1fc63dbd4db40735267868402a13"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a482d1fc63dbd4db40735267868402a13">LEVELS_INPUT_FILE</a>&#160;&#160;&#160;&quot;./config/levels.inp&quot;</td></tr>
+<tr class="memdesc:a482d1fc63dbd4db40735267868402a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">File to read levels from first. <br /></td></tr>
+<tr class="separator:a482d1fc63dbd4db40735267868402a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14332d547ce3f0ef6b1a87a53b76e86b"><td class="memItemLeft" align="right" valign="top"><a id="a14332d547ce3f0ef6b1a87a53b76e86b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a14332d547ce3f0ef6b1a87a53b76e86b">LEVELS_LOG_FILE</a>&#160;&#160;&#160;&quot;./log/levels.dat&quot;</td></tr>
+<tr class="memdesc:a14332d547ce3f0ef6b1a87a53b76e86b"><td class="mdescLeft">&#160;</td><td class="mdescRight">File to write levels to. <br /></td></tr>
+<tr class="separator:a14332d547ce3f0ef6b1a87a53b76e86b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51ed2bd47e7f4b9e8c005338d2b5d965"><td class="memItemLeft" align="right" valign="top"><a id="a51ed2bd47e7f4b9e8c005338d2b5d965"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a51ed2bd47e7f4b9e8c005338d2b5d965">BOARD</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a51ed2bd47e7f4b9e8c005338d2b5d965"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of FADC boards with pmt [1-8] <br /></td></tr>
+<tr class="separator:a51ed2bd47e7f4b9e8c005338d2b5d965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b188ce65d66fcd855671e0d38da8c6a"><td class="memItemLeft" align="right" valign="top"><a id="a4b188ce65d66fcd855671e0d38da8c6a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a4b188ce65d66fcd855671e0d38da8c6a">CHANPMT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a4b188ce65d66fcd855671e0d38da8c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of PMT channels on one FADC board <br /></td></tr>
+<tr class="separator:a4b188ce65d66fcd855671e0d38da8c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a746ac98e315b60096deed73cfffebe4c"><td class="memItemLeft" align="right" valign="top"><a id="a746ac98e315b60096deed73cfffebe4c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a746ac98e315b60096deed73cfffebe4c">CHANMAX</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:a746ac98e315b60096deed73cfffebe4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of ADC channels on one FADC board <br /></td></tr>
+<tr class="separator:a746ac98e315b60096deed73cfffebe4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2aea7e3bec3c6c7e3c0d46e93ee9688"><td class="memItemLeft" align="right" valign="top"><a id="ab2aea7e3bec3c6c7e3c0d46e93ee9688"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ab2aea7e3bec3c6c7e3c0d46e93ee9688">RG1ADDR</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ab2aea7e3bec3c6c7e3c0d46e93ee9688"><td class="mdescLeft">&#160;</td><td class="mdescRight">address of RG1 register <br /></td></tr>
+<tr class="separator:ab2aea7e3bec3c6c7e3c0d46e93ee9688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a075069a5671bc475bce1fa8152cf453e"><td class="memItemLeft" align="right" valign="top"><a id="a075069a5671bc475bce1fa8152cf453e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a075069a5671bc475bce1fa8152cf453e">RG0ADDR</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a075069a5671bc475bce1fa8152cf453e"><td class="mdescLeft">&#160;</td><td class="mdescRight">address of RG0 register <br /></td></tr>
+<tr class="separator:a075069a5671bc475bce1fa8152cf453e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5a89c5b01e9ec28e0a4664e1c3cd543"><td class="memItemLeft" align="right" valign="top"><a id="ae5a89c5b01e9ec28e0a4664e1c3cd543"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ae5a89c5b01e9ec28e0a4664e1c3cd543">STROBB</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ae5a89c5b01e9ec28e0a4664e1c3cd543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strob begin // 150. <br /></td></tr>
+<tr class="separator:ae5a89c5b01e9ec28e0a4664e1c3cd543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89b29034fc049c915eafb2a9d2d7680f"><td class="memItemLeft" align="right" valign="top"><a id="a89b29034fc049c915eafb2a9d2d7680f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a89b29034fc049c915eafb2a9d2d7680f">STROBE</a>&#160;&#160;&#160;512</td></tr>
+<tr class="memdesc:a89b29034fc049c915eafb2a9d2d7680f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strob end // 350. <br /></td></tr>
+<tr class="separator:a89b29034fc049c915eafb2a9d2d7680f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad48586aa7267696ad68bf74342735b49"><td class="memItemLeft" align="right" valign="top"><a id="ad48586aa7267696ad68bf74342735b49"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ad48586aa7267696ad68bf74342735b49">HVCHANN</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:ad48586aa7267696ad68bf74342735b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of vip channels <br /></td></tr>
+<tr class="separator:ad48586aa7267696ad68bf74342735b49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3234c7e525b49f49f0b2cc5046492e5"><td class="memItemLeft" align="right" valign="top"><a id="ac3234c7e525b49f49f0b2cc5046492e5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ac3234c7e525b49f49f0b2cc5046492e5">MAXCURR</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ac3234c7e525b49f49f0b2cc5046492e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum current, 100 mkA <br /></td></tr>
+<tr class="separator:ac3234c7e525b49f49f0b2cc5046492e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a557d506529cff0c9c025cf29e7f296"><td class="memItemLeft" align="right" valign="top"><a id="a8a557d506529cff0c9c025cf29e7f296"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a8a557d506529cff0c9c025cf29e7f296">WORKCURR</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a8a557d506529cff0c9c025cf29e7f296"><td class="mdescLeft">&#160;</td><td class="mdescRight">work current, 30 mkA <br /></td></tr>
+<tr class="separator:a8a557d506529cff0c9c025cf29e7f296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3417389f59d81ab8ca931f327d1c7d7"><td class="memItemLeft" align="right" valign="top"><a id="ac3417389f59d81ab8ca931f327d1c7d7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ac3417389f59d81ab8ca931f327d1c7d7">LPT_IO</a>&#160;&#160;&#160;0x378</td></tr>
+<tr class="memdesc:ac3417389f59d81ab8ca931f327d1c7d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">LPT FADC input/outpu t ports. <br /></td></tr>
+<tr class="separator:ac3417389f59d81ab8ca931f327d1c7d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52d8e299207a7f0bf5485701f38621af"><td class="memItemLeft" align="right" valign="top"><a id="a52d8e299207a7f0bf5485701f38621af"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a52d8e299207a7f0bf5485701f38621af">FADC_IO</a>&#160;&#160;&#160;0x320</td></tr>
+<tr class="memdesc:a52d8e299207a7f0bf5485701f38621af"><td class="mdescLeft">&#160;</td><td class="mdescRight">FADC input/output ports. <br /></td></tr>
+<tr class="separator:a52d8e299207a7f0bf5485701f38621af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade9c5aa8c03fbdef3712d190d409af9"><td class="memItemLeft" align="right" valign="top"><a id="aade9c5aa8c03fbdef3712d190d409af9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#aade9c5aa8c03fbdef3712d190d409af9">BaseAddrLED</a>&#160;&#160;&#160;0x4320</td></tr>
+<tr class="memdesc:aade9c5aa8c03fbdef3712d190d409af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address for LED. <br /></td></tr>
+<tr class="separator:aade9c5aa8c03fbdef3712d190d409af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404fb13d384b64ff6e88d9266efa0c7a"><td class="memItemLeft" align="right" valign="top"><a id="a404fb13d384b64ff6e88d9266efa0c7a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a404fb13d384b64ff6e88d9266efa0c7a">INT2_WIDTH</a>&#160;&#160;&#160;0x7</td></tr>
+<tr class="memdesc:a404fb13d384b64ff6e88d9266efa0c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Какая-то ширина <br /></td></tr>
+<tr class="separator:a404fb13d384b64ff6e88d9266efa0c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80e096ba173b078dc927649669145b8b"><td class="memItemLeft" align="right" valign="top"><a id="a80e096ba173b078dc927649669145b8b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a80e096ba173b078dc927649669145b8b">TRG2</a>&#160;&#160;&#160;(100+0x700+0x3000)</td></tr>
+<tr class="memdesc:a80e096ba173b078dc927649669145b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger. <br /></td></tr>
+<tr class="separator:a80e096ba173b078dc927649669145b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7423db4b964c5c57e43d47c618a82806"><td class="memItemLeft" align="right" valign="top"><a id="a7423db4b964c5c57e43d47c618a82806"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a7423db4b964c5c57e43d47c618a82806">BUFF2</a>&#160;&#160;&#160;400</td></tr>
+<tr class="memdesc:a7423db4b964c5c57e43d47c618a82806"><td class="mdescLeft">&#160;</td><td class="mdescRight">glubina buffera 2-go urovnja (RG2,5,8,11) = 512 <br /></td></tr>
+<tr class="separator:a7423db4b964c5c57e43d47c618a82806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbc780036e1c39ca5995123152da83fe"><td class="memItemLeft" align="right" valign="top"><a id="acbc780036e1c39ca5995123152da83fe"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#acbc780036e1c39ca5995123152da83fe">BUF1</a>&#160;&#160;&#160;130</td></tr>
+<tr class="memdesc:acbc780036e1c39ca5995123152da83fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">glubina buffera 1-go urovnja (ADC1(5,9,13)/DP, ADC3(7,11,15)/DP) = 256 <br />
+ 256 - для 2013 г. <br />
+ 230 - для случая, когда синхроимпульс выключен, сдвиг калибровочного кадра = 0 <br /></td></tr>
+<tr class="separator:acbc780036e1c39ca5995123152da83fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Переменные</h2></td></tr>
+<tr class="memitem:a0243a46b9873d3074b0bbbf09c6ea281"><td class="memItemLeft" align="right" valign="top"><a id="a0243a46b9873d3074b0bbbf09c6ea281"></a>
+union <a class="el" href="unionCharInt__converter.html">CharInt_converter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a></td></tr>
+<tr class="memdesc:a0243a46b9873d3074b0bbbf09c6ea281"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of union to use to convert int to bytes <br /></td></tr>
+<tr class="separator:a0243a46b9873d3074b0bbbf09c6ea281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef42635751e9d36965ef3f23f42b8eae"><td class="memItemLeft" align="right" valign="top"><a id="aef42635751e9d36965ef3f23f42b8eae"></a>
+struct <a class="el" href="structtemp.html">temp</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#aef42635751e9d36965ef3f23f42b8eae">Last</a></td></tr>
+<tr class="memdesc:aef42635751e9d36965ef3f23f42b8eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure to hold last temperature and ventillator voltage <br /></td></tr>
+<tr class="separator:aef42635751e9d36965ef3f23f42b8eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a715bc7cbfedf98c3483143d6ef0d5ba0"><td class="memItemLeft" align="right" valign="top"><a id="a715bc7cbfedf98c3483143d6ef0d5ba0"></a>
+struct <a class="el" href="structinput__parameters.html">input_parameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a715bc7cbfedf98c3483143d6ef0d5ba0">Input</a></td></tr>
+<tr class="memdesc:a715bc7cbfedf98c3483143d6ef0d5ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to read from config files. <br /></td></tr>
+<tr class="separator:a715bc7cbfedf98c3483143d6ef0d5ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864d53f6b8783cede91b00783e28e0c7"><td class="memItemLeft" align="right" valign="top"><a id="a864d53f6b8783cede91b00783e28e0c7"></a>
+struct <a class="el" href="structinput__parameters.html">input_parameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a864d53f6b8783cede91b00783e28e0c7">Default</a></td></tr>
+<tr class="memdesc:a864d53f6b8783cede91b00783e28e0c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default parameters. <br /></td></tr>
+<tr class="separator:a864d53f6b8783cede91b00783e28e0c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a343f40708de8e6b6a6278dd6963b0f1d"><td class="memItemLeft" align="right" valign="top"><a id="a343f40708de8e6b6a6278dd6963b0f1d"></a>
+struct <a class="el" href="structinput__parameters.html">input_parameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a343f40708de8e6b6a6278dd6963b0f1d">Work</a></td></tr>
+<tr class="memdesc:a343f40708de8e6b6a6278dd6963b0f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure of parameters to work with. <br /></td></tr>
+<tr class="separator:a343f40708de8e6b6a6278dd6963b0f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8313468c2ab2f4c2cbba8f5c41057f40"><td class="memItemLeft" align="right" valign="top"><a id="a8313468c2ab2f4c2cbba8f5c41057f40"></a>
+FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a8313468c2ab2f4c2cbba8f5c41057f40">dout</a></td></tr>
+<tr class="memdesc:a8313468c2ab2f4c2cbba8f5c41057f40"><td class="mdescLeft">&#160;</td><td class="mdescRight">debug out file <br /></td></tr>
+<tr class="separator:a8313468c2ab2f4c2cbba8f5c41057f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3262c6b152387b6f72740f54881986d8"><td class="memItemLeft" align="right" valign="top"><a id="a3262c6b152387b6f72740f54881986d8"></a>
+FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a3262c6b152387b6f72740f54881986d8">fwork</a></td></tr>
+<tr class="memdesc:a3262c6b152387b6f72740f54881986d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">debug out file <br /></td></tr>
+<tr class="separator:a3262c6b152387b6f72740f54881986d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acec19516a59050bb447192fe318e6a9c"><td class="memItemLeft" align="right" valign="top"><a id="acec19516a59050bb447192fe318e6a9c"></a>
+FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#acec19516a59050bb447192fe318e6a9c">fout</a></td></tr>
+<tr class="memdesc:acec19516a59050bb447192fe318e6a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">data out file <br /></td></tr>
+<tr class="separator:acec19516a59050bb447192fe318e6a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67fd40d381493b45a8bfc59288716305"><td class="memItemLeft" align="right" valign="top"><a id="a67fd40d381493b45a8bfc59288716305"></a>
+FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a67fd40d381493b45a8bfc59288716305">ffmin</a></td></tr>
+<tr class="memdesc:a67fd40d381493b45a8bfc59288716305"><td class="mdescLeft">&#160;</td><td class="mdescRight">every min file <br /></td></tr>
+<tr class="separator:a67fd40d381493b45a8bfc59288716305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f931dc8556f6e008b9e35b9a33fc3a"><td class="memItemLeft" align="right" valign="top"><a id="ad7f931dc8556f6e008b9e35b9a33fc3a"></a>
+FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ad7f931dc8556f6e008b9e35b9a33fc3a">f5sec</a></td></tr>
+<tr class="memdesc:ad7f931dc8556f6e008b9e35b9a33fc3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">every 5min file <br /></td></tr>
+<tr class="separator:ad7f931dc8556f6e008b9e35b9a33fc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e53e6288b89e45668524b7d888debab"><td class="memItemLeft" align="right" valign="top"><a id="a7e53e6288b89e45668524b7d888debab"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a7e53e6288b89e45668524b7d888debab">EventNumber</a> = 0</td></tr>
+<tr class="memdesc:a7e53e6288b89e45668524b7d888debab"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of current event <br /></td></tr>
+<tr class="separator:a7e53e6288b89e45668524b7d888debab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dbb1da300c4069dd00d6291fb10ce31"><td class="memItemLeft" align="right" valign="top"><a id="a2dbb1da300c4069dd00d6291fb10ce31"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a2dbb1da300c4069dd00d6291fb10ce31">LastEventNumber</a> = 0</td></tr>
+<tr class="memdesc:a2dbb1da300c4069dd00d6291fb10ce31"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of start event of current minute <br /></td></tr>
+<tr class="separator:a2dbb1da300c4069dd00d6291fb10ce31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95cb2562264b5be750f7404df452f7d1"><td class="memItemLeft" align="right" valign="top"><a id="a95cb2562264b5be750f7404df452f7d1"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a95cb2562264b5be750f7404df452f7d1">EventNumberBefore</a> = 0</td></tr>
+<tr class="memdesc:a95cb2562264b5be750f7404df452f7d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of start event of current period <br /></td></tr>
+<tr class="separator:a95cb2562264b5be750f7404df452f7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c8846ced309cbdb2528a665b49f40d6"><td class="memItemLeft" align="right" valign="top"><a id="a0c8846ced309cbdb2528a665b49f40d6"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a0c8846ced309cbdb2528a665b49f40d6">TunkaNumber</a> = 0</td></tr>
+<tr class="memdesc:a0c8846ced309cbdb2528a665b49f40d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">last syncro number from HISCORE <br /></td></tr>
+<tr class="separator:a0c8846ced309cbdb2528a665b49f40d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84ae6c61523bb48e8b73cc5b17feb81b"><td class="memItemLeft" align="right" valign="top"><a id="a84ae6c61523bb48e8b73cc5b17feb81b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a84ae6c61523bb48e8b73cc5b17feb81b">commandin</a> [21] = {0}</td></tr>
+<tr class="memdesc:a84ae6c61523bb48e8b73cc5b17feb81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">commands from file string <br /></td></tr>
+<tr class="separator:a84ae6c61523bb48e8b73cc5b17feb81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51da87cfb8f050213f2c8037de477041"><td class="memItemLeft" align="right" valign="top"><a id="a51da87cfb8f050213f2c8037de477041"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a51da87cfb8f050213f2c8037de477041">vip_out</a> [1024] = &quot;Mosaic is not available now&quot;</td></tr>
+<tr class="memdesc:a51da87cfb8f050213f2c8037de477041"><td class="mdescLeft">&#160;</td><td class="mdescRight">vip ADC info string <br /></td></tr>
+<tr class="separator:a51da87cfb8f050213f2c8037de477041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fcfa020d49282947af7126f436bef23"><td class="memItemLeft" align="right" valign="top"><a id="a9fcfa020d49282947af7126f436bef23"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a9fcfa020d49282947af7126f436bef23">time_out</a> [100] = &quot;time_out init string&quot;</td></tr>
+<tr class="memdesc:a9fcfa020d49282947af7126f436bef23"><td class="mdescLeft">&#160;</td><td class="mdescRight">time_ms info string <br /></td></tr>
+<tr class="separator:a9fcfa020d49282947af7126f436bef23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac3201868f7f2635a1be06fb85f069bb"><td class="memItemLeft" align="right" valign="top"><a id="aac3201868f7f2635a1be06fb85f069bb"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#aac3201868f7f2635a1be06fb85f069bb">adc_out</a> [1024] = &quot;adc_out init string&quot;</td></tr>
+<tr class="memdesc:aac3201868f7f2635a1be06fb85f069bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vent ADC info string. <br /></td></tr>
+<tr class="separator:aac3201868f7f2635a1be06fb85f069bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad58e3e03e26205ead329d661f101a96b"><td class="memItemLeft" align="right" valign="top"><a id="ad58e3e03e26205ead329d661f101a96b"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#ad58e3e03e26205ead329d661f101a96b">pwr_out</a> [1024] = &quot;pwr_out init string&quot;</td></tr>
+<tr class="memdesc:ad58e3e03e26205ead329d661f101a96b"><td class="mdescLeft">&#160;</td><td class="mdescRight">power info string <br /></td></tr>
+<tr class="separator:ad58e3e03e26205ead329d661f101a96b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3666b1f8588415b0aaeb3c1eba4a2aa"><td class="memItemLeft" align="right" valign="top"><a id="af3666b1f8588415b0aaeb3c1eba4a2aa"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#af3666b1f8588415b0aaeb3c1eba4a2aa">msc_out</a> [1024] = &quot;msc_out init string&quot;</td></tr>
+<tr class="memdesc:af3666b1f8588415b0aaeb3c1eba4a2aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">info string <br /></td></tr>
+<tr class="separator:af3666b1f8588415b0aaeb3c1eba4a2aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a810e54df9d0cfdb1e07918070cf122a2"><td class="memItemLeft" align="right" valign="top"><a id="a810e54df9d0cfdb1e07918070cf122a2"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a810e54df9d0cfdb1e07918070cf122a2">bar_out</a> [1024] = &quot;bar_out init string&quot;</td></tr>
+<tr class="memdesc:a810e54df9d0cfdb1e07918070cf122a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">barometer info string <br /></td></tr>
+<tr class="separator:a810e54df9d0cfdb1e07918070cf122a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5d021cdaf0c32db38345382c8866b84"><td class="memItemLeft" align="right" valign="top"><a id="aa5d021cdaf0c32db38345382c8866b84"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#aa5d021cdaf0c32db38345382c8866b84">freq_out</a> [256] = &quot;frequency init string&quot;</td></tr>
+<tr class="memdesc:aa5d021cdaf0c32db38345382c8866b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">event frequency info string <br /></td></tr>
+<tr class="separator:aa5d021cdaf0c32db38345382c8866b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad5b7ce7721dd1e40dc6a8f478042f56"><td class="memItemLeft" align="right" valign="top"><a id="aad5b7ce7721dd1e40dc6a8f478042f56"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#aad5b7ce7721dd1e40dc6a8f478042f56">kadr_out</a> [256] = &quot;event counter init string&quot;</td></tr>
+<tr class="memdesc:aad5b7ce7721dd1e40dc6a8f478042f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">event frequency info string <br /></td></tr>
+<tr class="separator:aad5b7ce7721dd1e40dc6a8f478042f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba3a9f89d3a2dbb77637bd3264d597f6"><td class="memItemLeft" align="right" valign="top"><a id="aba3a9f89d3a2dbb77637bd3264d597f6"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#aba3a9f89d3a2dbb77637bd3264d597f6">led_out</a> [4096] = &quot;led_out init string&quot;</td></tr>
+<tr class="memdesc:aba3a9f89d3a2dbb77637bd3264d597f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">LED info string. <br /></td></tr>
+<tr class="separator:aba3a9f89d3a2dbb77637bd3264d597f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54ea942e44f8431e06b8f8e6df474e34"><td class="memItemLeft" align="right" valign="top"><a id="a54ea942e44f8431e06b8f8e6df474e34"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a54ea942e44f8431e06b8f8e6df474e34">gps_bstamp</a> [30] = &quot;gps_bstamp init string&quot;</td></tr>
+<tr class="memdesc:a54ea942e44f8431e06b8f8e6df474e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">gps_bstamp info string <br /></td></tr>
+<tr class="separator:a54ea942e44f8431e06b8f8e6df474e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90c59ce010d905a0bf2f330c2a90e6ad"><td class="memItemLeft" align="right" valign="top"><a id="a90c59ce010d905a0bf2f330c2a90e6ad"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a90c59ce010d905a0bf2f330c2a90e6ad">gps_sstamp</a> [30] = &quot;gps_sstamp init string&quot;</td></tr>
+<tr class="memdesc:a90c59ce010d905a0bf2f330c2a90e6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">gps_sstamp info string <br /></td></tr>
+<tr class="separator:a90c59ce010d905a0bf2f330c2a90e6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79358fe80530d9c91fcb2792e59923bb"><td class="memItemLeft" align="right" valign="top"><a id="a79358fe80530d9c91fcb2792e59923bb"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a79358fe80530d9c91fcb2792e59923bb">chfreq_out</a> [400] = &quot;channel frequency init str&quot;</td></tr>
+<tr class="memdesc:a79358fe80530d9c91fcb2792e59923bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">channel frequency info string - 321 byte <br /></td></tr>
+<tr class="separator:a79358fe80530d9c91fcb2792e59923bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66efbf96c2e311afd4d89e4eae379c89"><td class="memItemLeft" align="right" valign="top"><a id="a66efbf96c2e311afd4d89e4eae379c89"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a66efbf96c2e311afd4d89e4eae379c89">chtext_out</a> [400] = &quot;channel numbering text str&quot;</td></tr>
+<tr class="memdesc:a66efbf96c2e311afd4d89e4eae379c89"><td class="mdescLeft">&#160;</td><td class="mdescRight">channel number text info string - 321 byte <br /></td></tr>
+<tr class="separator:a66efbf96c2e311afd4d89e4eae379c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33a05af9e8b1b6d21efb5bd366743ff8"><td class="memItemLeft" align="right" valign="top"><a id="a33a05af9e8b1b6d21efb5bd366743ff8"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_8h.html#a33a05af9e8b1b6d21efb5bd366743ff8">tunka_out</a> [128] = &quot;Tunka syncro text str&quot;</td></tr>
+<tr class="memdesc:a33a05af9e8b1b6d21efb5bd366743ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">channel number text info string - 321 byte <br /></td></tr>
+<tr class="separator:a33a05af9e8b1b6d21efb5bd366743ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Определение констант, подключение библиотек. </p>
+<p>Данный файл содержит в себе подключение стандартных библиотек, библиотек аппаратуры, а также определения основных констант и глобальных переменнтых</p>
+<dl class="section date"><dt>Дата</dt><dd>июнь 2019 года </dd></dl>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SIT---Fregat: Класс i2c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="SIT_intro_small.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SIT---Fregat
+   &#160;<span id="projectnumber">0.3</span>
+   </div>
+   <div id="projectbrief">SITsoftware</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="#pro-methods">Защищенные члены</a> &#124;
+<a href="classi2c-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс i2c<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Base class for all devices of the SPHERE detector.  
+ <a href="classi2c.html#details">Подробнее...</a></p>
+<div class="dynheader">
+Граф наследования:i2c:</div>
+<div class="dyncontent">
+<div class="center"><img src="classi2c__inherit__graph.png" border="0" usemap="#i2c_inherit__map" alt="Inheritance graph"/></div>
+<map name="i2c_inherit__map" id="i2c_inherit__map">
+<area shape="rect" id="node2" href="classbarometer.html" title="Class for one barometer. " alt="" coords="5,80,85,107"/>
+<area shape="rect" id="node3" href="classfadc.html" title="fadc" alt="" coords="110,80,157,107"/>
+<area shape="rect" id="node5" href="classled.html" title="led" alt="" coords="181,80,219,107"/>
+<area shape="rect" id="node6" href="classlvps.html" title="Class for lvps I2C interface. " alt="" coords="243,80,290,107"/>
+<area shape="rect" id="node4" href="classfadc__board.html" title="Class for FADC board. " alt="" coords="90,155,177,181"/>
+<area shape="rect" id="node7" href="classlvps__dev.html" title="lvps_dev" alt="" coords="215,155,289,181"/>
+<area shape="rect" id="node8" href="classSiPM.html" title="SiPM" alt="" coords="314,155,369,181"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">см. легенду</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:ad08507a044b1b782832e5ab0dda79d7d"><td class="memItemLeft" align="right" valign="top"><a id="ad08507a044b1b782832e5ab0dda79d7d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a></td></tr>
+<tr class="memdesc:ad08507a044b1b782832e5ab0dda79d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of device. <br /></td></tr>
+<tr class="separator:ad08507a044b1b782832e5ab0dda79d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0ef53a1c84cd88d561f453543101114"><td class="memItemLeft" align="right" valign="top"><a id="aa0ef53a1c84cd88d561f453543101114"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#aa0ef53a1c84cd88d561f453543101114">ADCSubAddr2</a></td></tr>
+<tr class="memdesc:aa0ef53a1c84cd88d561f453543101114"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADC subaddress. <br /></td></tr>
+<tr class="separator:aa0ef53a1c84cd88d561f453543101114"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Защищенные члены</h2></td></tr>
+<tr class="memitem:ad962695ab042323a34d6d304743af4e7"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ad962695ab042323a34d6d304743af4e7">TX_reg</a> (unsigned char AddrDev, unsigned char AddrReg)</td></tr>
+<tr class="memdesc:ad962695ab042323a34d6d304743af4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">процедуры пользователя для чтения и записи данных по <a class="el" href="classi2c.html" title="Base class for all devices of the SPHERE detector. ">i2c</a>.  <a href="#ad962695ab042323a34d6d304743af4e7">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad962695ab042323a34d6d304743af4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f90cdca8f2fbfa3abc742a162acfa0f"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a6f90cdca8f2fbfa3abc742a162acfa0f">TX_reg_NoStop</a> (unsigned char AddrDev, unsigned char AddrReg)</td></tr>
+<tr class="separator:a6f90cdca8f2fbfa3abc742a162acfa0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ad27a218fcd19525de0a69ce4bd797"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">TX8</a> (unsigned char AddrDev, unsigned char AddrReg, unsigned char Data)</td></tr>
+<tr class="separator:ab5ad27a218fcd19525de0a69ce4bd797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27c5602d9fb6c068b7893bb360c7760c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a27c5602d9fb6c068b7893bb360c7760c">TX16</a> (unsigned char AddrDev, unsigned char AddrReg, unsigned int Data)</td></tr>
+<tr class="separator:a27c5602d9fb6c068b7893bb360c7760c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70dd19574adc5aad3a7b5ac2788a19ff"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a70dd19574adc5aad3a7b5ac2788a19ff">RX8</a> (unsigned char AddrDev, unsigned char *GotData)</td></tr>
+<tr class="separator:a70dd19574adc5aad3a7b5ac2788a19ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb17bca315ff21aa709f9d1b4615cd2f"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#abb17bca315ff21aa709f9d1b4615cd2f">RX16</a> (unsigned char AddrDev, unsigned short *GotData)</td></tr>
+<tr class="separator:abb17bca315ff21aa709f9d1b4615cd2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a50ed02b66b422fa7b3a1c7a876e90c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a6a50ed02b66b422fa7b3a1c7a876e90c">RX16</a> (unsigned char AddrDev, unsigned int *GotData)</td></tr>
+<tr class="separator:a6a50ed02b66b422fa7b3a1c7a876e90c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71f99c8ef3550a575d9447b3775fb641"><td class="memItemLeft" align="right" valign="top"><a id="a71f99c8ef3550a575d9447b3775fb641"></a>
+unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a71f99c8ef3550a575d9447b3775fb641">RX32</a> (unsigned char AddrDev, unsigned int *Data)</td></tr>
+<tr class="memdesc:a71f99c8ef3550a575d9447b3775fb641"><td class="mdescLeft">&#160;</td><td class="mdescRight">read 4 bytes <br /></td></tr>
+<tr class="separator:a71f99c8ef3550a575d9447b3775fb641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae043a3f298ae0192f3c14ab0d5504ad"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#aae043a3f298ae0192f3c14ab0d5504ad">RX64</a> (unsigned char AddrDev, unsigned int *Data[4])</td></tr>
+<tr class="memdesc:aae043a3f298ae0192f3c14ab0d5504ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 8 byte.  <a href="#aae043a3f298ae0192f3c14ab0d5504ad">Подробнее...</a><br /></td></tr>
+<tr class="separator:aae043a3f298ae0192f3c14ab0d5504ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8531a542e3e9152b8d79021d992341ef"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a8531a542e3e9152b8d79021d992341ef">WriteDAC</a> (unsigned char AddrDev, unsigned char Data)</td></tr>
+<tr class="memdesc:a8531a542e3e9152b8d79021d992341ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to DAC.  <a href="#a8531a542e3e9152b8d79021d992341ef">Подробнее...</a><br /></td></tr>
+<tr class="separator:a8531a542e3e9152b8d79021d992341ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35809222ca51e645536e8f73298d2427"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a35809222ca51e645536e8f73298d2427">ReadReg</a> (unsigned char AddrDev, unsigned char AddrReg, unsigned int *RegRes)</td></tr>
+<tr class="memdesc:a35809222ca51e645536e8f73298d2427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read register.  <a href="#a35809222ca51e645536e8f73298d2427">Подробнее...</a><br /></td></tr>
+<tr class="separator:a35809222ca51e645536e8f73298d2427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4bffb16e8648708084335b6a1acb6ca"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ac4bffb16e8648708084335b6a1acb6ca">ReadADCs</a> (unsigned char AddrDev, unsigned int *Data)</td></tr>
+<tr class="memdesc:ac4bffb16e8648708084335b6a1acb6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read ADC.  <a href="#ac4bffb16e8648708084335b6a1acb6ca">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac4bffb16e8648708084335b6a1acb6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Base class for all devices of the SPHERE detector. </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="ac4bffb16e8648708084335b6a1acb6ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4bffb16e8648708084335b6a1acb6ca">&#9670;&nbsp;</a></span>ReadADCs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::ReadADCs </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>Data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read ADC. </p>
+<hr/>
+<p> read 4 ADC`s chanels </p><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AddrDev</td><td>- device address </td></tr>
+    <tr><td class="paramname">Data</td><td>- data 2 byte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ 1 - OK</dd></dl>
+<p>example of using: </p><div class="fragment"><div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> Data[4];</div><div class="line"><a class="code" href="classi2c.html#ac4bffb16e8648708084335b6a1acb6ca">ReadADCs</a> (0x01,(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> *)&amp;Data);</div></div><!-- fragment --> <div class="fragment"><div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    {</div><div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> tmpAddr = 0;</div><div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> i = 0;</div><div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;</div><div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        <span class="keywordflow">if</span> (AddrDev == 0)    {tmpAddr=0x20;}</div><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AddrDev==1) {tmpAddr=<a class="code" href="classi2c.html#aa0ef53a1c84cd88d561f453543101114">ADCSubAddr2</a>;}</div><div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;                <span class="keywordflow">else</span>            {<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            <span class="comment">//printf(&quot;SubAddr2 = %i\n&quot;,ADCSubAddr2);</span></div><div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classi2c.html#a6f90cdca8f2fbfa3abc742a162acfa0f">TX_reg_NoStop</a>(tmpAddr,0xF0))</div><div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;            {<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;</div><div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        i2c_Start();</div><div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        i2c_SetAddr(tmpAddr,1);</div><div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;            {i2c_Stop();<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        <span class="keywordflow">for</span> (i=0; i&lt;3; i++)</div><div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        {</div><div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;            <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[1] = i2c_ReceiveData();</div><div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            i2c_ACK();</div><div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;            <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[0] = i2c_ReceiveData();</div><div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;            <span class="comment">//printf(&quot; %d &quot;, Conv.tChar[0]);</span></div><div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;            i2c_ACK();</div><div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;            Data[i]=<a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">tInt</a>;</div><div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        }</div><div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[1] = i2c_ReceiveData();</div><div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        i2c_ACK();</div><div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[0] = i2c_ReceiveData();</div><div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        Data[3]=<a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">tInt</a>;</div><div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        <span class="comment">//printf(&quot;%d\n&quot;, Conv.tInt);</span></div><div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;</div><div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;        SDA(1); <span class="comment">// требование datasheet AD7994 </span></div><div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        SCL(1);</div><div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        SCL(0);</div><div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    }</div><div class="ttc" id="classi2c_html_a6f90cdca8f2fbfa3abc742a162acfa0f"><div class="ttname"><a href="classi2c.html#a6f90cdca8f2fbfa3abc742a162acfa0f">i2c::TX_reg_NoStop</a></div><div class="ttdeci">unsigned char TX_reg_NoStop(unsigned char AddrDev, unsigned char AddrReg)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:158</div></div>
+<div class="ttc" id="unionCharInt__converter_html_a8de79f7fa4bd529ab67c9a1d7d3e5b6a"><div class="ttname"><a href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">CharInt_converter::tChar</a></div><div class="ttdeci">unsigned char tChar[4]</div><div class="ttdoc">4 bytes for integer </div><div class="ttdef"><b>Definition:</b> include.h:80</div></div>
+<div class="ttc" id="unionCharInt__converter_html_acbefecaba8d8d94efb3b252b76d75a8c"><div class="ttname"><a href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">CharInt_converter::tInt</a></div><div class="ttdeci">unsigned int tInt</div><div class="ttdoc">integer </div><div class="ttdef"><b>Definition:</b> include.h:81</div></div>
+<div class="ttc" id="classi2c_html_aa0ef53a1c84cd88d561f453543101114"><div class="ttname"><a href="classi2c.html#aa0ef53a1c84cd88d561f453543101114">i2c::ADCSubAddr2</a></div><div class="ttdeci">int ADCSubAddr2</div><div class="ttdoc">ADC subaddress. </div><div class="ttdef"><b>Definition:</b> i2c.cpp:23</div></div>
+<div class="ttc" id="include_8h_html_a0243a46b9873d3074b0bbbf09c6ea281"><div class="ttname"><a href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a></div><div class="ttdeci">union CharInt_converter Conv</div><div class="ttdoc">name of union to use to convert int to bytes </div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a35809222ca51e645536e8f73298d2427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35809222ca51e645536e8f73298d2427">&#9670;&nbsp;</a></span>ReadReg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::ReadReg </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrReg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>RegRes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read register. </p>
+<hr/>
+ <dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AddrDev</td><td>- device address </td></tr>
+    <tr><td class="paramname">AddrReg</td><td>- register address </td></tr>
+    <tr><td class="paramname">RegRes</td><td>- result</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Read register with AddrReg from device with AddrDev address </p>
+<div class="fragment"><div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    {</div><div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> tmpReg=AddrReg;</div><div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div><div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        <span class="comment">//if(tmpReg &lt; 1) return 0;</span></div><div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        <span class="comment">//tmpReg &lt;&lt;= 4;</span></div><div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;</div><div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <span class="keywordflow">if</span>(!<a class="code" href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">TX8</a>(AddrDev,0x00,tmpReg))</div><div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;</div><div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classi2c.html#abb17bca315ff21aa709f9d1b4615cd2f">RX16</a>(AddrDev, RegRes);</div><div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    }</div><div class="ttc" id="classi2c_html_abb17bca315ff21aa709f9d1b4615cd2f"><div class="ttname"><a href="classi2c.html#abb17bca315ff21aa709f9d1b4615cd2f">i2c::RX16</a></div><div class="ttdeci">unsigned char RX16(unsigned char AddrDev, unsigned short *GotData)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:246</div></div>
+<div class="ttc" id="classi2c_html_ab5ad27a218fcd19525de0a69ce4bd797"><div class="ttname"><a href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">i2c::TX8</a></div><div class="ttdeci">unsigned char TX8(unsigned char AddrDev, unsigned char AddrReg, unsigned char Data)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:181</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="abb17bca315ff21aa709f9d1b4615cd2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb17bca315ff21aa709f9d1b4615cd2f">&#9670;&nbsp;</a></span>RX16() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::RX16 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned short *&#160;</td>
+          <td class="paramname"><em>GotData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Read 2 bytes </p><dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ 1 - OK </dd></dl>
+<div class="fragment"><div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    {</div><div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        i2c_Start();</div><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        i2c_SetAddr(AddrDev,1);</div><div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            {i2c_Stop();<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[1] = i2c_ReceiveData();</div><div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        i2c_ACK();</div><div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[0] = i2c_ReceiveData();</div><div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        SDA(1); <span class="comment">// требование datasheet к AD7994</span></div><div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        SCL(1);</div><div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        SCL(0);</div><div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        *GotData = <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">tInt</a>;</div><div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    }</div><div class="ttc" id="unionCharInt__converter_html_a8de79f7fa4bd529ab67c9a1d7d3e5b6a"><div class="ttname"><a href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">CharInt_converter::tChar</a></div><div class="ttdeci">unsigned char tChar[4]</div><div class="ttdoc">4 bytes for integer </div><div class="ttdef"><b>Definition:</b> include.h:80</div></div>
+<div class="ttc" id="unionCharInt__converter_html_acbefecaba8d8d94efb3b252b76d75a8c"><div class="ttname"><a href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">CharInt_converter::tInt</a></div><div class="ttdeci">unsigned int tInt</div><div class="ttdoc">integer </div><div class="ttdef"><b>Definition:</b> include.h:81</div></div>
+<div class="ttc" id="include_8h_html_a0243a46b9873d3074b0bbbf09c6ea281"><div class="ttname"><a href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a></div><div class="ttdeci">union CharInt_converter Conv</div><div class="ttdoc">name of union to use to convert int to bytes </div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6a50ed02b66b422fa7b3a1c7a876e90c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a50ed02b66b422fa7b3a1c7a876e90c">&#9670;&nbsp;</a></span>RX16() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::RX16 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>GotData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>read 2 bytes </p><dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ 1 - OK </dd></dl>
+<div class="fragment"><div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    {</div><div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        i2c_Start();</div><div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        i2c_SetAddr(AddrDev,1);</div><div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            {i2c_Stop();<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[1] = i2c_ReceiveData();</div><div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        i2c_ACK();</div><div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[0] = i2c_ReceiveData();</div><div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        SDA(1);<span class="comment">// datasheet AD7994</span></div><div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        SCL(1);</div><div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        SCL(0);</div><div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        *GotData = <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">tInt</a>;</div><div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    }</div><div class="ttc" id="unionCharInt__converter_html_a8de79f7fa4bd529ab67c9a1d7d3e5b6a"><div class="ttname"><a href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">CharInt_converter::tChar</a></div><div class="ttdeci">unsigned char tChar[4]</div><div class="ttdoc">4 bytes for integer </div><div class="ttdef"><b>Definition:</b> include.h:80</div></div>
+<div class="ttc" id="unionCharInt__converter_html_acbefecaba8d8d94efb3b252b76d75a8c"><div class="ttname"><a href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">CharInt_converter::tInt</a></div><div class="ttdeci">unsigned int tInt</div><div class="ttdoc">integer </div><div class="ttdef"><b>Definition:</b> include.h:81</div></div>
+<div class="ttc" id="include_8h_html_a0243a46b9873d3074b0bbbf09c6ea281"><div class="ttname"><a href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a></div><div class="ttdeci">union CharInt_converter Conv</div><div class="ttdoc">name of union to use to convert int to bytes </div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aae043a3f298ae0192f3c14ab0d5504ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae043a3f298ae0192f3c14ab0d5504ad">&#9670;&nbsp;</a></span>RX64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::RX64 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>Data</em>[4]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read 8 byte. </p>
+<hr/>
+<p> write Data to DAC with addr AddrDev </p><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AddrDev</td><td>- device address </td></tr>
+    <tr><td class="paramname">Data</td><td>- data array </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    {</div><div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> i = 0;</div><div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div><div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        i2c_Start();</div><div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        i2c_SetAddr(AddrDev,1);</div><div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        { i2c_Stop();</div><div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;</div><div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordflow">for</span> (i=0; i&lt;3; i++)</div><div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        {</div><div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[1] = i2c_ReceiveData();</div><div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            i2c_ACK();</div><div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[0] = i2c_ReceiveData();</div><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            i2c_ACK();</div><div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            *Data[i]=<a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">tInt</a>;</div><div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        }</div><div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[1] = i2c_ReceiveData();</div><div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        i2c_ACK();</div><div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[0] = i2c_ReceiveData();</div><div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        *Data[3]=<a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">tInt</a>;</div><div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div><div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        SDA(1); <span class="comment">// требование datasheet к AD7994</span></div><div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        SCL(1);</div><div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        SCL(0);</div><div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;</div><div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    }</div><div class="ttc" id="unionCharInt__converter_html_a8de79f7fa4bd529ab67c9a1d7d3e5b6a"><div class="ttname"><a href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">CharInt_converter::tChar</a></div><div class="ttdeci">unsigned char tChar[4]</div><div class="ttdoc">4 bytes for integer </div><div class="ttdef"><b>Definition:</b> include.h:80</div></div>
+<div class="ttc" id="unionCharInt__converter_html_acbefecaba8d8d94efb3b252b76d75a8c"><div class="ttname"><a href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">CharInt_converter::tInt</a></div><div class="ttdeci">unsigned int tInt</div><div class="ttdoc">integer </div><div class="ttdef"><b>Definition:</b> include.h:81</div></div>
+<div class="ttc" id="include_8h_html_a0243a46b9873d3074b0bbbf09c6ea281"><div class="ttname"><a href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a></div><div class="ttdeci">union CharInt_converter Conv</div><div class="ttdoc">name of union to use to convert int to bytes </div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a70dd19574adc5aad3a7b5ac2788a19ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70dd19574adc5aad3a7b5ac2788a19ff">&#9670;&nbsp;</a></span>RX8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::RX8 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>GotData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Read one byte </p><dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ 1 - OK </dd></dl>
+<div class="fragment"><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    {</div><div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        i2c_Start();</div><div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        i2c_SetAddr(AddrDev,1);</div><div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        {</div><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            i2c_Stop();</div><div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        }</div><div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        *GotData = i2c_ReceiveData();</div><div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        SDA(1); <span class="comment">// требование datasheet к AD7994</span></div><div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        SCL(1);</div><div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        SCL(0);</div><div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div></div><!-- fragment -->
+</div>
+</div>
+<a id="a27c5602d9fb6c068b7893bb360c7760c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27c5602d9fb6c068b7893bb360c7760c">&#9670;&nbsp;</a></span>TX16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::TX16 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrReg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>Data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Transmit 2 bytes </p><dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ 1 - OK </dd></dl>
+<div class="fragment"><div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    {</div><div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">tInt</a> = Data;</div><div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        i2c_Start();</div><div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        i2c_SetAddr(AddrDev,0);</div><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            {i2c_Stop();<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        i2c_SendData(AddrReg);</div><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            {i2c_Stop();<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        i2c_SendData(<a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[1]);</div><div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            {i2c_Stop();<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        i2c_SendData(<a class="code" href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a>.<a class="code" href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">tChar</a>[0]);</div><div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            {i2c_Stop();<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    }</div><div class="ttc" id="unionCharInt__converter_html_a8de79f7fa4bd529ab67c9a1d7d3e5b6a"><div class="ttname"><a href="unionCharInt__converter.html#a8de79f7fa4bd529ab67c9a1d7d3e5b6a">CharInt_converter::tChar</a></div><div class="ttdeci">unsigned char tChar[4]</div><div class="ttdoc">4 bytes for integer </div><div class="ttdef"><b>Definition:</b> include.h:80</div></div>
+<div class="ttc" id="unionCharInt__converter_html_acbefecaba8d8d94efb3b252b76d75a8c"><div class="ttname"><a href="unionCharInt__converter.html#acbefecaba8d8d94efb3b252b76d75a8c">CharInt_converter::tInt</a></div><div class="ttdeci">unsigned int tInt</div><div class="ttdoc">integer </div><div class="ttdef"><b>Definition:</b> include.h:81</div></div>
+<div class="ttc" id="include_8h_html_a0243a46b9873d3074b0bbbf09c6ea281"><div class="ttname"><a href="include_8h.html#a0243a46b9873d3074b0bbbf09c6ea281">Conv</a></div><div class="ttdeci">union CharInt_converter Conv</div><div class="ttdoc">name of union to use to convert int to bytes </div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab5ad27a218fcd19525de0a69ce4bd797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ad27a218fcd19525de0a69ce4bd797">&#9670;&nbsp;</a></span>TX8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::TX8 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrReg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>Data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Transmit one byte </p><dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ 1 - OK </dd></dl>
+<div class="fragment"><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    {</div><div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        i2c_Start();</div><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        i2c_SetAddr(AddrDev,0);</div><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            {i2c_Stop(); <span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        i2c_SendData(AddrReg);</div><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            {i2c_Stop(); <span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        i2c_SendData(Data);</div><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            {i2c_Stop(); <span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    }</div></div><!-- fragment -->
+</div>
+</div>
+<a id="ad962695ab042323a34d6d304743af4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad962695ab042323a34d6d304743af4e7">&#9670;&nbsp;</a></span>TX_reg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::TX_reg </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrReg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>процедуры пользователя для чтения и записи данных по <a class="el" href="classi2c.html" title="Base class for all devices of the SPHERE detector. ">i2c</a>. </p>
+<p>Transmit one </p>
+<div class="fragment"><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    {</div><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        i2c_Start();</div><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        i2c_SetAddr(AddrDev,0);</div><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        {</div><div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            i2c_Stop();</div><div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            printf(<span class="stringliteral">&quot;i2c:TX_reg:Error1\n&quot;</span>);<span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        }</div><div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        i2c_SendData(AddrReg);</div><div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        {</div><div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            i2c_Stop();</div><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            printf(<span class="stringliteral">&quot;i2c:TX_reg:Error2\n&quot;</span>);<span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        }</div><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        i2c_Stop();</div><div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div></div><!-- fragment -->
+</div>
+</div>
+<a id="a6f90cdca8f2fbfa3abc742a162acfa0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f90cdca8f2fbfa3abc742a162acfa0f">&#9670;&nbsp;</a></span>TX_reg_NoStop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::TX_reg_NoStop </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrReg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Transmit one byte with no stop </p><dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ 1 - OK </dd></dl>
+<div class="fragment"><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    {</div><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        i2c_Start();</div><div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        i2c_SetAddr(AddrDev,0);</div><div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        {</div><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            i2c_Stop();<span class="comment">/*printf(&quot;Error1\n&quot;)*/</span>;</div><div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        }</div><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        i2c_SendData(AddrReg);</div><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">if</span> (i2c_TakeACK())</div><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        {</div><div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            i2c_Stop();</div><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            <span class="comment">/*printf(&quot;Error2\n&quot;);*/</span></div><div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        }</div><div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    }</div></div><!-- fragment -->
+</div>
+</div>
+<a id="a8531a542e3e9152b8d79021d992341ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8531a542e3e9152b8d79021d992341ef">&#9670;&nbsp;</a></span>WriteDAC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char i2c::WriteDAC </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>Data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write to DAC. </p>
+<hr/>
+<p> Write Data to DAC with addr AddrDev </p><dl class="section return"><dt>Возвращает</dt><dd>0 - Error<br />
+ result of reading if success </dd></dl>
+<div class="fragment"><div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    {</div><div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> tmpAddr = 0;</div><div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;</div><div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        <span class="keywordflow">if</span>      (AddrDev==0) {tmpAddr = 0x2C;}</div><div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AddrDev==1) {tmpAddr = 0x2D;}</div><div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">else</span>                 {<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">TX8</a>(tmpAddr,0x00,Data);</div><div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    }</div><div class="ttc" id="classi2c_html_ab5ad27a218fcd19525de0a69ce4bd797"><div class="ttname"><a href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">i2c::TX8</a></div><div class="ttdeci">unsigned char TX8(unsigned char AddrDev, unsigned char AddrReg, unsigned char Data)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:181</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>include/<a class="el" href="i2c_8cpp.html">i2c.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

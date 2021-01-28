@@ -1,0 +1,9 @@
+<map id="i2c" name="i2c">
+<area shape="rect" id="node2" href="$classbarometer.html" title="Class for one barometer. " alt="" coords="5,80,85,107"/>
+<area shape="rect" id="node3" href="$classfadc.html" title="fadc" alt="" coords="110,80,157,107"/>
+<area shape="rect" id="node5" href="$classled.html" title="led" alt="" coords="181,80,219,107"/>
+<area shape="rect" id="node6" href="$classlvps.html" title="Class for lvps I2C interface. " alt="" coords="243,80,290,107"/>
+<area shape="rect" id="node4" href="$classfadc__board.html" title="Class for FADC board. " alt="" coords="90,155,177,181"/>
+<area shape="rect" id="node7" href="$classlvps__dev.html" title="lvps_dev" alt="" coords="215,155,289,181"/>
+<area shape="rect" id="node8" href="$classSiPM.html" title="SiPM" alt="" coords="314,155,369,181"/>
+</map>

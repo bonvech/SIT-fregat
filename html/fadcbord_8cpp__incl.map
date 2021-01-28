@@ -1,0 +1,6 @@
+<map id="include/fadcbord.cpp" name="include/fadcbord.cpp">
+<area shape="rect" id="node2" href="$fadc_8cpp.html" title="Класс fadc. Базовый для плат FADC. " alt="" coords="5,80,77,107"/>
+<area shape="rect" id="node3" href="$levels_8cpp.html" title="Класс fadc_board. Управление порогами " alt="" coords="102,80,183,107"/>
+<area shape="rect" id="node4" href="$nograph_8cpp.html" title="Increase all levels up to 1 unit. " alt="" coords="208,80,301,107"/>
+<area shape="rect" id="node5" href="$tunka__sync_8cpp.html" title="Часть класса fadc_board. Работа c синхроимпульсом от HISCORE. " alt="" coords="325,80,440,107"/>
+</map>

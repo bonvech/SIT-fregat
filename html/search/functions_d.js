@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['period',['Period',['../operate_8cpp.html#a4f44a7a666392ae2b33a32e8190519e1',1,'operate.cpp']]],
+  ['permit_5fchannels',['permit_channels',['../classfadc__board.html#a3a22a168db056a5bb01990e6dd6c669d',1,'fadc_board::permit_channels()'],['../nograph_8cpp.html#ae0f3b9f508c6f7415bffb2a21eff8f19',1,'permit_channels():&#160;nograph.cpp']]],
+  ['pop_5fbuffer',['pop_buffer',['../classtrigger__board.html#a2eb199fff6686e42f335a9e4c1e9b110',1,'trigger_board']]],
+  ['pow2_5fx',['pow2_x',['../bar_8cpp.html#aed046eff5119dc87b143a3bee43c196e',1,'bar.cpp']]],
+  ['pps_5fread_5ftime',['pps_read_time',['../classtrigger__board.html#aea94084aaedc98d96c9af75565c9764b',1,'trigger_board']]],
+  ['prepare_5ffor_5fmeasurements',['prepare_for_measurements',['../sphere_8cpp.html#a04d80ca75f93adb0079cee063434c455',1,'sphere.cpp']]],
+  ['pressure_5fmeasure',['pressure_measure',['../classbarometer.html#a502a8bc5a8d2001b0f77a938522dcb80',1,'barometer']]],
+  ['print_5fbinary',['print_binary',['../bit_8cpp.html#a3ef0c5489760dd89d50bfb16918d39c5',1,'bit.cpp']]],
+  ['print_5fbinary0',['print_binary0',['../bit_8cpp.html#ab5f753a5b658aae133e209e069c2f99d',1,'bit.cpp']]],
+  ['print_5fbinary1',['print_binary1',['../bit_8cpp.html#afb4f1b74ffbd7d5771f6658f9d3cf6fd',1,'bit.cpp']]],
+  ['print_5fconfig',['print_config',['../classled.html#ad4f87eff0ba117167f73083226262272',1,'led']]],
+  ['print_5fcurrents',['print_currents',['../classSiPM.html#ae3eaa22c9c453a8b1398d7e0b59b773d',1,'SiPM']]],
+  ['print_5fcurrents_5fto_5fbinary',['print_currents_to_binary',['../classSiPM.html#a1c43ae3f2b79fc36b92b816d9241a66b',1,'SiPM']]],
+  ['print_5fdebug',['print_debug',['../fadcbord_8cpp.html#afabc004fbf5121e961a85c05c4a59c8c',1,'print_debug(char *message):&#160;files.cpp'],['../files_8cpp.html#afabc004fbf5121e961a85c05c4a59c8c',1,'print_debug(char *message):&#160;files.cpp'],['../lvpsdev_8cpp.html#afabc004fbf5121e961a85c05c4a59c8c',1,'print_debug(char *message):&#160;files.cpp']]],
+  ['print_5fevent_5fdata',['print_event_data',['../classfadc__board.html#a6da0888e64bc33c99c1e58a2345979db',1,'fadc_board::print_event_data()'],['../nograph_8cpp.html#ab5c2a39b0ddedf5160b8c6c66e32fb76',1,'print_event_data():&#160;nograph.cpp']]],
+  ['print_5feverymin_5fmini_5fparameters',['print_everymin_mini_parameters',['../operate_8cpp.html#af54cc6c2797b87f4f6768ea01dd042ac',1,'operate.cpp']]],
+  ['print_5feverymin_5fparameters',['print_everymin_parameters',['../operate_8cpp.html#a7e0460b9b6948a0b992b595a3f4a09eb',1,'operate.cpp']]],
+  ['print_5flog_5fparameters',['print_log_parameters',['../operate_8cpp.html#ac3965bd5ab73571d8a3fa83f078a07b9',1,'operate.cpp']]],
+  ['print_5fparam',['print_param',['../readinp_8cpp.html#a1ea651564e323dd9ec8aadafc59a0716',1,'readinp.cpp']]],
+  ['print_5fstatus_5fto_5ffile',['print_status_to_file',['../files_8cpp.html#a81add77f7e11460e94ece42ff6c34b77',1,'files.cpp']]],
+  ['print_5fthr_5fto_5fconfigfile',['print_THR_to_configfile',['../classfadc__board.html#ad06f1bff79a0094cd8d461902105e334',1,'fadc_board::print_THR_to_configfile()'],['../levels_8cpp.html#aea3c096a70c7e6c6364b887ad4752bea',1,'print_THR_to_configfile():&#160;levels.cpp']]],
+  ['print_5fthr_5fto_5ffile',['print_THR_to_file',['../classfadc__board.html#aeffc67cb475678ecfa86daa0259ab00e',1,'fadc_board::print_THR_to_file()'],['../levels_8cpp.html#aa812428e67f0ace9def847bed97e69da',1,'print_THR_to_file():&#160;levels.cpp']]],
+  ['print_5ftime_5fms',['print_time_ms',['../fadcbord_8cpp.html#aa2d5ce50e60bd4a37704ad45d2bf3bc6',1,'print_time_ms(FILE *ff):&#160;operate.cpp'],['../operate_8cpp.html#aa2d5ce50e60bd4a37704ad45d2bf3bc6',1,'print_time_ms(FILE *ff):&#160;operate.cpp']]],
+  ['prohibit_5fchannels',['prohibit_channels',['../classfadc__board.html#a2147780d459a5253b6b27c08919f9099',1,'fadc_board::prohibit_channels()'],['../nograph_8cpp.html#a0e9f6b35fe3db042eb64e456ad36ccb4',1,'prohibit_channels():&#160;nograph.cpp']]]
+];

@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SIT---Fregat: Класс lvps</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="SIT_intro_small.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SIT---Fregat
+   &#160;<span id="projectnumber">0.3</span>
+   </div>
+   <div id="projectbrief">SITsoftware</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pro-methods">Защищенные члены</a> &#124;
+<a href="classlvps-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс lvps</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Class for lvps I2C interface.  
+ <a href="classlvps.html#details">Подробнее...</a></p>
+<div class="dynheader">
+Граф наследования:lvps:</div>
+<div class="dyncontent">
+<div class="center"><img src="classlvps__inherit__graph.png" border="0" usemap="#lvps_inherit__map" alt="Inheritance graph"/></div>
+<map name="lvps_inherit__map" id="lvps_inherit__map">
+<area shape="rect" id="node3" href="classlvps__dev.html" title="lvps_dev" alt="" coords="5,155,80,181"/>
+<area shape="rect" id="node4" href="classSiPM.html" title="SiPM" alt="" coords="105,155,159,181"/>
+<area shape="rect" id="node2" href="classi2c.html" title="Base class for all devices of the SPHERE detector. " alt="" coords="67,5,106,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">см. легенду</a>]</span></center></div>
+<div class="dynheader">
+Граф связей класса lvps:</div>
+<div class="dyncontent">
+<div class="center"><img src="classlvps__coll__graph.png" border="0" usemap="#lvps_coll__map" alt="Collaboration graph"/></div>
+<map name="lvps_coll__map" id="lvps_coll__map">
+<area shape="rect" id="node2" href="classi2c.html" title="Base class for all devices of the SPHERE detector. " alt="" coords="9,5,48,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">см. легенду</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a4950c28b74b6c5ae2c86ce56000e1c5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlvps.html#a4950c28b74b6c5ae2c86ce56000e1c5f">SetChannelAddr</a> (unsigned char ChannelAddr)</td></tr>
+<tr class="memdesc:a4950c28b74b6c5ae2c86ce56000e1c5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Channel Address to work with.  <a href="#a4950c28b74b6c5ae2c86ce56000e1c5f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a4950c28b74b6c5ae2c86ce56000e1c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d96a7418ea0cdbc2dd18c57fc02f10f"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlvps.html#a2d96a7418ea0cdbc2dd18c57fc02f10f">ReadDAC</a> (unsigned char AddrDev, unsigned char *Data)</td></tr>
+<tr class="memdesc:a2d96a7418ea0cdbc2dd18c57fc02f10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Data from DAC.  <a href="#a2d96a7418ea0cdbc2dd18c57fc02f10f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2d96a7418ea0cdbc2dd18c57fc02f10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa996ec43fb11865d02a0634d2bc2d2a4"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlvps.html#aa996ec43fb11865d02a0634d2bc2d2a4">ReadResRegs</a> (unsigned char AddrDev, unsigned int *ResData[4])</td></tr>
+<tr class="memdesc:aa996ec43fb11865d02a0634d2bc2d2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all result registers (64bit)  <a href="#aa996ec43fb11865d02a0634d2bc2d2a4">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa996ec43fb11865d02a0634d2bc2d2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae96a0585f6f722e0dde1800fb19effa9"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlvps.html#ae96a0585f6f722e0dde1800fb19effa9">Read1ResReg</a> (unsigned char AddrDev, unsigned char AddrReg, unsigned int *RegRes)</td></tr>
+<tr class="memdesc:ae96a0585f6f722e0dde1800fb19effa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read one result register (16bit)  <a href="#ae96a0585f6f722e0dde1800fb19effa9">Подробнее...</a><br /></td></tr>
+<tr class="separator:ae96a0585f6f722e0dde1800fb19effa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Защищенные члены</h2></td></tr>
+<tr class="memitem:abbf903b3ebb4b6c92f2f03e3a1065d2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlvps.html#abbf903b3ebb4b6c92f2f03e3a1065d2d">SDA</a> (unsigned char Data)</td></tr>
+<tr class="memdesc:abbf903b3ebb4b6c92f2f03e3a1065d2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDA for lvps.  <a href="#abbf903b3ebb4b6c92f2f03e3a1065d2d">Подробнее...</a><br /></td></tr>
+<tr class="separator:abbf903b3ebb4b6c92f2f03e3a1065d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ecb1f5e0421629cf008dc9ed0e5158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlvps.html#a64ecb1f5e0421629cf008dc9ed0e5158">SCL</a> (unsigned char Data)</td></tr>
+<tr class="memdesc:a64ecb1f5e0421629cf008dc9ed0e5158"><td class="mdescLeft">&#160;</td><td class="mdescRight">SCL for lvps.  <a href="#a64ecb1f5e0421629cf008dc9ed0e5158">Подробнее...</a><br /></td></tr>
+<tr class="separator:a64ecb1f5e0421629cf008dc9ed0e5158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab7dd5d48d9beaa72dad9282c61082fb"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlvps.html#aab7dd5d48d9beaa72dad9282c61082fb">SDAin</a> (void)</td></tr>
+<tr class="memdesc:aab7dd5d48d9beaa72dad9282c61082fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDA reading for lvps.  <a href="#aab7dd5d48d9beaa72dad9282c61082fb">Подробнее...</a><br /></td></tr>
+<tr class="separator:aab7dd5d48d9beaa72dad9282c61082fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classi2c"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classi2c')"><img src="closed.png" alt="-"/>&#160;Защищенные члены унаследованные от <a class="el" href="classi2c.html">i2c</a></td></tr>
+<tr class="memitem:ad962695ab042323a34d6d304743af4e7 inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ad962695ab042323a34d6d304743af4e7">TX_reg</a> (unsigned char AddrDev, unsigned char AddrReg)</td></tr>
+<tr class="memdesc:ad962695ab042323a34d6d304743af4e7 inherit pro_methods_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">процедуры пользователя для чтения и записи данных по <a class="el" href="classi2c.html" title="Base class for all devices of the SPHERE detector. ">i2c</a>.  <a href="classi2c.html#ad962695ab042323a34d6d304743af4e7">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad962695ab042323a34d6d304743af4e7 inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f90cdca8f2fbfa3abc742a162acfa0f inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a6f90cdca8f2fbfa3abc742a162acfa0f">TX_reg_NoStop</a> (unsigned char AddrDev, unsigned char AddrReg)</td></tr>
+<tr class="separator:a6f90cdca8f2fbfa3abc742a162acfa0f inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ad27a218fcd19525de0a69ce4bd797 inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">TX8</a> (unsigned char AddrDev, unsigned char AddrReg, unsigned char Data)</td></tr>
+<tr class="separator:ab5ad27a218fcd19525de0a69ce4bd797 inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27c5602d9fb6c068b7893bb360c7760c inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a27c5602d9fb6c068b7893bb360c7760c">TX16</a> (unsigned char AddrDev, unsigned char AddrReg, unsigned int Data)</td></tr>
+<tr class="separator:a27c5602d9fb6c068b7893bb360c7760c inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70dd19574adc5aad3a7b5ac2788a19ff inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a70dd19574adc5aad3a7b5ac2788a19ff">RX8</a> (unsigned char AddrDev, unsigned char *GotData)</td></tr>
+<tr class="separator:a70dd19574adc5aad3a7b5ac2788a19ff inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb17bca315ff21aa709f9d1b4615cd2f inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#abb17bca315ff21aa709f9d1b4615cd2f">RX16</a> (unsigned char AddrDev, unsigned short *GotData)</td></tr>
+<tr class="separator:abb17bca315ff21aa709f9d1b4615cd2f inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a50ed02b66b422fa7b3a1c7a876e90c inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a6a50ed02b66b422fa7b3a1c7a876e90c">RX16</a> (unsigned char AddrDev, unsigned int *GotData)</td></tr>
+<tr class="separator:a6a50ed02b66b422fa7b3a1c7a876e90c inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71f99c8ef3550a575d9447b3775fb641 inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top"><a id="a71f99c8ef3550a575d9447b3775fb641"></a>
+unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a71f99c8ef3550a575d9447b3775fb641">RX32</a> (unsigned char AddrDev, unsigned int *Data)</td></tr>
+<tr class="memdesc:a71f99c8ef3550a575d9447b3775fb641 inherit pro_methods_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">read 4 bytes <br /></td></tr>
+<tr class="separator:a71f99c8ef3550a575d9447b3775fb641 inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae043a3f298ae0192f3c14ab0d5504ad inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#aae043a3f298ae0192f3c14ab0d5504ad">RX64</a> (unsigned char AddrDev, unsigned int *Data[4])</td></tr>
+<tr class="memdesc:aae043a3f298ae0192f3c14ab0d5504ad inherit pro_methods_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 8 byte.  <a href="classi2c.html#aae043a3f298ae0192f3c14ab0d5504ad">Подробнее...</a><br /></td></tr>
+<tr class="separator:aae043a3f298ae0192f3c14ab0d5504ad inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8531a542e3e9152b8d79021d992341ef inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a8531a542e3e9152b8d79021d992341ef">WriteDAC</a> (unsigned char AddrDev, unsigned char Data)</td></tr>
+<tr class="memdesc:a8531a542e3e9152b8d79021d992341ef inherit pro_methods_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to DAC.  <a href="classi2c.html#a8531a542e3e9152b8d79021d992341ef">Подробнее...</a><br /></td></tr>
+<tr class="separator:a8531a542e3e9152b8d79021d992341ef inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35809222ca51e645536e8f73298d2427 inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#a35809222ca51e645536e8f73298d2427">ReadReg</a> (unsigned char AddrDev, unsigned char AddrReg, unsigned int *RegRes)</td></tr>
+<tr class="memdesc:a35809222ca51e645536e8f73298d2427 inherit pro_methods_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read register.  <a href="classi2c.html#a35809222ca51e645536e8f73298d2427">Подробнее...</a><br /></td></tr>
+<tr class="separator:a35809222ca51e645536e8f73298d2427 inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4bffb16e8648708084335b6a1acb6ca inherit pro_methods_classi2c"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ac4bffb16e8648708084335b6a1acb6ca">ReadADCs</a> (unsigned char AddrDev, unsigned int *Data)</td></tr>
+<tr class="memdesc:ac4bffb16e8648708084335b6a1acb6ca inherit pro_methods_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read ADC.  <a href="classi2c.html#ac4bffb16e8648708084335b6a1acb6ca">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac4bffb16e8648708084335b6a1acb6ca inherit pro_methods_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Дополнительные унаследованные члены</h2></td></tr>
+<tr class="inherit_header pub_attribs_classi2c"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classi2c')"><img src="closed.png" alt="-"/>&#160;Открытые атрибуты унаследованные от <a class="el" href="classi2c.html">i2c</a></td></tr>
+<tr class="memitem:ad08507a044b1b782832e5ab0dda79d7d inherit pub_attribs_classi2c"><td class="memItemLeft" align="right" valign="top"><a id="ad08507a044b1b782832e5ab0dda79d7d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a></td></tr>
+<tr class="memdesc:ad08507a044b1b782832e5ab0dda79d7d inherit pub_attribs_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of device. <br /></td></tr>
+<tr class="separator:ad08507a044b1b782832e5ab0dda79d7d inherit pub_attribs_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0ef53a1c84cd88d561f453543101114 inherit pub_attribs_classi2c"><td class="memItemLeft" align="right" valign="top"><a id="aa0ef53a1c84cd88d561f453543101114"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classi2c.html#aa0ef53a1c84cd88d561f453543101114">ADCSubAddr2</a></td></tr>
+<tr class="memdesc:aa0ef53a1c84cd88d561f453543101114 inherit pub_attribs_classi2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADC subaddress. <br /></td></tr>
+<tr class="separator:aa0ef53a1c84cd88d561f453543101114 inherit pub_attribs_classi2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Class for lvps I2C interface. </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="ae96a0585f6f722e0dde1800fb19effa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae96a0585f6f722e0dde1800fb19effa9">&#9670;&nbsp;</a></span>Read1ResReg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char lvps::Read1ResReg </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrReg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>RegRes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read one result register (16bit) </p>
+<hr/>
+ <div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    {</div><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> tmpAddr = AddrReg;</div><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        </div><div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment">//tmpAddr = 1 &lt;&lt; (tmpAddr-1);</span></div><div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        </div><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        printf(<span class="stringliteral">&quot; Addr=%d&quot;</span>, tmpAddr);</div><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span>(!<a class="code" href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">TX8</a>(AddrDev, 0x00, tmpAddr))</div><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        {</div><div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            printf(<span class="stringliteral">&quot;Error in Read1ResReg!!&quot;</span>);</div><div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        }</div><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        </div><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classi2c.html#abb17bca315ff21aa709f9d1b4615cd2f">RX16</a>(AddrDev, RegRes);</div><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div><div class="ttc" id="classi2c_html_abb17bca315ff21aa709f9d1b4615cd2f"><div class="ttname"><a href="classi2c.html#abb17bca315ff21aa709f9d1b4615cd2f">i2c::RX16</a></div><div class="ttdeci">unsigned char RX16(unsigned char AddrDev, unsigned short *GotData)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:246</div></div>
+<div class="ttc" id="classi2c_html_ab5ad27a218fcd19525de0a69ce4bd797"><div class="ttname"><a href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">i2c::TX8</a></div><div class="ttdeci">unsigned char TX8(unsigned char AddrDev, unsigned char AddrReg, unsigned char Data)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:181</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2d96a7418ea0cdbc2dd18c57fc02f10f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d96a7418ea0cdbc2dd18c57fc02f10f">&#9670;&nbsp;</a></span>ReadDAC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char lvps::ReadDAC </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>Data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read Data from DAC. </p>
+<hr/>
+ <dl class="section user"><dt></dt><dd>Read Data from DAC whit addr AddrDev </dd></dl>
+<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> tmpAddr;</div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> (AddrDev==0)      {tmpAddr = 0x2C;}</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AddrDev==1) {tmpAddr = 0x2D;}</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">else</span> {<span class="keywordflow">return</span> 0;}</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classi2c.html#a70dd19574adc5aad3a7b5ac2788a19ff">RX8</a>(tmpAddr,Data);</div><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div><div class="ttc" id="classi2c_html_a70dd19574adc5aad3a7b5ac2788a19ff"><div class="ttname"><a href="classi2c.html#a70dd19574adc5aad3a7b5ac2788a19ff">i2c::RX8</a></div><div class="ttdeci">unsigned char RX8(unsigned char AddrDev, unsigned char *GotData)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:225</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa996ec43fb11865d02a0634d2bc2d2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa996ec43fb11865d02a0634d2bc2d2a4">&#9670;&nbsp;</a></span>ReadResRegs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char lvps::ReadResRegs </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>AddrDev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>ResData</em>[4]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read all result registers (64bit) </p>
+<hr/>
+ <div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    {</div><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        </div><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">if</span>(!<a class="code" href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">TX8</a>(AddrDev, 0x00, 0x0F))</div><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        </div><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classi2c.html#aae043a3f298ae0192f3c14ab0d5504ad">RX64</a>(AddrDev, ResData);</div><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div><div class="ttc" id="classi2c_html_ab5ad27a218fcd19525de0a69ce4bd797"><div class="ttname"><a href="classi2c.html#ab5ad27a218fcd19525de0a69ce4bd797">i2c::TX8</a></div><div class="ttdeci">unsigned char TX8(unsigned char AddrDev, unsigned char AddrReg, unsigned char Data)</div><div class="ttdef"><b>Definition:</b> i2c.cpp:181</div></div>
+<div class="ttc" id="classi2c_html_aae043a3f298ae0192f3c14ab0d5504ad"><div class="ttname"><a href="classi2c.html#aae043a3f298ae0192f3c14ab0d5504ad">i2c::RX64</a></div><div class="ttdeci">unsigned char RX64(unsigned char AddrDev, unsigned int *Data[4])</div><div class="ttdoc">Read 8 byte. </div><div class="ttdef"><b>Definition:</b> i2c.cpp:328</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a64ecb1f5e0421629cf008dc9ed0e5158"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ecb1f5e0421629cf008dc9ed0e5158">&#9670;&nbsp;</a></span>SCL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lvps::SCL </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>Data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>SCL for lvps. </p>
+<hr/>
+ 
+<p>Замещает <a class="el" href="classi2c.html">i2c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#ifdef LINUX</span></div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> (!(Data)) {outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  | 1),   (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                      outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  | 1),   (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));}</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">else</span>         {outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~1)), (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                      outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~1)), (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));}</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#else</span></div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">if</span> (!(Data)) {outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  | 1));</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                      outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  | 1));}</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">else</span>         {outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~1)));</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                      outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~1)));}</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div><div class="ttc" id="classi2c_html_ad08507a044b1b782832e5ab0dda79d7d"><div class="ttname"><a href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">i2c::BaseAddr</a></div><div class="ttdeci">int BaseAddr</div><div class="ttdoc">Base address of device. </div><div class="ttdef"><b>Definition:</b> i2c.cpp:22</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="abbf903b3ebb4b6c92f2f03e3a1065d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf903b3ebb4b6c92f2f03e3a1065d2d">&#9670;&nbsp;</a></span>SDA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lvps::SDA </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>Data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>SDA for lvps. </p>
+<hr/>
+ 
+<p>Замещает <a class="el" href="classi2c.html">i2c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#ifdef LINUX</span></div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (!(Data)) {outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  |  2),  (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                      outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  |  2),  (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));}</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">else</span>         {outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~2)), (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                      outb((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~2)), (<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2));}</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#else</span></div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span> (!(Data)) {outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  |  2));</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                      outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2)  |  2));}</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">else</span>         {outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~2)));</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                      outp((<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2), (inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+2) &amp; (~2)));}</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div><div class="ttc" id="classi2c_html_ad08507a044b1b782832e5ab0dda79d7d"><div class="ttname"><a href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">i2c::BaseAddr</a></div><div class="ttdeci">int BaseAddr</div><div class="ttdoc">Base address of device. </div><div class="ttdef"><b>Definition:</b> i2c.cpp:22</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aab7dd5d48d9beaa72dad9282c61082fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab7dd5d48d9beaa72dad9282c61082fb">&#9670;&nbsp;</a></span>SDAin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char lvps::SDAin </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>SDA reading for lvps. </p>
+<hr/>
+ 
+<p>Замещает <a class="el" href="classi2c.html">i2c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {       <span class="comment">//char tmp = inp(BaseAddr+1);</span></div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#ifdef LINUX</span></div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> ((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+1) &amp; 0x40))</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#else</span></div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> ((inp(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>+1) &amp; 0x40))</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            { <span class="keywordflow">return</span> 1;}</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div><div class="ttc" id="classi2c_html_ad08507a044b1b782832e5ab0dda79d7d"><div class="ttname"><a href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">i2c::BaseAddr</a></div><div class="ttdeci">int BaseAddr</div><div class="ttdoc">Base address of device. </div><div class="ttdef"><b>Definition:</b> i2c.cpp:22</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4950c28b74b6c5ae2c86ce56000e1c5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4950c28b74b6c5ae2c86ce56000e1c5f">&#9670;&nbsp;</a></span>SetChannelAddr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lvps::SetChannelAddr </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ChannelAddr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set Channel Address to work with. </p>
+<hr/>
+ <dl class="section date"><dt>Дата</dt><dd>08.07.2019 Добавлена блокировка всех vip каналов при выставлении канала lvps<br />
+ 19.08.2019 Убрана блокировка всех vip каналов </dd></dl>
+<div class="fragment"><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    {     </div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="comment">// set channel adress</span></div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        outb(((inb(<a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>) &amp; 0x40) | ChannelAddr), <a class="code" href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">BaseAddr</a>);</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div><div class="ttc" id="classi2c_html_ad08507a044b1b782832e5ab0dda79d7d"><div class="ttname"><a href="classi2c.html#ad08507a044b1b782832e5ab0dda79d7d">i2c::BaseAddr</a></div><div class="ttdeci">int BaseAddr</div><div class="ttdoc">Base address of device. </div><div class="ttdef"><b>Definition:</b> i2c.cpp:22</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>include/<a class="el" href="lvps_8cpp.html">lvps.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
